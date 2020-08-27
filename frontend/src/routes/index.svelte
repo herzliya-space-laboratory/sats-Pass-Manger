@@ -1,5 +1,5 @@
 <style>
-	h1, figure {
+	h1{
 		text-align: center;
 		margin: 0 auto;
 	}
@@ -9,10 +9,6 @@
 		text-transform: uppercase;
 		font-weight: 700;
 		margin: 0 0 0.5em 0;
-	}
-
-	figure {
-		margin: 0 0 1em 0;
 	}
 
 	@media (min-width: 480px) {
@@ -26,9 +22,4 @@
 	<title>sats pass manger</title>
 </svelte:head>
 
-<h1>Great success!</h1>
-
-<figure>
-	<figcaption>Have fun with Sapper!</figcaption>
-</figure>
-
+<h1>sats pass manger</h1>
