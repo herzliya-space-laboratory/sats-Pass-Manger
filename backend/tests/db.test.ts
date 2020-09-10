@@ -1,4 +1,4 @@
-require('../utils/dotenvInit');
+require('../src/utils/dotenvInit');
 
 import IDBManger from '../src/IO_Mangers/DBManger/IDBManger';
 import mangoDBManger from '../src/IO_Mangers/DBManger/mangoDBManger';
@@ -22,7 +22,7 @@ afterAll(() => {
     return mongoose.disconnect();
 })
 
-
+test("a", () => {})
 
 
 

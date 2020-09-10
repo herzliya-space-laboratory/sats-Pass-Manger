@@ -1,10 +1,11 @@
-backend/node_modules/
-backend/yarn-error.log
-backend/src/config
+/backend/node_modules
+/backend/yarn-error.log
+/backend/src/config
+/backend/node_modules
 
-frontend/.DS_Store
-frontend/node_modules/
-frontend/src/node_modules/
-frontend/yarn-error.log
-frontend/cypress/screenshots/
-frontend/__sapper__/
+/frontend/.DS_Store
+/frontend/node_modules
+/frontend/src/node_modules
+/frontend/yarn-error.log
+/frontend/cypress/screenshots
+/frontend/__sapper__/

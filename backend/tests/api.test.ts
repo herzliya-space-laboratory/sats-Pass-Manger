@@ -3,10 +3,16 @@ import expressApi from '../src/IO_Mangers/ApiManger/expressApi';
 const request = require('supertest');
 
 
-const api:IAPIManager = new expressApi(parseInt(process.env.PORT) || 5000);
+let api:IAPIManager;
 
-afterAll(() => {
-    api.close()
+beforeEach(done => {
+    api = new expressApi(parseInt(process.env.PORT) || 5000);
+    done();
+})
+
+afterEach( done => {
+    api.close();
+    done();
 })
 
 describe("check route funcnalty", () => {
@@ -25,27 +31,19 @@ describe("check route funcnalty", () => {
           })
     })
 
-    test("add get request at route /test2 and send to it", () => {
+    test("add get request at route /test2 and send to it", (done) => {
         const  test = (req, res) => {
                 res.send(200, { sucssus: true });
             }
         api.addRoute("get", "/test1", test );
 
         request(api.getApp())
-            .get('/users')
-            .set('Accept', 'application/json')
+            .get('/test1')
             .expect(200)
             .expect(JSON.stringify({ sucssus: true }))
-            .end(function(err, res){
-                return err;
-            });
+            .then(v => done());
 
-        api.getApp()._router.stack.forEach( r => {
-            if (r.route && r.route.path)
-            {
-              return undefined;
-            }
-        })
+        // return req;
     })
 })
 
