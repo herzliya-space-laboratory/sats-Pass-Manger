@@ -15,7 +15,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 let db:IDBManger;
 let mongoServer: MongoMemoryServer;
 
-beforeAll(async () => {
+beforeEach(async () => {
 	mongoServer = new MongoMemoryServer();
     db = new mangoDBManger();
 
@@ -24,7 +24,7 @@ beforeAll(async () => {
     db.connect(mongoUri);
 });
 
-afterAll(() => {
+afterEach(() => {
     return mongoose.disconnect();
 })
 
@@ -57,14 +57,160 @@ describe("satellite db test", () => {
                 }
             ];
 
-        const output = await Satellite.create(toCreate);
+        await Satellite.create(toCreate);
 
         const res = await (db as ISatellitesDBManger).getAllSatellites();
 
+
+        for(let i = 0; i < res.length; i++)
+        {            
+            expect(res[i].name).toEqual(toCreate[i].name);
+            expect(res[i].satId).toEqual(toCreate[i].satId);
+        }
+
+    })
+
+    test("get all satellites with satId < 3", async () => {
+        const toCreate = 
+            [
+                {
+                    name: 'test 1',
+                    satId: 1
+                },
+                {
+                    name: 'test 2',
+                    satId: 2
+                },
+                {
+                    name: 'test 3',
+                    satId: 3
+                },
+                {
+                    name: 'test 4',
+                    satId: 4
+                }
+            ];
+
+        await Satellite.create(toCreate);
+
+        const query = { satId: { $lt: 3}};
+        const res = await (db as ISatellitesDBManger).getAllSatellites(query);
+
+        for(let i = 0; i < res.length; i++)
+            expect(res[i].satId).toBeLessThan(3);
+        
+    })
+
+    test("get all satellites with satId < 3 and only the satId field", async () => {
+        const toCreate = 
+            [
+                {
+                    name: 'test 1',
+                    satId: 1
+                },
+                {
+                    name: 'test 2',
+                    satId: 2
+                },
+                {
+                    name: 'test 3',
+                    satId: 3
+                },
+                {
+                    name: 'test 4',
+                    satId: 4
+                }
+            ];
+
+        await Satellite.create(toCreate);
+
+        const query = { satId: { $lt: 3}};
+        const res = await (db as ISatellitesDBManger).getAllSatellites(query, {select: 'satId'});
+
         for(let i = 0; i < res.length; i++)
         {
-            expect(res[i].toObject()).toEqual(output[i].toObject());
+            expect(Object.keys(res[i].toObject())).toEqual(['_id', 'satId']);
+            expect(res[i].satId).toBeLessThan(3);
         }
+
+    })
+
+    test("get all satellites sort by satID", async () => {
+        let toCreate = 
+            [
+                {
+                    name: 'test 2',
+                    satId: 2
+                },
+                {
+                    name: 'test 1',
+                    satId: 1
+                },
+                
+                {
+                    name: 'test 3',
+                    satId: 3
+                },
+                {
+                    name: 'test 4',
+                    satId: 4
+                }
+            ];
+
+        await Satellite.create(toCreate);
+
+        const res = await (db as ISatellitesDBManger).getAllSatellites({}, {sort: 'satId'});
+        toCreate = toCreate.sort((a, b) => a.satId - b.satId);
+
+        for(let i = 0; i < res.length; i++)
+        {
+            expect(res[i].name).toEqual(toCreate[i].name);
+        }
+
+    })
+
+    test("get single satellite from db from empty db shold return null", async () => {
+        const id = new mongoose.Types.ObjectId()
+        
+        const res = await (db as ISatellitesDBManger).getSingleSatellites(id);
+
+        expect(res).toBeNull();
+
+    })
+
+    test("get single satellite from db from empty db shold throw not found err", async () => {
+        const id = new mongoose.Types.ObjectId()
+        
+        const satelliteToCreate = {
+            _id: id,
+            name: 'test 1',
+            satId: 1
+        }
+
+        const output = await Satellite.create(satelliteToCreate);
+
+        const res = await (db as ISatellitesDBManger).getSingleSatellites(id);
+
+        expect(res.toObject()).toEqual(output.toObject());
+
+    })
+
+
+    test("create satellite in the db", async () => {
+        const id = new mongoose.Types.ObjectId();
+        
+        const satelliteToCreate = {
+            _id: id,
+            name: 'test 1',
+            satId: 1
+        }
+
+        const res = await (db as ISatellitesDBManger).createSatellites(satelliteToCreate);
+
+        const check = await (db as ISatellitesDBManger).getSingleSatellites(id);
+
+        expect(check).not.toBeNull();
+        expect(res.toObject()).toEqual(check.toObject());
 
     })
 

@@ -18,8 +18,32 @@ export default class mangoDBManger implements IDBManager
     }
 
     
-    getAllSatellites() 
+    async getAllSatellites(query = {}, params:any = {}) 
     {
-        return Satellite.find();
+        let dbRequst = Satellite.find(query);
+
+        dbRequst = this.formatTheDBRequst(dbRequst, params);
+
+        return await dbRequst;
+    }
+
+    async getSingleSatellites(id) {
+        const resSatellite = await Satellite.findById(id)
+        return resSatellite;
+    }
+
+
+    async createSatellites(satelliteToCreate) 
+    {
+        const cratedSatellite = await Satellite.create(satelliteToCreate);
+
+        return cratedSatellite;
+    }
+
+
+    private formatTheDBRequst(dbRequst: any, params: any) {
+        dbRequst = dbRequst.select(params.select);
+        dbRequst = dbRequst.sort(params.sort);
+        return dbRequst;
     }
 }
