@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { getSatelliteTle } from 'utils/getSatelliteTle';
 
 const Satellite = new mongoose.Schema({
     name: {
@@ -14,6 +15,11 @@ const Satellite = new mongoose.Schema({
         select: false
     },
     passes: Object
+})
+
+Satellite.pre('save', async function(next) {
+    this.TLE = getSatelliteTle(this.satID);
+    next();
 })
 
 export default mongoose.model("Satellite", Satellite);
