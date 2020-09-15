@@ -11,7 +11,8 @@
 			title: "about",
 			path: "about",
 			seg: "about"
-		}
+		},
+		
 	];
 
 </script>
