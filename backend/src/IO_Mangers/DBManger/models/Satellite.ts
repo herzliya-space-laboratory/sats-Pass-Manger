@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { getSatelliteTle } from 'utils/getSatelliteTle';
+import { getSatelliteTle } from '../../../utils/getSatelliteTle';
 
 const Satellite = new mongoose.Schema({
     name: {

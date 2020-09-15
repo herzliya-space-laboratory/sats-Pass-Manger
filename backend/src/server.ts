@@ -5,6 +5,8 @@ import IAPIManagers from "./IO_Mangers/ApiManger/IAPIManager";
 import IDBManger from './IO_Mangers/DBManger/IDBManger';
 import { createDBManger, createAPIManger } from "./utils/MangersInit";
 
+import satelliteLogic from "./business logic/satelliteUseCases";
+
 
 
 
@@ -12,6 +14,7 @@ const DBManger: IDBManger = createDBManger();
 
 const APIManger: IAPIManagers = createAPIManger();
 
+const satelliteManger:satelliteLogic = new satelliteLogic(DBManger);
 
 DBManger.connect(process.env.MONGO_URI);
 
@@ -28,5 +31,30 @@ process.on("unhandledRejection", (err: any, promise) => {
 
 function initIOInputRoutes()
 {
-    
+    const satellitesRoutes = [
+        {
+            method: 'get',
+            path: '/api/v1/satellite/',
+            callback: satelliteManger.getAllSatellites
+        },
+        {
+            method: 'get',
+            path: '/api/v1/satellite/:id',
+            callback: satelliteManger.getSingleSatellite
+        },
+        {
+            method: 'post',
+            path: '/api/v1/satellite/',
+            callback: satelliteManger.createSatellite
+        }
+    ];
+
+
+    const routes = [
+        ...satellitesRoutes
+        ];
+
+    routes.forEach(route => {
+        APIManger.addRoute(route.method, route.path, route.callback);
+    })
 }

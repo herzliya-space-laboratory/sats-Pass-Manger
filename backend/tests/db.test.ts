@@ -178,7 +178,7 @@ describe("satellite db test", () => {
 
     })
 
-    test("get single satellite from db from empty db shold throw not found err", async () => {
+    test("get single satellite from db", async () => {
         const id = new mongoose.Types.ObjectId()
         
         const satelliteToCreate = {
@@ -205,7 +205,7 @@ describe("satellite db test", () => {
             satId: 1
         }
 
-        const res = await (db as ISatellitesDBManger).createSatellites(satelliteToCreate);
+        const res = await (db as ISatellitesDBManger).createSatellite(satelliteToCreate);
 
         const check = await (db as ISatellitesDBManger).getSingleSatellites(id);
 

@@ -6,6 +6,8 @@ import Satellite from './models/Satellite';
 
 export default class mangoDBManger implements IDBManager
 {
+    satelliteAmount: any;
+
     connect(URI) 
     {
         mongoose.connect(URI, {
@@ -15,6 +17,8 @@ export default class mangoDBManger implements IDBManager
             useUnifiedTopology: true
         })
         .then(conn => console.log(`mongoDB Connected: ${conn.connection.host}`));
+        
+        Satellite.countDocuments().then(count => this.satelliteAmount = count);
     }
 
     
@@ -33,7 +37,7 @@ export default class mangoDBManger implements IDBManager
     }
 
 
-    async createSatellites(satelliteToCreate) 
+    async createSatellite(satelliteToCreate) 
     {
         const cratedSatellite = await Satellite.create(satelliteToCreate);
 
@@ -45,5 +49,16 @@ export default class mangoDBManger implements IDBManager
         dbRequst = dbRequst.select(params.select);
         dbRequst = dbRequst.sort(params.sort);
         return dbRequst;
+    }
+
+
+    getSatellitesAmount() 
+    {
+        Satellite.countDocuments({}, (err, count) => {
+            if(err) throw new Error(err);
+            this.satelliteAmount = count;
+        })
+
+        return this.satelliteAmount;
     }
 }

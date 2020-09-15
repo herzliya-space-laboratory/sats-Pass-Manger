@@ -2,8 +2,9 @@ import {ObjectId} from 'mongoose';
 
 export default interface ISatellitesDBManger 
 {
+    getSatellitesAmount();
     getAllSatellites(query?, params?);
     getSingleSatellites(id:ObjectId);
 
-    createSatellites(satelliteToCreate: { name: string; satId: number; });
+    createSatellite(satelliteToCreate: { name: string; satId: number; });
 }
