@@ -1,19 +1,20 @@
 require("./utils/dotenvInit");
 
-import expressApi from "./IO_Mangers/ApiManger/expressApi";
 import IAPIManagers from "./IO_Mangers/ApiManger/IAPIManager";
 
 import IDBManger from './IO_Mangers/DBManger/IDBManger';
-import mangoDBManger from './IO_Mangers/DBManger/mangoDBManger';
+import { createDBManger, createAPIManger } from "./utils/MangersInit";
+
+import satelliteLogic from "./business logic/satelliteUseCases";
 
 
-const PORT: number = parseInt(process.env.PORT  || '5000');
 
 
 const DBManger: IDBManger = createDBManger();
 
 const APIManger: IAPIManagers = createAPIManger();
 
+const satelliteManger:satelliteLogic = new satelliteLogic(DBManger);
 
 DBManger.connect(process.env.MONGO_URI);
 
@@ -28,29 +29,32 @@ process.on("unhandledRejection", (err: any, promise) => {
 })
 
 
-function createAPIManger()
-{
-    switch(process.env.SERVER_MANGER_TYPE)
-    {
-        case("express"):
-            return new expressApi(PORT);
-        default:
-            throw new Error("no server manger specified");
-    }
-}
-
-function createDBManger()
-{
-    switch(process.env.DB_MANGER_TYPE)
-    {
-        case("mongodb"):
-            return new mangoDBManger();
-        default:
-            throw new Error("no db manger specified");
-    }
-}
-
 function initIOInputRoutes()
 {
-    
+    const satellitesRoutes = [
+        {
+            method: 'get',
+            path: '/api/v1/satellite/',
+            callback: satelliteManger.getAllSatellites
+        },
+        {
+            method: 'get',
+            path: '/api/v1/satellite/:id',
+            callback: satelliteManger.getSingleSatellite
+        },
+        {
+            method: 'post',
+            path: '/api/v1/satellite/',
+            callback: satelliteManger.createSatellite
+        }
+    ];
+
+
+    const routes = [
+        ...satellitesRoutes
+        ];
+
+    routes.forEach(route => {
+        APIManger.addRoute(route.method, route.path, route.callback);
+    })
 }
