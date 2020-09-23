@@ -23,18 +23,15 @@
 		a {
 		height: 100px;
 		width: 100%;
-		background-color: #aaa;
-		border-color: #f1c40f;
-		color: #f1c40f;
+		color: gba(0,0r,255,0.3);
 		font-size: 1.25rem;
-		background-image: linear-gradient(45deg, #f1c40f 50%, transparent 50%);
 		background-position: 100%;
 		background-size: 400%;
 		transition: background 300ms ease-in-out;
 	}
 	a:hover {
 		background-position: 0;
-		color: #aaa;
+		color: lime;
 	}
 
 	table {
@@ -52,7 +49,7 @@
 <a href="about">
 	
 	<h3>pass {i + 1}: </h3>
-    <h3>{time}, {date}, {elv} </h3>
+    <h3>time: {time}, date: {date}, elevathion: {elv} <br> </h3>
     <br>
 	
 </a>

@@ -12,6 +12,11 @@
 			path: "about",
 			seg: "about"
 		},
+		{
+			title: "sat list",
+			path: "satlist",
+			seg: "satlist"
+		}
 		
 	];
 
