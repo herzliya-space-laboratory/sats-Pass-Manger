@@ -13,9 +13,9 @@
 			seg: "about"
 		},
 		{
-			title: "sat list",
-			path: "satlist",
-			seg: "satlist"
+			title: "satellites list",
+			path: "satellitesList",
+			seg: "satellitesList"
 		}
 		
 	];

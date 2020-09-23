@@ -19,8 +19,7 @@
 	}
 
 	
-
-		a {
+	a {
 		height: 100px;
 		width: 100%;
 		color: gba(0,0r,255,0.3);
@@ -29,20 +28,12 @@
 		background-size: 400%;
 		transition: background 300ms ease-in-out;
 	}
+
 	a:hover {
 		background-position: 0;
-		color: lime;
+		color: blue;
 	}
 
-	table {
- 	text-align: left;
- 	width: 100%;
- 	border: 20px;
- 	padding: 0;
- 	margin: 0;
- 	border-spacing: 0;
- 	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
- }
 </style>
 
 <!-- svelte-ignore a11y-missing-attribute -->
