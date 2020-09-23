@@ -2,6 +2,7 @@ import IAPIManager from "./IAPIManager";
 import express = require("express");
 import { Server } from "http";
 
+import cors from 'cors';
 
 import logger from "./middleware/logger";
 import errorHandler from "./middleware/error";
@@ -39,7 +40,7 @@ export default class expressApi implements IAPIManager
         if(process.env.NODE_ENV === 'development') this.app.use(logger);
         
         this.app.use(errorHandler);
-        
+        this.app.use(cors());
         
     }
 
