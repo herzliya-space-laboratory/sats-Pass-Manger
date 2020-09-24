@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import { getSatelliteTle } from '../../../utils/getSatelliteTle';
+import getSatelliteTle from '../../../utils/getSatelliteTle';
 
 const Satellite = new mongoose.Schema({
-    name: {
+    name:{
         type: String,
         required: [true, 'please add the satellite name']
     },
@@ -10,11 +10,11 @@ const Satellite = new mongoose.Schema({
         type: Number,
         required: [true, 'please add the satellite id']
     },
-    TLE:{
-        type: String,
-        select: false
-    },
-    passes: Object
+    passes: Object,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 Satellite.pre('save', async function(next) {

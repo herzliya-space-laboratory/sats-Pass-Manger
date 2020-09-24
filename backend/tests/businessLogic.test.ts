@@ -55,7 +55,7 @@ describe('test the satellite business logic', () => {
         }
 
 
-        return satelliteManger.getSingleSatellite({params: {id}}, res, null);
+        return satelliteManger.getSingleSatellite({params: {id}}, res);
     })
 
     test("get satellite return the satellite", async () => {
@@ -82,7 +82,7 @@ describe('test the satellite business logic', () => {
         }
 
 
-        return satelliteManger.getSingleSatellite({params: {id}}, res, null);
+        return satelliteManger.getSingleSatellite({params: {id}}, res);
     })
 
     test("get all satellites with satId < 3 and sort by satId and select of satId", async () => {
@@ -137,7 +137,7 @@ describe('test the satellite business logic', () => {
                 }
             }
 
-        return satelliteManger.getAllSatellites(req, res, null);
+        return satelliteManger.getAllSatellites(req, res);
     })
 
     test("create satellite", async () => {
@@ -164,7 +164,7 @@ describe('test the satellite business logic', () => {
         }
 
 
-        await satelliteManger.createSatellite({body: satelliteToCreate}, res, null);
-        await satelliteManger.getSingleSatellite({params: {id}}, res, null);
+        await satelliteManger.createSatellite({body: satelliteToCreate}, res);
+        await satelliteManger.getSingleSatellite({params: {id}}, res);
     })
 })

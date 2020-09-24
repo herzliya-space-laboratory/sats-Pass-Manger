@@ -1,9 +1,11 @@
-import asyncHandler  = require("../utils/async");
 import ErrorResponse = require("../utils/errorResponse");
 
 import IDBManager from "../IO_Mangers/DBManger/IDBManger";
 import ISatellitesDBManger from "../IO_Mangers/DBManger/ISatellitesDBManger";
 import formatQueryAndGetPagination from "../utils/queryFormater";
+
+import getSatelliteTle from "../utils/getSatelliteTle";
+import getSatellitePasses from "../utils/getSatellitePasses";
 
 export default class satelliteLogic
 {
@@ -15,8 +17,8 @@ export default class satelliteLogic
     }
 
     
-    getSingleSatellite = asyncHandler(async (req, res, next) => {
-        const id = req.params.id;   
+    getSingleSatellite = async (req, res) => {
+        const id = req.params.id;
 
         const satellite = await this.db.getSingleSatellites(id);
 
@@ -26,10 +28,10 @@ export default class satelliteLogic
         else
             this.returnSuccessRespondToTheClient(res, 200, satellite)
         
-    })
+    }
 
 
-    getAllSatellites = asyncHandler(async (req, res, next) => {
+    getAllSatellites = async (req, res) => {
         const query = req.query || {};
 
         const SatellitesTotalAmount = this.db.getSatellitesAmount()
@@ -38,15 +40,31 @@ export default class satelliteLogic
         const resSatellites = await this.db.getAllSatellites(formatQuery, params);
 
         this.returnSuccessRespondToTheClientWithPage(res, 200, resSatellites, pagination);
-    })
+    }
 
-    createSatellite = asyncHandler( async (req, res, next) => {
+    createSatellite =  async (req, res) => {
         const satellitesToCreate = req.body;
         console.log(satellitesToCreate);
         const CreatedSatellites = await this.db.createSatellite(satellitesToCreate);
 
         this.returnSuccessRespondToTheClient(res, 200, CreatedSatellites)
-    })
+    }
+
+
+    getSatellitePasses =  async (req, res) => {
+        const id = req.params.id;
+
+        let {startTime, endTime} = req.query;
+
+        const satellite = await this.db.getSingleSatellites(id);
+
+        const TLE = await getSatelliteTle(satellite.satId);
+
+        const passes = await getSatellitePasses(TLE, startTime, endTime);
+
+        this.returnSuccessRespondToTheClient(res, 200, passes)
+    }
+    
 
     private returnSuccessRespondToTheClient(res, status, data)
     {

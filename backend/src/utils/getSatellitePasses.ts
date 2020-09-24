@@ -1,23 +1,25 @@
 import axios from 'axios';
+import jspredict from 'jspredict'
 
-export default async function getSatellitePasses(satId, dayAmount)
+export default async function getSatellitePasses(tle, startTime, endTime)
 {
+    const qth = [32.27, 34.88, 0];
+    let passes = jspredict.transits(tle, qth, startTime, endTime);
 
-    const URL = 
-    `http://www.n2yo.com/rest/v1/satellite/visualpasses/${satId}/32.27/34.88/0/${dayAmount}/10&apiKey=${process.env.n2yo_API_KEY}`;
-    const response = await axios.get(URL);
-
-    let passes = response.data.passes;
-    
-    passes = passes.map(pass => {
-        return {
-            startTime: new Date(pass.startUTC*1000),
-            endTime: new Date(pass.endUTC*1000),
-            duration: (pass.endUTC - pass.startUTC)/60,
-            maxElvation: pass.maxEl
-            
-        }
-    })
+    passes = formatPasses(passes);
 
     return passes;
 }
+
+function formatPasses(passes: any) {
+    passes = passes.map(pass => {
+        return {
+            startTime: new Date(pass.start),
+            endTime: new Date(pass.end),
+            duration: new Date(pass.end - pass.start).getMinutes(),
+            maxElvation: pass.maxElevation
+        };
+    });
+    return passes;
+}
+

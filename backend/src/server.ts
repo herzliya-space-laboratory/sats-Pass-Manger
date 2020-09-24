@@ -7,9 +7,6 @@ import { createDBManger, createAPIManger } from "./utils/MangersInit";
 
 import satelliteLogic from "./business logic/satelliteUseCases";
 
-
-
-
 const DBManger: IDBManger = createDBManger();
 
 const APIManger: IAPIManagers = createAPIManger();
@@ -28,6 +25,9 @@ process.on("unhandledRejection", (err: any, promise) => {
     process.exit(1);
 })
 
+process.on('exit', () => {
+    APIManger.close();
+})
 
 function initIOInputRoutes()
 {
@@ -46,6 +46,11 @@ function initIOInputRoutes()
             method: 'post',
             path: '/api/v1/satellite/',
             callback: satelliteManger.createSatellite
+        },
+        {
+            method: 'get',
+            path: '/api/v1/satellite/passes/:id',
+            callback: satelliteManger.getSatellitePasses
         }
     ];
 

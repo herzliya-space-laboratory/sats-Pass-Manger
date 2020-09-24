@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export async function getSatelliteTle(SatelliteId)
+export default async function getSatelliteTle(SatelliteId)
 {
 
     const URL = `http://celestrak.com/satcat/tle.php?CATNR=${SatelliteId}`;

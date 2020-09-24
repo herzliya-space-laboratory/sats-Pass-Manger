@@ -1,6 +1,6 @@
 require("../src/utils/dotenvInit");
 
-import { getSatelliteTle } from "utils/getSatelliteTle";
+import getSatelliteTle from "../src/utils/getSatelliteTle";
 
 import axios from 'axios';
 

@@ -5,14 +5,12 @@ const request = require('supertest');
 
 let api:IAPIManager;
 
-beforeEach(done => {
-    api = new expressApi(parseInt(process.env.PORT) || 5000);
-    done();
+beforeEach(() => {
+    api = new expressApi(5555);
 })
 
-afterEach( done => {
+afterEach( () => {
     api.close();
-    done();
 })
 
 describe("check route funcnalty", () => {
@@ -32,7 +30,7 @@ describe("check route funcnalty", () => {
     })
 
     test("add get request at route /test2 and send to it", (done) => {
-        const  test = (req, res) => {
+        const test = (req, res) => {
                 res.send(200, { sucssus: true });
             }
         api.addRoute("get", "/test1", test );
