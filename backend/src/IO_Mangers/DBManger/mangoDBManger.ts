@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import IDBManager from "./IDBManger";
 
 import Satellite from './models/Satellite';
+import Pass from "./models/Pass";
 
 export default class mangoDBManger implements IDBManager
 {
@@ -14,7 +15,8 @@ export default class mangoDBManger implements IDBManager
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: false,
-            useUnifiedTopology: true
+            useUnifiedTopology: false,
+            keepAlive: 1
         })
         .then(conn => console.log(`mongoDB Connected: ${conn.connection.host}`));
         
@@ -45,13 +47,6 @@ export default class mangoDBManger implements IDBManager
     }
 
 
-    private formatTheDBRequst(dbRequst: any, params: any) {
-        dbRequst = dbRequst.select(params.select);
-        dbRequst = dbRequst.sort(params.sort);
-        return dbRequst;
-    }
-
-
     getSatellitesAmount() 
     {
         Satellite.countDocuments({}, (err, count) => {
@@ -60,5 +55,42 @@ export default class mangoDBManger implements IDBManager
         })
 
         return this.satelliteAmount;
+    }
+
+
+    
+    
+    
+    async getAllPasses(query?: any, params:any = {}) 
+    {
+        let dbRequst = Pass.find(query);
+        
+        this.formatTheDBRequst(dbRequst, params);
+
+        return await dbRequst;
+    }
+
+
+    private formatTheDBRequst(dbRequst: any, params: any, populate:any = '') {
+        if(Object.keys(params).length === 0) return dbRequst;
+
+        if (this.populateRequset(params, populate))
+            dbRequst = dbRequst.populate(populate);
+
+        dbRequst = dbRequst.select(params.select);
+        dbRequst = dbRequst.sort(params.sort);
+        dbRequst = dbRequst.skip(params.skip);
+        dbRequst = dbRequst.limit(params.limit);
+        return dbRequst;
+    }
+
+
+
+    private populateRequset(params: any, populate: any) {
+        if(!params.select)
+            return false;
+            
+        return params.select == "" ||
+            (params.select.includes(populate) && !params.select.includes(`-${populate}`));
     }
 }

@@ -159,6 +159,7 @@ describe('test the satellite business logic', () => {
             },
             json: (obj) => {
                 obj.data.__v = undefined;
+                obj.data.createdAt = undefined;
                 expect(obj.data.toObject()).toEqual(satelliteToCreate);
             }
         }

@@ -1,11 +1,11 @@
-require('../src/utils/dotenvInit');
+require('../../src/utils/dotenvInit');
 
-import IDBManger from '../src/IO_Mangers/DBManger/IDBManger';
-import ISatellitesDBManger from '../src/IO_Mangers/DBManger/ISatellitesDBManger';
+import IDBManger from '../../src/IO_Mangers/DBManger/IDBManger';
+import ISatellitesDBManger from '../../src/IO_Mangers/DBManger/ISatellitesDBManger';
 
-import mangoDBManger from '../src/IO_Mangers/DBManger/mangoDBManger';
+import mangoDBManger from '../../src/IO_Mangers/DBManger/mangoDBManger';
 
-import Satellite from '../src/IO_Mangers/DBManger/models/Satellite';
+import Satellite from '../../src/IO_Mangers/DBManger/models/Satellite';
 
 import mongoose = require('mongoose');
 import { MongoMemoryServer } from "mongodb-memory-server";
@@ -59,7 +59,8 @@ describe("satellite db test", () => {
 
         await Satellite.create(toCreate);
 
-        const res = await (db as ISatellitesDBManger).getAllSatellites();
+        const res = (await (db as ISatellitesDBManger).getAllSatellites())
+                        .sort((a, b) => a.satId - b.satId);
 
 
         for(let i = 0; i < res.length; i++)
@@ -213,12 +214,8 @@ describe("satellite db test", () => {
         expect(res.toObject()).toEqual(check.toObject());
 
     })
+    
 
 })
-
-
-
-
-
 
 

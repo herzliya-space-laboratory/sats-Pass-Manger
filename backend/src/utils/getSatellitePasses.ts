@@ -1,4 +1,3 @@
-import axios from 'axios';
 import jspredict from 'jspredict'
 
 export default async function getSatellitePasses(tle, startTime, endTime)
