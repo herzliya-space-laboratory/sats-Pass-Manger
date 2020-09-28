@@ -66,7 +66,7 @@ describe("pass db test", () => {
         await Pass.create(toCreate);
 
         const res = (await (db as IPassesDBManger).getAllPasses())
-            .sort((a, b) => a.startTime - b.startTime);
+            .sort((a, b) => a.startTime.getMilliseconds() - b.startTime.getMilliseconds());
 
         for(let i = 0; i < toCreate.length; i++)
         {            
@@ -149,6 +149,71 @@ describe("pass db test", () => {
             expect(res[i].startTime.getSeconds()).toBeLessThan(1000);
         }
 
+    })
+
+    test("get single pass from db", async () => {
+        const id = new mongoose.Types.ObjectId()
+        
+        const passToCreate = {
+            _id: id,
+            goal: 'test 1',
+            startTime: new Date(),
+            endTime: new Date()
+        }
+
+        const output = await Pass.create(passToCreate);
+
+        const res = await (db as IPassesDBManger).getSinglePass(id);
+
+        expect(res.toObject()).toEqual(output.toObject());
+
+    })
+
+    test("create pass in the db", async () => {
+        const id = new mongoose.Types.ObjectId();
+        
+        const passToCreate = {
+            _id: id,
+            goal: 'test 1',
+            startTime: new Date(),
+            endTime: new Date()
+        }
+
+        const res = await (db as IPassesDBManger).createPass(passToCreate);
+
+        const check = await (db as IPassesDBManger).getSinglePass(id);
+
+        expect(res).toBeTruthy();
+        expect(check).toBeTruthy();
+        expect(res.toObject()).toEqual(check.toObject());
+
+    })
+
+    test("update pass data", async () => {
+        const id = new mongoose.Types.ObjectId();
+        
+        const passToCreate = {
+            _id: id,
+            goal: 'test 1',
+            startTime: new Date(),
+            endTime: new Date()
+        }
+
+        const dataToUpdate = {
+            maxElevation: 11,
+            PassPlanner: "itai",
+            whatWasExecute: "all"
+        }
+
+        const res = await (db as IPassesDBManger).createPass(passToCreate);
+
+
+        const updated = await (db as IPassesDBManger).updatePass(id, dataToUpdate);
+
+        expect(updated).toBeTruthy();
+        expect(updated.maxElevation).toBe(11);
+        expect(updated.PassPlanner).toBe("itai");
+        expect(updated.whatWasExecute).toBe("all");
     })
 
 })

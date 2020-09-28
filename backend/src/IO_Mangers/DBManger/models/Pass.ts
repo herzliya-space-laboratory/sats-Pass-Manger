@@ -8,7 +8,7 @@ const Pass = new mongoose.Schema({
     Plan: Array,
     PassPlanner: String,
     PassExecuter: String,
-    wasExecute: String,
+    whatWasExecute: String,
     Telemetry: Object,
     Errors: String,
     Satellite: Object,

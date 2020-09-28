@@ -70,6 +70,26 @@ export default class mangoDBManger implements IDBManager
         return await dbRequst;
     }
 
+    async getSinglePass(id) {
+        const resPass = await Pass.findById(id)
+        return resPass;
+    }
+
+    async createPass(passToCreate) 
+    {
+        const cratedPass = await Pass.create(passToCreate);
+
+        return cratedPass;
+    }
+
+    async updatePass(id, dataToUpdate)
+    {
+        const updated = await Pass.findByIdAndUpdate(id, dataToUpdate, {
+            new: true
+        });
+
+        return updated;
+    }
 
     private formatTheDBRequst(dbRequst: any, params: any, populate:any = '') {
         if(Object.keys(params).length === 0) return dbRequst;
