@@ -13,7 +13,17 @@
 </script>
 
 <script>
-	export let data;
+    let satname = '';
+    let satid = '';
+    let f = '';
+    export let data;
+    function onPress(satid, satname){
+        if(satid == f || satname == f){
+            alert(`u need to put something in there`);
+        }
+        
+
+    }
 </script>
 
 
@@ -22,18 +32,50 @@
 </svelte:head>
 
 
+<input bind:value={satname} placeholder="sat name">
+<input bind:value={satid} placeholder="sat id">
+<button on:click= {onPress}>add sat </button>
+
 <div class = 'box'>
 	{#each data as satellite}
 		<Satellite {...satellite}/>
-		<!-- 
-			<a href=".">
-				<h1> {satId}: {name} </h1>
-			</a> 
-		-->
+		
 	{/each}
 </div>
 
 <style>
+    button{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width: 16%;
+}
+
+button:hover {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+
+
+    
+    input{
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid red;
+        border-radius: 4px;
+        width: 40%;
+    }
 	
 
 	.box{

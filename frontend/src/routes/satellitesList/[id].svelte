@@ -1,7 +1,6 @@
 <script context="module">
 	let id;
 	export async function preload({ params, query }) {
-		
 		id = params.id;
 
 		const res = await this.fetch(`satellitesList/${id}.json`);
@@ -19,6 +18,9 @@
 </script> 
 
 <script>
+	let startTime = Date.now();
+	let endTime = startTime + 604800;
+	let idsatpass = axios.get(`http://localhost:5000/api/v1/satellite/passes/${id}?${startTime}&${endTime}`);
 	export let satellite;
 </script>
 
@@ -55,7 +57,7 @@
 </svelte:head>
 
 <div class='content'>
-    <!--
-        todo: add single satellite page
-    -->
+  
+
+
 </div>
