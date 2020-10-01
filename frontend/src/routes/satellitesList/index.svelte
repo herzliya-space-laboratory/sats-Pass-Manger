@@ -21,6 +21,8 @@
 	<title> satellites list </title>
 </svelte:head>
 
+<<<<<<< Updated upstream
+=======
 
 
 
@@ -29,6 +31,7 @@
 		<Satellite {...satellite}/>
 	{/each}
 </div>
+<AddSatellite />
 
 <AddSatellite />
 
