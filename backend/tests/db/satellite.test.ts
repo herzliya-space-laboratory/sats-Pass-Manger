@@ -1,9 +1,6 @@
 require('../../src/utils/dotenvInit');
 
-import IDBManger from '../../src/IO_Mangers/DBManger/IDBManger';
-import ISatellitesDBManger from '../../src/IO_Mangers/DBManger/ISatellitesDBManger';
-
-import mangoDBManger from '../../src/IO_Mangers/DBManger/mangoDBManger';
+import SatellitesDBManger from '../../src/IO_Mangers/DBManger/SatellitesDBManger';
 
 import Satellite from '../../src/IO_Mangers/DBManger/models/Satellite';
 
@@ -12,12 +9,12 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 
 
-let db:IDBManger;
+let db:SatellitesDBManger;
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {
 	mongoServer = new MongoMemoryServer();
-    db = new mangoDBManger();
+    db = new SatellitesDBManger();
 
     const mongoUri = await mongoServer.getUri();
     
@@ -31,7 +28,7 @@ afterEach(() => {
 describe("satellite db test", () => {
 
     test("get all satellites from empty db shold be empty array", async () => {
-        const res = await (db as ISatellitesDBManger).getAllSatellites();
+        const res = await db.getAllSatellites();
 
         expect(res).toEqual([]);
     })
@@ -59,7 +56,7 @@ describe("satellite db test", () => {
 
         await Satellite.create(toCreate);
 
-        const res = (await (db as ISatellitesDBManger).getAllSatellites())
+        const res = (await db.getAllSatellites())
                         .sort((a, b) => a.satId - b.satId);
 
 
@@ -95,7 +92,7 @@ describe("satellite db test", () => {
         await Satellite.create(toCreate);
 
         const query = { satId: { $lt: 3}};
-        const res = await (db as ISatellitesDBManger).getAllSatellites(query);
+        const res = await db.getAllSatellites(query);
 
         for(let i = 0; i < res.length; i++)
             expect(res[i].satId).toBeLessThan(3);
@@ -126,7 +123,7 @@ describe("satellite db test", () => {
         await Satellite.create(toCreate);
 
         const query = { satId: { $lt: 3}};
-        const res = await (db as ISatellitesDBManger).getAllSatellites(query, {select: 'satId'});
+        const res = await db.getAllSatellites(query, {select: 'satId'});
 
         for(let i = 0; i < res.length; i++)
         {
@@ -160,7 +157,7 @@ describe("satellite db test", () => {
 
         await Satellite.create(toCreate);
 
-        const res = await (db as ISatellitesDBManger).getAllSatellites({}, {sort: 'satId'});
+        const res = await db.getAllSatellites({}, {sort: 'satId'});
         toCreate = toCreate.sort((a, b) => a.satId - b.satId);
 
         for(let i = 0; i < res.length; i++)
@@ -173,7 +170,7 @@ describe("satellite db test", () => {
     test("get single satellite from db from empty db shold return null", async () => {
         const id = new mongoose.Types.ObjectId()
         
-        const res = await (db as ISatellitesDBManger).getSingleSatellites(id);
+        const res = await db.getSingleSatellites(id);
 
         expect(res).toBeNull();
 
@@ -190,7 +187,7 @@ describe("satellite db test", () => {
 
         const output = await Satellite.create(satelliteToCreate);
 
-        const res = await (db as ISatellitesDBManger).getSingleSatellites(id);
+        const res = await db.getSingleSatellites(id);
 
         expect(res.toObject()).toEqual(output.toObject());
 
@@ -206,9 +203,9 @@ describe("satellite db test", () => {
             satId: 1
         }
 
-        const res = await (db as ISatellitesDBManger).createSatellite(satelliteToCreate);
+        const res = await db.createSatellite(satelliteToCreate);
 
-        const check = await (db as ISatellitesDBManger).getSingleSatellites(id);
+        const check = await db.getSingleSatellites(id);
 
         expect(check).not.toBeNull();
         expect(res.toObject()).toEqual(check.toObject());

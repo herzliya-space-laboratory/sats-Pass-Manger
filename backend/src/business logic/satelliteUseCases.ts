@@ -6,14 +6,19 @@ import formatQueryAndGetPagination from "../utils/queryFormater";
 
 import getSatelliteTle from "../utils/getSatelliteTle";
 import getSatellitePasses from "../utils/getSatellitePasses";
+import {
+    returnSuccessRespondToTheClient,
+    returnRespondToTheClientWithErr,
+    returnSuccessRespondToTheClientWithPage
+} from '../utils/sendResponse';
 
 export default class satelliteLogic
 {
     private db:ISatellitesDBManger;
 
-    constructor(db:IDBManager)
+    constructor(db:ISatellitesDBManger)
     {
-        this.db = db as ISatellitesDBManger;
+        this.db = db;
     }
 
     
@@ -23,10 +28,10 @@ export default class satelliteLogic
         const satellite = await this.db.getSingleSatellites(id);
 
         if(!satellite)
-            this.returnRespondToTheClientWithErr(res, 404, satellite,
+            returnRespondToTheClientWithErr(res, 404, satellite,
                  `Satellite with id: ${id} wasnt found`)
         else
-            this.returnSuccessRespondToTheClient(res, 200, satellite)
+            returnSuccessRespondToTheClient(res, 200, satellite)
         
     }
 
@@ -39,15 +44,15 @@ export default class satelliteLogic
 
         const resSatellites = await this.db.getAllSatellites(formatQuery, params);
 
-        this.returnSuccessRespondToTheClientWithPage(res, 200, resSatellites, pagination);
+        returnSuccessRespondToTheClientWithPage(res, 200, resSatellites, pagination);
     }
 
     createSatellite =  async (req, res) => {
         const satellitesToCreate = req.body;
-        console.log(satellitesToCreate);
+        
         const CreatedSatellites = await this.db.createSatellite(satellitesToCreate);
 
-        this.returnSuccessRespondToTheClient(res, 200, CreatedSatellites)
+        returnSuccessRespondToTheClient(res, 200, CreatedSatellites)
     }
 
 
@@ -62,35 +67,10 @@ export default class satelliteLogic
 
         const passes = await getSatellitePasses(TLE, startTime, endTime);
 
-        this.returnSuccessRespondToTheClient(res, 200, passes)
+        returnSuccessRespondToTheClient(res, 200, passes)
     }
     
 
-    private returnSuccessRespondToTheClient(res, status, data)
-    {
-        return res.status(status).json({
-            success: true,
-            data
-        });
-    }
-
-    private returnRespondToTheClientWithErr(res, status, data, error)
-    {
-        return res.status(status).json({
-            success: true,
-            data,
-            error
-        });
-    }
-
-
-    private returnSuccessRespondToTheClientWithPage(res, status, data, pagination)
-    {
-        return res.status(status).json({
-            success: true,
-            data,
-            pagination
-        });
-    }
+    
 
 }

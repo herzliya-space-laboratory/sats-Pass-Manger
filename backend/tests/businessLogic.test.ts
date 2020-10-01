@@ -1,24 +1,22 @@
 require("../src/utils/dotenvInit");
 
-import IDBManger from '../src/IO_Mangers/DBManger/IDBManger';
-
-
 import mangoDBManger from '../src/IO_Mangers/DBManger/mangoDBManger';
 import mongoose = require('mongoose');
 import { MongoMemoryServer } from "mongodb-memory-server";
 
 import satelliteLogic from '../src/business logic/satelliteUseCases';
+import SatellitesDBManger from 'IO_Mangers/DBManger/SatellitesDBManger';
 
 
 let satelliteManger:satelliteLogic;
 
-let db:IDBManger;
+let db:SatellitesDBManger;
 
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {
 	mongoServer = new MongoMemoryServer();
-    db = new mangoDBManger();
+    db = new SatellitesDBManger();
 
     satelliteManger = new satelliteLogic(db);
     
@@ -69,7 +67,7 @@ describe('test the satellite business logic', () => {
             satId: 1
         }
 
-        const output = await db.createSatellite(satelliteToCreate);
+        const output = await (db as SatellitesDBManger).createSatellite(satelliteToCreate);
 
         const res = {
             status: function(status){
@@ -110,7 +108,7 @@ describe('test the satellite business logic', () => {
         ];
         
         for (const satellite of satellitesToCreate) 
-            await db.createSatellite(satellite);
+            await (db as SatellitesDBManger).createSatellite(satellite);
         
         const res = {
             status: function(status){
