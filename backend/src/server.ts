@@ -6,14 +6,26 @@ import IDBManger from './IO_Mangers/DBManger/IDBManger';
 import { createDBManger, createAPIManger } from "./utils/MangersInit";
 
 import satelliteLogic from "./business logic/satelliteUseCases";
+import passLogic from "./business logic/passesUseCases";
 
-const DBManger: IDBManger = createDBManger();
+import IPassesDBManger from "IO_Mangers/DBManger/IPassesDBManger";
+import ISatellitesDBManger from "IO_Mangers/DBManger/ISatellitesDBManger";
+
+import SatellitesDBManger from "./IO_Mangers/DBManger/SatellitesDBManger";
+import PassesDBManger from "./IO_Mangers/DBManger/PassesDBManger";
+
+
+let DBManger:IDBManger = createDBManger();
+DBManger.connect(process.env.MONGO_URI);
 
 const APIManger: IAPIManagers = createAPIManger();
 
-const satelliteManger:satelliteLogic = new satelliteLogic(DBManger);
+let satDBManger:ISatellitesDBManger = new SatellitesDBManger();
+const satelliteManger:satelliteLogic = new satelliteLogic(satDBManger);
 
-DBManger.connect(process.env.MONGO_URI);
+
+let passDBManger:IPassesDBManger = new PassesDBManger();
+const passesManger:passLogic = new passLogic(passDBManger);
 
 initIOInputRoutes();
 
@@ -54,9 +66,32 @@ function initIOInputRoutes()
         }
     ];
 
+    const passesRoutes = [
+        {
+            method: 'get',
+            path: '/api/v1/pass/',
+            callback: passesManger.getAllPasses
+        },
+        {
+            method: 'get',
+            path: '/api/v1/pass/:id',
+            callback: passesManger.getSinglePass
+        },
+        {
+            method: 'put',
+            path: '/api/v1/pass/updatePlan/:id',
+            callback: passesManger.UpdatePassPlan
+        },
+        {
+            method: 'put',
+            path: '/api/v1/pass/updateWhatWasExequte/:id',
+            callback: passesManger.UpdateWhatWasInAPass
+        }
+    ];
 
     const routes = [
-        ...satellitesRoutes
+        ...satellitesRoutes,
+        ...passesRoutes
         ];
 
     routes.forEach(route => {

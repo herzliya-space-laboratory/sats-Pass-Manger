@@ -1,9 +1,11 @@
 import {ObjectId} from 'mongoose';
+import IDBManager from './IDBManger';
 
-export default interface IPassesDBManger 
+export default interface IPassesDBManger extends IDBManager
 {
     getAllPasses(query?, params?);
-    getSinglePass(id);
+    getSinglePass(id:ObjectId);
     createPass(PassToCrate);
-    updatePass(id, dataToUpdate);
+    updatePass(id:ObjectId, dataToUpdate);
+    getPassAmount();
 }

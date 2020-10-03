@@ -1,32 +1,41 @@
 require("../src/utils/dotenvInit");
 
+import IDBManger from '../src/IO_Mangers/DBManger/IDBManger';
 import mangoDBManger from '../src/IO_Mangers/DBManger/mangoDBManger';
+
 import mongoose = require('mongoose');
 import { MongoMemoryServer } from "mongodb-memory-server";
 
 import satelliteLogic from '../src/business logic/satelliteUseCases';
 import SatellitesDBManger from 'IO_Mangers/DBManger/SatellitesDBManger';
+import PassesDBManger from 'IO_Mangers/DBManger/PassesDBManger';
+import passLogic from 'business logic/passesUseCases';
+import ISatellitesDBManger from 'IO_Mangers/DBManger/ISatellitesDBManger';
+import IPassesDBManger from 'IO_Mangers/DBManger/IPassesDBManger';
 
 
 let satelliteManger:satelliteLogic;
+let passManger:passLogic;
 
-let db:SatellitesDBManger;
+let db:IDBManger;
+let passDB:IPassesDBManger;
+let satDB:ISatellitesDBManger;
 
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {
 	mongoServer = new MongoMemoryServer();
-    db = new SatellitesDBManger();
+    db = new mangoDBManger();
 
-    satelliteManger = new satelliteLogic(db);
     
 	const mongoUri = await mongoServer.getUri();
-    await mongoose.connect(mongoUri, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true
-    });
+    await db.connect(mongoUri);
+
+    satDB = new SatellitesDBManger();
+    satelliteManger = new satelliteLogic(satDB);
+
+    passDB = new PassesDBManger();
+    passManger = new passLogic(passDB);
 });
 
 
@@ -67,7 +76,7 @@ describe('test the satellite business logic', () => {
             satId: 1
         }
 
-        const output = await (db as SatellitesDBManger).createSatellite(satelliteToCreate);
+        const output = await satDB.createSatellite(satelliteToCreate);
 
         const res = {
             status: function(status){
@@ -108,7 +117,7 @@ describe('test the satellite business logic', () => {
         ];
         
         for (const satellite of satellitesToCreate) 
-            await (db as SatellitesDBManger).createSatellite(satellite);
+            await satDB.createSatellite(satellite);
         
         const res = {
             status: function(status){
@@ -166,4 +175,325 @@ describe('test the satellite business logic', () => {
         await satelliteManger.createSatellite({body: satelliteToCreate}, res);
         await satelliteManger.getSingleSatellite({params: {id}}, res);
     })
+})
+
+describe('test the passes business logic', () => {
+    test("get pass from empty db return 404 no found err", () => {
+        expect.assertions(3);
+
+        const id = new mongoose.Types.ObjectId()
+        
+        const res = {
+            status: function(status){
+                expect(status).toBe(404)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.data).toBeNull();
+                expect(obj.error).toBe(`pass with id: ${id} wasnt found`)
+            }
+        }
+
+
+        return passManger.getSinglePass({params: {id}}, res);
+    })
+
+    test("get pass return the pass", async () => {
+        expect.assertions(2);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const passToCreate = {
+            _id: id,
+            title: 'test 1',
+            startTime: new Date(),
+            endTime: new Date()
+        }
+
+        const output = await passDB.createPass(passToCreate);
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.data.toObject()).toEqual(output.toObject());
+            }
+        }
+
+
+        return passManger.getSinglePass({params: {id}}, res);
+    })
+
+    test("get all pass", async () => {
+        expect.assertions(1 + 4*4);
+        
+        let PassToCreate = 
+        [
+            {
+                goal: 'test 1',
+                startTime: new Date(90),
+                endTime: new Date(),
+                maxElevation: 10
+            },
+            {
+                goal: 'test 2',
+                startTime: new Date(900),
+                endTime: new Date(),
+                maxElevation: 20
+            },
+            {
+                goal: 'test 3',
+                startTime: new Date(1),
+                endTime: new Date(),
+                maxElevation: 30
+            },
+            {
+                goal: 'test 4',
+                startTime: new Date(),
+                endTime: new Date(),
+                maxElevation: 40
+            }
+        ];
+        
+        
+        await passDB.createPass(PassToCreate);
+        
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                PassToCreate = PassToCreate.sort((a, b) => a.maxElevation - b.maxElevation);
+                obj.data = obj.data.sort((a, b) => a.maxElevation - b.maxElevation);
+                for(let i = 0; i < obj.data.length; i++)
+                {
+                    Object.keys(PassToCreate).forEach(key => expect(obj.data[i][key]).toBe(PassToCreate[i][key]))
+                }
+            }
+        }
+
+        await passManger.getAllPasses({}, res);
+    })
+
+    test("get all pass with startTime < 1000 and sort by elevation and select of elevation and startTime", async () => {
+        expect.assertions(10);
+        
+        let PassToCreate = 
+        [
+            {
+                goal: 'test 1',
+                startTime: new Date(90),
+                endTime: new Date(),
+                maxElevation: 10
+            },
+            {
+                goal: 'test 2',
+                startTime: new Date(900),
+                endTime: new Date(),
+                maxElevation: 20
+            },
+            {
+                goal: 'test 3',
+                startTime: new Date(1),
+                endTime: new Date(),
+                maxElevation: 30
+            },
+            {
+                goal: 'test 4',
+                startTime: new Date(),
+                endTime: new Date(),
+                maxElevation: 40
+            }
+        ];
+        
+        
+        await passDB.createPass(PassToCreate);
+        
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                PassToCreate = PassToCreate.sort((a, b) => a.maxElevation - b.maxElevation);
+                for(let i = 0; i < obj.data.length; i++)
+                {
+                    expect(obj.data[i].maxElevation).toEqual(PassToCreate[i].maxElevation);
+                    expect(obj.data[i].maxElevation).toBeLessThanOrEqual(1000);
+                    expect(Object.keys(obj.data[i].toObject())).toEqual(['_id', 'startTime', 'maxElevation']);
+                }
+            }
+        }
+        
+        const req = {
+                query: {
+                    startTime: {lt: 1000},
+                    sort: 'maxElevation',
+                    select: 'maxElevation startTime'
+
+                }
+            }
+
+        await passManger.getAllPasses(req, res);
+    })
+
+    test("add pass plan to a pass", async () => {
+        expect.assertions(10);
+
+        const id = new mongoose.Types.ObjectId();
+        const now = new Date();
+
+        const passToCreate = {
+            _id: id,
+            startTime: now,
+            endTime: new Date(now.getSeconds() + 14*60000),
+            maxElevation: 40,
+            duration: 14
+        }
+
+
+        await passDB.createPass(passToCreate);
+
+        const passPlan = {
+            goal: 'test pass',
+            Plan: [
+                {commend: 'test', id: 123}
+            ],
+            PassPlanner: 'itai lupo',
+            PassExecuter: ''
+        }
+
+        const req = {body: passPlan, params: {id}}
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200);
+                return this;
+            },
+            json: (obj) => {
+                Object.keys(passToCreate).forEach(key => expect(obj.data[key]).toStrictEqual(passToCreate[key]));
+                Object.keys(passPlan).forEach(key => expect(obj.data.toObject()[key]).toEqual(passPlan[key]));
+            }
+        }
+
+        await passManger.UpdatePassPlan(req, res);
+    })
+
+    test('add pass plan with wrong parmeter return 404, please fill all the data', async () =>{
+        expect.assertions(3);
+
+        const id = new mongoose.Types.ObjectId();
+        const now = new Date();
+
+        const passToCreate = {
+            _id: id,
+            startTime: now,
+            endTime: new Date(now.getSeconds() + 14*60000),
+            maxElevation: 40,
+            duration: 14
+        }
+
+
+        await passDB.createPass(passToCreate);
+
+        const passPlan = {}
+
+        const req = {body: passPlan, params: {id}}
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(400);
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.success).toBe(false);
+                expect(obj.error).toBe('please fill all the data');
+            }
+        }
+
+        await passManger.UpdatePassPlan(req, res);
+
+
+    })
+
+    test("add what was in pass to pass to a pass", async () => {
+        expect.assertions(9);
+
+        const id = new mongoose.Types.ObjectId();
+        const now = new Date();
+
+        const passToCreate = {
+            _id: id,
+            startTime: now,
+            endTime: new Date(now.getSeconds() + 14*60000),
+            maxElevation: 40,
+            duration: 14
+        }
+
+
+        await passDB.createPass(passToCreate);
+
+        const whatWasExecute = {
+            whatWasExecute: 'all',
+            Telemetry: {data: 123},
+            Errors: 'none',
+        }
+
+        const req = {body: whatWasExecute, params: {id}}
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200);
+                return this;
+            },
+            json: (obj) => {
+                Object.keys(passToCreate).forEach(key => expect(obj.data[key]).toStrictEqual(passToCreate[key]));
+                Object.keys(whatWasExecute).forEach(key => expect(obj.data.toObject()[key]).toEqual(whatWasExecute[key]));
+            }
+        }
+
+        await passManger.UpdateWhatWasInAPass(req, res);
+    })
+
+    test('add what was in pass to pass with wrong parmeter return 404, please fill all the data', async () => {
+        expect.assertions(3);
+
+        const id = new mongoose.Types.ObjectId();
+        const now = new Date();
+
+        const passToCreate = {
+            _id: id,
+            startTime: now,
+            endTime: new Date(now.getSeconds() + 14*60000),
+            maxElevation: 40,
+            duration: 14
+        }
+
+
+        await passDB.createPass(passToCreate);
+
+        const whatWasExecute = {
+        }
+
+        const req = {body: whatWasExecute, params: {id}}
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(400);
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.success).toBe(false);
+                expect(obj.error).toBe('please fill all the data');
+            }
+        }
+
+        await passManger.UpdateWhatWasInAPass(req, res);
+
+
+    })
+
 })

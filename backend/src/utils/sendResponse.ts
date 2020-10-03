@@ -9,7 +9,7 @@ export function returnSuccessRespondToTheClient(res, status, data)
 export function returnRespondToTheClientWithErr(res, status, data, error)
 {
     return res.status(status).json({
-        success: true,
+        success: false,
         data,
         error
     });

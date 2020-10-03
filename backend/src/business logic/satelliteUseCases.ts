@@ -1,6 +1,5 @@
 import ErrorResponse = require("../utils/errorResponse");
 
-import IDBManager from "../IO_Mangers/DBManger/IDBManger";
 import ISatellitesDBManger from "../IO_Mangers/DBManger/ISatellitesDBManger";
 import formatQueryAndGetPagination from "../utils/queryFormater";
 
@@ -69,8 +68,4 @@ export default class satelliteLogic
 
         returnSuccessRespondToTheClient(res, 200, passes)
     }
-    
-
-    
-
 }

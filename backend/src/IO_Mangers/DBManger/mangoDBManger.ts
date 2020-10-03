@@ -7,7 +7,8 @@ import Pass from "./models/Pass";
 
 export default class mangoDBManger implements IDBManager
 {
-    satelliteAmount: number;
+    protected satelliteAmount: number;
+    protected passAmount: number;
 
     connect(URI) 
     {
@@ -21,6 +22,7 @@ export default class mangoDBManger implements IDBManager
         .then(conn => console.log(`mongoDB Connected: ${conn.connection.host}`));
         
         Satellite.countDocuments().then(count => this.satelliteAmount = count);
+        Pass.countDocuments().then(count => this.passAmount = count);
     }   
 
     protected formatTheDBRequst(dbRequst: any, params: any, populate:any = '') {
