@@ -16,4 +16,12 @@ const Satellite = new mongoose.Schema({
     }
 })
 
+Satellite.virtual('courses', {
+    ref: "Pass",
+    localField: '_id',
+    foreignField: 'satellite',
+    justOne: false
+})
+
+
 export default mongoose.model("Satellite", Satellite);

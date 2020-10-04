@@ -8,15 +8,17 @@ import {
     returnRespondToTheClientWithErr,
     returnSuccessRespondToTheClientWithPage
 } from '../utils/sendResponse';
-import PassesDBManger from "IO_Mangers/DBManger/PassesDBManger";
 
-export default class passLogic
+import BaseComponent from "../Mediator/BaseComponent";
+
+export default class passLogic extends BaseComponent
 {
-    
+       
     private db:IPassesDBManger;
 
     constructor(db:IPassesDBManger)
     {
+        super();
         this.db = db;
     }
 
@@ -79,6 +81,23 @@ export default class passLogic
 
         const updatedPass = await this.db.updatePass(id, whatWasExecuted);
         returnSuccessRespondToTheClient(res, 200, updatedPass);
+    }
+
+    async createPasses(passes: any) 
+    {
+        await this.db.createPass(passes);
+        let newPasses = this.db.getAllPasses({}, {sort:'startTime'})
+        return newPasses;
+    }
+
+    async getNewistPass(req?:any , res?:any)
+    {
+        const pass = (await this.db.getAllPasses({}, {sort:'-startTime'}))[0] || {startTime: new Date()};
+
+        if(res)
+            returnSuccessRespondToTheClient(res, 200, pass);
+        else
+            return pass;
     }
 
     private checkUpdatePassPlanIsValid(PassPlan)

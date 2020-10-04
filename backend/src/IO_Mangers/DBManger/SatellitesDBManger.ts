@@ -9,7 +9,7 @@ export default class SatellitesDBManger extends mangoDBManger implements ISatell
     {
         let dbRequst = Satellite.find(query);
 
-        dbRequst = this.formatTheDBRequst(dbRequst, params);
+        dbRequst = this.formatTheDBRequst(dbRequst, params, 'Pass');
 
         return await dbRequst;
     }

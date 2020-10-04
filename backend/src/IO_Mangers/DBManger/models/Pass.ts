@@ -5,8 +5,11 @@ const Pass = new mongoose.Schema({
     endTime: Date,
     maxElevation: Number,
     duration: Number,
-    Satellite: Object,
-
+    Satellite: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Satellite'
+    },
+    
     goal: String,
     Plan: Array,
     PassPlanner: String,

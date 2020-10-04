@@ -9,7 +9,7 @@ export default class PassesDBManger extends mangoDBManger implements IPassesDBMa
     {
         let dbRequst = Pass.find(query);
         
-        this.formatTheDBRequst(dbRequst, params);
+        this.formatTheDBRequst(dbRequst, params, 'Satellite');
 
         return await dbRequst;
     }

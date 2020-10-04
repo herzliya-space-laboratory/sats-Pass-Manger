@@ -14,6 +14,8 @@ import ISatellitesDBManger from "IO_Mangers/DBManger/ISatellitesDBManger";
 import SatellitesDBManger from "./IO_Mangers/DBManger/SatellitesDBManger";
 import PassesDBManger from "./IO_Mangers/DBManger/PassesDBManger";
 
+import ConcreteMediators from "./Mediator/ConcreteMediators";
+
 
 let DBManger:IDBManger = createDBManger();
 DBManger.connect(process.env.MONGO_URI);
@@ -24,8 +26,10 @@ let satDBManger:ISatellitesDBManger = new SatellitesDBManger();
 const satelliteManger:satelliteLogic = new satelliteLogic(satDBManger);
 
 
-let passDBManger:IPassesDBManger = new PassesDBManger();
+const passDBManger:IPassesDBManger = new PassesDBManger();
 const passesManger:passLogic = new passLogic(passDBManger);
+
+const mediator = new ConcreteMediators(passesManger, satelliteManger);
 
 initIOInputRoutes();
 
@@ -62,7 +66,7 @@ function initIOInputRoutes()
         {
             method: 'get',
             path: '/api/v1/satellite/passes/:id',
-            callback: satelliteManger.getSatellitePasses
+            callback: satelliteManger.getSatellitePassesAndSaveThem
         }
     ];
 

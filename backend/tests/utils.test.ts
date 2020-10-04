@@ -14,8 +14,6 @@ describe("env vars test", () => {
 
         expect(process.env.SERVER_MANGER_TYPE).toBeTruthy();
         expect(process.env.DB_MANGER_TYPE).toBeTruthy();
-        
-
     }) 
 })
 
