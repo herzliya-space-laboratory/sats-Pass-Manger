@@ -15,7 +15,7 @@ export default class PassesDBManger extends mangoDBManger implements IPassesDBMa
     }
 
     async getSinglePass(id) {
-        const resPass = await Pass.findById(id)
+        const resPass = await Pass.findById(id).populate('Satellite');
         return resPass;
     }
 
