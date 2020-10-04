@@ -127,7 +127,7 @@ describe("satellite db test", () => {
 
         for(let i = 0; i < res.length; i++)
         {
-            expect(Object.keys(res[i].toObject())).toEqual(['_id', 'satId']);
+            expect(Object.keys(res[i].toObject())).toEqual(['_id', 'satId', 'id']);
             expect(res[i].satId).toBeLessThan(3);
         }
 
@@ -186,10 +186,11 @@ describe("satellite db test", () => {
         }
 
         const output = await Satellite.create(satelliteToCreate);
-
+        
+        
         const res = await db.getSingleSatellites(id);
-
-        expect(res.toObject()).toEqual(output.toObject());
+       
+        Object.keys(output.toObject()).forEach(key => expect(res[key]).toEqual(output[key]));
 
     })
 
@@ -203,12 +204,13 @@ describe("satellite db test", () => {
             satId: 1
         }
 
-        const res = await db.createSatellite(satelliteToCreate);
+        let res = await db.createSatellite(satelliteToCreate);
+        res.pass = undefined;
 
         const check = await db.getSingleSatellites(id);
 
         expect(check).not.toBeNull();
-        expect(res.toObject()).toEqual(check.toObject());
+        Object.keys(check.toObject()).forEach(key => expect(res[key]).toEqual(check[key]));
 
     })
     

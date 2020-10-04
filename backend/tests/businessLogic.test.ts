@@ -66,7 +66,7 @@ describe('test the satellite business logic', () => {
     })
 
     test("get satellite return the satellite", async () => {
-        expect.assertions(2);
+        expect.assertions(7);
 
         const id = new mongoose.Types.ObjectId();
         
@@ -84,7 +84,9 @@ describe('test the satellite business logic', () => {
                 return this;
             },
             json: (obj) => {
-                expect(obj.data.toObject()).toEqual(output.toObject());
+                Object.keys(output.toObject()).forEach(key =>
+                     expect(obj.data[key]).toEqual(output[key]));
+                
             }
         }
 
@@ -130,7 +132,7 @@ describe('test the satellite business logic', () => {
                 {
                     expect(satellitesToCreate[i].satId).toEqual(obj.data[i].satId);
                     expect(obj.data[i].satId).toBeLessThanOrEqual(3);
-                    expect(Object.keys(obj.data[i].toObject())).toEqual(['_id', 'satId']);
+                    expect(Object.keys(obj.data[i].toObject())).toEqual(['_id', 'satId', 'id']);
                 }
             }
         }
@@ -148,7 +150,7 @@ describe('test the satellite business logic', () => {
     })
 
     test("create satellite", async () => {
-        expect.assertions(4);
+        expect.assertions(8);
 
         const id = new mongoose.Types.ObjectId();
         
@@ -167,7 +169,8 @@ describe('test the satellite business logic', () => {
             json: (obj) => {
                 obj.data.__v = undefined;
                 obj.data.createdAt = undefined;
-                expect(obj.data.toObject()).toEqual(satelliteToCreate);
+                Object.keys(satelliteToCreate).forEach(key =>
+                     expect(obj.data[key]).toEqual(satelliteToCreate[key]));
             }
         }
 
