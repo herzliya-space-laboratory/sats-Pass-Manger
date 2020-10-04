@@ -38,8 +38,9 @@ export default class mangoDBManger implements IDBManager
         return dbRequst;
     }
 
-    protected populateRequset(params: any, populate: any) {
-        if(!params.select)
+    private populateRequset(params: any, populate: any) {
+        
+        if(typeof(params.select) != 'string')
             return false;
             
         return params.select == "" ||
