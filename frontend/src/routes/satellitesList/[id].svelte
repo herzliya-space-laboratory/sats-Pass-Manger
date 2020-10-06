@@ -18,37 +18,18 @@
 </script> 
 
 <script>
-	let startTime = Date.now();
-	let endTime = startTime + 604800;
-	let idsatpass = axios.get(`http://localhost:5000/api/v1/satellite/passes/${id}?${startTime}&${endTime}`);
+	import axios from 'axios'
 	export let satellite;
+	function reloadPass() {
+		const now = new Date();
+		const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+		axios.get(`http://localhost:5000/api/v1/satellite/passes/${satellite._id}?endTime=${nextWeek}`)
+	}
 </script>
 
 <style>
-	.content :global(h2) {
-		font-size: 1.4em;
-		font-weight: 500;
-	}
-
-	.content :global(pre) {
-		background-color: #f9f9f9;
-		box-shadow: inset 1px 1px 5px rgba(0,0,0,0.05);
-		padding: 0.5em;
-		border-radius: 2px;
-		overflow-x: auto;
-	}
-
-	.content :global(pre) :global(code) {
-		background-color: transparent;
-		padding: 0;
-	}
-
-	.content :global(ul) {
-		line-height: 1.5;
-	}
-
-	.content :global(li) {
-		margin: 0 0 0.5em 0;
+	h2{
+		font-size: 2em;
 	}
 </style>
 
@@ -57,7 +38,12 @@
 </svelte:head>
 
 <div class='content'>
-  
+	<h2>satellite name: {satellite.name}</h2>
+	<h2>noard id: {satellite.satId}</h2>
 
-
+	<button on:click = {reloadPass}> reload pass </button>
+	{#each satellite.pass as pass}
+		<h3>start time: {pass.startTime}</h3>
+	{/each}
+	
 </div>

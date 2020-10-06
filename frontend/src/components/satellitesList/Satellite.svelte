@@ -10,10 +10,10 @@
 
 <svelte:window bind:innerWidth={width}/>
 
-<!-- todo: orgnaze the line, use all the line space not just the start-->
 <div class = "Satellite">        
         <a href= 'satellitesList/{_id}'>
-            {satId}| {name}
+            <p class = 'left'>{name}</p>
+            <p class = 'right'>{satId}</p>
         </a>
 </div>
 
@@ -26,18 +26,33 @@
         margin: 0;
     }
 
-    .Satellite a{
+    a{   
         display: inline-block;
         text-decoration: none;
-    }
-
-    a{   
 		font-size: 2em;
-        margin: 0;
+        margin: 10px 0;
+        width: 100%;
 	}
 
 	a:hover 
 	{
 		color: blue;
 	}
+
+    p{
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+
+    .right {
+        padding-right: 15%;
+        float: right; 
+    }
+
+    .left {
+        padding-left: 15%;
+        float: left; 
+    }
+
 </style>
