@@ -1,14 +1,15 @@
 <script context="module">
-	let id;
+    let id;
+    
 	export async function preload({ params, query }) {
 		id = params.id;
 
-		const res = await this.fetch(`satellitesList/${id}.json`);
+		const res = await this.fetch(`passes/${id}.json`);
 		const data = await res.json();
 
 		if (res.status === 200) 
 		{
-			return { satellite: data };
+			return { pass: data };
 		}
 		else
 		{
@@ -22,29 +23,22 @@
 	import PassListTitle from '../../components/satellitesList/passListTitle';
 
 	import axios from 'axios'
-	export let satellite;
-	function reloadPass() {
-		const now = new Date();
-		const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
-		axios.get(`http://localhost:5000/api/v1/satellite/passes/${satellite._id}?endTime=${nextWeek}`)
-	}
+    export let pass;
+    console.log(pass)
 </script>
 
 
 <svelte:head>
-	<title> {satellite.name} </title>
+	<title> {pass.Satellite.name} </title>
 </svelte:head>
 
 <div class='content'>
-	<h2>satellite name: {satellite.name}</h2>
-	<h2>noard id: {satellite.satId}</h2>
-
-	<button on:click = {reloadPass}> reload pass </button>
+	<h2>pass goal: {pass.goal}</h2>
 
 	<PassListTitle />
 	<div class = 'box'>
-		{#each satellite.pass as pass}
-			<Pass {...pass} />
+		{#each pass as Plan}
+            {Plan}
 		{/each}
 	</div>
 
