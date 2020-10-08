@@ -92,7 +92,7 @@ export default class passLogic extends BaseComponent
 
     async getNewistPass(req?:any , res?:any)
     {
-        const pass = (await this.db.getAllPasses({}, {sort:'-startTime'}))[0] || {startTime: new Date()};
+        const pass = (await this.db.getAllPasses({}, { sort:'-startTime'}))[0] || {startTime: new Date()};
 
         if(res)
             returnSuccessRespondToTheClient(res, 200, pass);
@@ -100,19 +100,25 @@ export default class passLogic extends BaseComponent
             return pass;
     }
 
+     getClosestPass = async (req:any, res:any) =>
+    {
+        const pass = (await this.db.getAllPasses({'endTime': {'$gte': new Date()}}, { sort: 'endTime'}))[0];
+        returnSuccessRespondToTheClient(res, 200, pass);
+    }
+
     private checkUpdatePassPlanIsValid(PassPlan)
     {
-        if(PassPlan.goal == undefined) return false;
-        if(PassPlan.Plan == undefined) return false;
-        if(PassPlan.PassPlanner == undefined) return false;
-        if(PassPlan.PassExecuter == undefined) return false;
+        if(PassPlan.goal == undefined || PassPlan.goal == '') return false;
+        if(PassPlan.Plan == undefined || PassPlan.Plan == []) return false;
+        if(PassPlan.PassPlanner == undefined || PassPlan.PassPlanner == '') return false;
+        if(PassPlan.PassExecuter == undefined || PassPlan.PassExecuter == '') return false;
         return true;
     }
 
     private checkUpdatePassExqtedIsValid(whatWasExecuted) {
-        if(whatWasExecuted.whatWasExecute == undefined) return false;
-        if(whatWasExecuted.Telemetry == undefined) return false;
-        if(whatWasExecuted.Errors == undefined) return false;
+        if(whatWasExecuted.whatWasExecute == undefined || whatWasExecuted.whatWasExecute == '') return false;
+        if(whatWasExecuted.Telemetry == undefined || whatWasExecuted.Telemetry == []) return false;
+        if(whatWasExecuted.Errors == undefined || whatWasExecuted.Errors == '') return false;
         return true;
     }
 }

@@ -35,10 +35,10 @@ initIOInputRoutes();
 
 process.on("unhandledRejection", (err: any, promise) => {
     if(!err.message) err.message = "server error";
-    console.log(`error: ${err.message}`);
+    console.log(`error: ${err}`);
 
-    APIManger.close();
-    process.exit(1);
+    // APIManger.close();
+    // process.exit(1);
 })
 
 process.on('exit', () => {
@@ -90,7 +90,13 @@ function initIOInputRoutes()
             method: 'put',
             path: '/api/v1/pass/updateWhatWasExequte/:id',
             callback: passesManger.UpdateWhatWasInAPass
+        },
+        {
+            method: 'get',
+            path: '/api/v1/getClosePass',
+            callback: passesManger.getClosestPass
         }
+        
     ];
 
     const routes = [

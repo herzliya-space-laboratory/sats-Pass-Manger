@@ -1,13 +1,9 @@
 
 <script>
-    export let startTime;
-    export let endTime;
-    export let maxElevation;
-    export let duration;
-    export let _id;
+    export let pass;
 
-    const didThePassHappen = new Date(startTime) < new Date();
-    const passPageUrl = `/${didThePassHappen ? 'whatWasInAPass' : 'planPass'}/${_id}`;
+    const didThePassHappen = new Date(pass.startTime) < new Date();
+    const passPageUrl = `/${didThePassHappen ? 'whatWasInAPass' : 'planPass'}/${pass._id}`;
 
 </script>
 
@@ -15,10 +11,10 @@
     <a href={passPageUrl}>
         <table>
             <tr>
-                <td> {new Date(startTime).toLocaleString().replace(',', ' ')} </td>
-                <td> {new Date(endTime).toLocaleString().replace(',', ' ')} </td>
-                <td> {maxElevation.toFixed(2)} </td>
-                <td> {duration} </td>
+                <td> {new Date(pass.startTime).toLocaleString().replace(',', ' ')} </td>
+                <td> {new Date(pass.endTime).toLocaleString().replace(',', ' ')} </td>
+                <td> {pass.maxElevation.toFixed(2)} </td>
+                <td> {pass.duration} </td>
             </tr>
         </table>
     </a>

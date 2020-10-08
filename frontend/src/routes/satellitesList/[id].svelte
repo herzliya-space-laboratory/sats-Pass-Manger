@@ -44,7 +44,7 @@
 	<PassListTitle />
 	<div class = 'box'>
 		{#each satellite.pass as pass}
-			<Pass {...pass} />
+			<Pass pass={pass} />
 		{/each}
 	</div>
 
@@ -63,6 +63,22 @@
 
 	h2{
 		font-size: 2em;
+	}
+
+	button {
+		background-color: gray; /* Green */
+		border: black 1px;
+		color: black;
+		padding: 15px 32px;
+		margin: 10px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+	}
+
+	button:hover {
+		box-shadow: 0 12px 16px 0 rgba(255, 255, 255, 0.696), 0 17px 50px 0 rgba(255, 255, 255, 0.796);
 	}
 
 </style>

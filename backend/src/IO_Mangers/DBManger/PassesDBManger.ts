@@ -5,7 +5,7 @@ import Pass from "./models/Pass";
 
 export default class PassesDBManger extends mangoDBManger implements IPassesDBManger
 {
-    async getAllPasses(query?: any, params:any = {}) 
+    async getAllPasses(query: any = {}, params:any = {}) 
     {
         let dbRequst = Pass.find(query);
         

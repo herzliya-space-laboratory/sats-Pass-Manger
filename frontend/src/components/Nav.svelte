@@ -3,7 +3,7 @@
 
 	let pages = [
 		{
-			title: "home",
+			title: "next pass",
 			path: ".",
 			seg: undefined
 		},
@@ -16,6 +16,10 @@
 			title: "satellites list",
 			path: "satellitesList",
 			seg: "satellitesList"
+		},{
+			title: "passes list",
+			path: 'passes',
+			seg: 'passes'
 		}
 		
 	];

@@ -61,8 +61,8 @@ export default class satelliteLogic extends BaseComponent
     getSatellitePassesAndSaveThem =  async (req, res) => {
         const id = req.params.id;
 
-        const startTime = await this.mediator.notify({}, 'getNewistPassTime') || new Date();
-        
+        let startTime = await this.mediator.notify({}, 'getNewistPassTime') || new Date();
+        startTime = new Date(startTime.getSeconds() + 30*60);
         
         let endTime = new Date(req.query.endTime);
 
