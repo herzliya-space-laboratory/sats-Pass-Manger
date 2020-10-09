@@ -3,7 +3,7 @@
 	export async function preload({ params, query }) {
 		id = params.id;
 
-		const res = await this.fetch(`passes/${id}.json`);
+		const res = await this.fetch(`passes.json`);
 		const data = await res.json();
 
 		if (res.status === 200) 
@@ -18,8 +18,8 @@
 </script> 
 
 <script>
-	import Pass from '../../components/satellitesList/pass';
-	import PassListTitle from '../../components/satellitesList/passListTitle';
+	import Pass from '../../components/passes/pass';
+	import PassListTitle from '../../components/passes/passListTitle';
 	export let passes;
 </script>
 
@@ -50,6 +50,7 @@
         overflow: auto;
     }
 
-	
-
+	.content{
+		width: 100%;
+	}
 </style>

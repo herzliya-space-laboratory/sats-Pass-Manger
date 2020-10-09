@@ -19,7 +19,7 @@
 </script> 
 
 <script>
-
+    import PassCommends from "../../components/passCommends.svelte"
     import { createForm } from "svelte-forms-lib";
 	import axios from 'axios'
 	export let pass;
@@ -55,57 +55,7 @@
       }
     });
 
-    const add = () => {
-      $form.Plan = $form.Plan.concat({
-            id: "",
-			name: "",
-			parametrs: [
-				{
-					name: "",
-					value: ""
-				}
-			]
-          });
-      $errors.Plan = $errors.Plan.concat({
-            id: "",
-			name: "",
-			parametrs: [
-				{
-					name: "",
-					value: ""
-				}
-			]
-          });
-    };
-
-    const remove = i => () => {
-      $form.Plan = $form.Plan.filter((u, j) => j !== i);
-      $errors.Plan = $errors.Plan.filter((u, j) => j !== i);
-	};
-	
-	const addParmeterField = (i) => () =>{
-        $form.Plan[i].parametrs = $form.Plan[i].parametrs.concat({
-                st: "",
-                sst: "",
-                name: "",
-                parametrs: [
-                    {
-                        name: "",
-                        value: ""
-                    }
-                ]
-        });
-
-        $errors.Plan[i].parametrs = $errors.Plan[i].parametrs.concat({
-                name: "",
-                value: ""
-        });
-    };
-
-    const removeParm = (i, j) => () => {
-        $form.Plan[i].parametrs = $form.Plan[i].parametrs.filter((u, k) => j !== k);
-        $errors.Plan.parametrs = $errors.Plan[i].parametrs.filter((u, k) => j !== k);
-    };
+   
 </script>
 
 
@@ -128,106 +78,13 @@
 		<input placeholder="pass executer" name = "PassExecuter" bind:value={$form.PassExecuter}/> <br>
 		
 		pass plan <br>
-		{#each $form.Plan as commend, j}
-			<div class="form-group">
-				<div>
-					<input
-						placeholder="commend type"
-						name={`Plan[${j}].st`}
-						on:change={handleChange}
-						on:blur={handleChange}
-						bind:value={$form.Plan[j].st}
-					/>
-					{#if $errors.Plan[j].st}
-						<small class="error">{$errors.Plan[j].st}</small>
-					{/if}
-				</div>
-
-				<div>
-					<input
-						placeholder="commend subtype"
-						name={`Plan[${j}].sst`}
-						on:change={handleChange}
-						on:blur={handleChange}
-						bind:value={$form.Plan[j].sst}
-					/>
-					{#if $errors.Plan[j].sst}
-						<small class="error">{$errors.Plan[j].sst}</small>
-					{/if}
-				</div>
-
-				<div>
-					<input
-						placeholder="commend name"
-						name={`commends[${j}].name`}
-						on:change={handleChange}
-						on:blur={handleChange}
-						bind:value={$form.Plan[j].name}
-					/>
-					{#if $errors.Plan[j].name}
-						<small class="error">{$errors.Plan[j].name}</small>
-					{/if}
-				</div>
-
-				{#if j === $form.Plan.length - 1}
-					<button type="button" on:click={add}>+</button>
-				{/if}
-
-				{#if $form.Plan.length !== 1}
-					<button type="button" on:click={remove(j)}>-</button>
-				{/if}
-
-			</div>
-
-			{#each commend.parametrs as parametr, i}
-                <div class="form-group">
-                    <div>
-                        <input
-                            placeholder="parmeter name"
-                            name={`Plan[${j}].parametrs[${i}].name`}
-                            on:change={handleChange}
-                            on:blur={handleChange}
-                            bind:value={$form.Plan[j].parametrs[i].name}
-                        />
-                        
-                        {#if $errors.Plan[j].st}
-                            <small class="error">{$errors.Plan[j].parametrs[i].name}</small>
-                        {/if}
-                    </div>
-
-                    <div>
-                        <input
-                            placeholder="parmeter value"
-                            name={`Plan[${j}].parametrs[${i}].value`}
-                            on:change={handleChange}
-                            on:blur={handleChange}
-                            bind:value={$form.Plan[j].parametrs[i].value}
-                        />
-                        
-                        {#if $errors.Plan[j].parametrs[i].value}
-                            <small class="error">{$errors.Plan[j].parametrs[i].value}</small>
-                        {/if}
-                    </div>
-
-                    {#if $form.Plan[j].parametrs.length !== 1}
-                        <button type="button" on:click={removeParm(j, i)} >-</button>
-                    {/if}
-                    
-                    {#if i === $form.Plan[j].parametrs.length - 1}
-					    <button type="button" on:click={addParmeterField(j)}>+</button>
-                    {/if}
-
-
-                </div>
-            {/each}
-		{/each}
+		<PassCommends form={form} errors={errors} handleChange={handleChange} />
+		
 	
 		<div class="button-group">
 			<button type="button" on:click={handleSubmit}>submit</button>
 			<button type="button" on:click={handleReset}>reset</button>
 		</div>
-	
-	
 	</form>
 </div>
 
@@ -249,15 +106,6 @@
 		background-color: lightblue;
 	}
 
-	.error {
-      display: block;
-      color: red;
-    }
-	
-    .form-group {
-      display: flex;
-      align-items: baseline;
-    }
 
 	button {
 		background-color:  rgb(142, 142, 142);
