@@ -2,28 +2,28 @@
 <script>
 </script>
 
-<div>
-    <table>
-        <tr>
-            <td> start time </td>
-            <td> end time </td>
-            <td> max elevation </td>
-            <td> duration </td>
-        </tr>
-    </table>
-</div>
+<thead class="bg-black flex text-white w-full">
+    <tr class="flex w-full mb-4">
+        <th class="w-1/6 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            goal
+        </th>
 
-<style>
+        <th class="w-1/6 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            start time
+        </th>
 
-	div{
-        border: 1px solid #333;
-		border-bottom: 2px dotted blue;
-	}
+        <th class="w-1/6 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            end time
+        </th>
 
-    td{
-        margin: 0;
-        padding: 0;
-        text-align: center; 
-        width: 30.7%;
-    }
-</style>
+        <th class="w-1/6 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            max elevation
+        </th>
+
+        <th class="w-1/6 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            duration
+        </th>
+
+        <th class="w-1/6 px-6 pt-4 bg-gray-50">  </th>
+    </tr>
+</thead>

@@ -4,45 +4,16 @@
 
 <svelte:window bind:innerWidth={width}/>
 
-<div class = "Satellite">        
-        <p>
-            <b class = 'left'>satellite norad id</b>
-            <b class = 'right'>satellite norad id</b>
-        </p>
-</div>
+<thead class="bg-black flex text-white w-full">
+    <tr class="flex w-full mb-4">
+        <th class="w-1/3 px-6 pt-3 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            satellite name
+        </th>
 
-
-<style>
-    .Satellite{
-        display:  block;
-        border: 1px solid #333;
-        border-bottom: 2px dotted rgb(17, 16, 105);
-        padding: 5px;
-        margin: 0;
-    }
-
-    p{   
-        display: inline-block;
-        text-decoration: none;
-		font-size: 2em;
-        margin: 10px 0;
-        width: 100%;
-	}
-
-    b{
-        display: inline-block;
-        padding: 0;
-        margin: 0;
-    }
-
-    .right {
-        padding-right: 10%;
-        float: right; 
-    }
-
-    .left {
-        padding-left: 10%;
-        float: left; 
-    }
-
-</style>
+        <th class="w-1/3 px-6 pt-3 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            satellite norad id
+        </th>
+        
+        <th class="w-1/3 px-6 pt-3 bg-gray-50"></th>
+    </tr>
+</thead>

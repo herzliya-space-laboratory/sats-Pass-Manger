@@ -2,29 +2,33 @@
 <script>
 </script>
 
-<div>
-    <table>
-        <tr>
-            <td> Satellite name </td>
-            <td> start time </td>
-            <td> end time </td>
-            <td> max elevation </td>
-            <td> duration </td>
-        </tr>
-    </table>
-</div>
 
-<style>
+<thead class="bg-black flex text-white w-full">
+    <tr class="flex w-full mb-4">
+        <th class="w-1/7 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Satellite name
+        </th>
 
-	div{
-        border: 1px solid #333;
-		border-bottom: 2px dotted blue;
-	}
+        <th class="w-1/7 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            goal
+        </th>
 
-    td{
-        margin: 0;
-        padding: 0;
-        text-align: center; 
-        width: 23.4%;
-    }
-</style>
+        <th class="w-1/7 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            start time
+        </th>
+
+        <th class="w-1/7 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            end time
+        </th>
+
+        <th class="w-1/7 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            max elevation
+        </th>
+
+        <th class="w-1/7 px-6 pt-4 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            duration
+        </th>
+
+        <th class="w-1/7 px-6 pt-4 bg-gray-50">  </th>
+    </tr>
+</thead>

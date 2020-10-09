@@ -413,7 +413,7 @@ ul {
  */
 
 html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 1 */
+  font-family: Times New Roman; /* 1 */
   line-height: 1.5; /* 2 */
 }
 
@@ -541,7 +541,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /**
@@ -10170,15 +10170,7 @@ video {
 }
 
 .font-sans {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-}
-
-.font-serif {
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif !important;
-}
-
-.font-mono {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-family: Times New Roman !important;
 }
 
 .font-hairline {
@@ -10289,92 +10281,20 @@ video {
   font-weight: 900 !important;
 }
 
-.h-0 {
-  height: 0 !important;
+.h-1\/2 {
+  height: 50vh !important;
 }
 
-.h-1 {
-  height: 0.25rem !important;
+.h-3\/4 {
+  height: 75vh !important;
 }
 
-.h-2 {
-  height: 0.5rem !important;
+.h-lg {
+  height: 24px !important;
 }
 
-.h-3 {
-  height: 0.75rem !important;
-}
-
-.h-4 {
-  height: 1rem !important;
-}
-
-.h-5 {
-  height: 1.25rem !important;
-}
-
-.h-6 {
-  height: 1.5rem !important;
-}
-
-.h-8 {
-  height: 2rem !important;
-}
-
-.h-10 {
-  height: 2.5rem !important;
-}
-
-.h-12 {
-  height: 3rem !important;
-}
-
-.h-16 {
-  height: 4rem !important;
-}
-
-.h-20 {
-  height: 5rem !important;
-}
-
-.h-24 {
-  height: 6rem !important;
-}
-
-.h-32 {
-  height: 8rem !important;
-}
-
-.h-40 {
-  height: 10rem !important;
-}
-
-.h-48 {
-  height: 12rem !important;
-}
-
-.h-56 {
-  height: 14rem !important;
-}
-
-.h-64 {
-  height: 16rem !important;
-}
-
-.h-auto {
-  height: auto !important;
-}
-
-.h-px {
-  height: 1px !important;
-}
-
-.h-full {
-  height: 100% !important;
-}
-
-.h-screen {
-  height: 100vh !important;
+.h-xl {
+  height: 48px !important;
 }
 
 .text-xs {
@@ -13805,10 +13725,6 @@ video {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
-.shadow-2xl {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-}
-
 .shadow-inner {
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
 }
@@ -13817,8 +13733,16 @@ video {
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
 }
 
+.shadow-focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+}
+
 .shadow-none {
   box-shadow: none !important;
+}
+
+.shadow-white {
+  box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
 }
 
 .hover\:shadow-xs:hover {
@@ -13845,10 +13769,6 @@ video {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
-.hover\:shadow-2xl:hover {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-}
-
 .hover\:shadow-inner:hover {
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
 }
@@ -13857,8 +13777,16 @@ video {
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
 }
 
+.hover\:shadow-focus:hover {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+}
+
 .hover\:shadow-none:hover {
   box-shadow: none !important;
+}
+
+.hover\:shadow-white:hover {
+  box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
 }
 
 .focus\:shadow-xs:focus {
@@ -13885,10 +13813,6 @@ video {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
-.focus\:shadow-2xl:focus {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-}
-
 .focus\:shadow-inner:focus {
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
 }
@@ -13897,8 +13821,16 @@ video {
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
 }
 
+.focus\:shadow-focus:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+}
+
 .focus\:shadow-none:focus {
   box-shadow: none !important;
+}
+
+.focus\:shadow-white:focus {
+  box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
 }
 
 .fill-current {
@@ -16101,6 +16033,30 @@ video {
 
 .w-screen {
   width: 100vw !important;
+}
+
+.w-1\/7 {
+  width: 14.2857143% !important;
+}
+
+.w-2\/7 {
+  width: 28.5714286% !important;
+}
+
+.w-3\/7 {
+  width: 42.8571429% !important;
+}
+
+.w-4\/7 {
+  width: 57.1428571% !important;
+}
+
+.w-5\/7 {
+  width: 71.4285714% !important;
+}
+
+.w-6\/7 {
+  width: 85.7142857% !important;
 }
 
 .z-0 {
@@ -28198,15 +28154,7 @@ video {
   }
 
   .sm\:font-sans {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-  }
-
-  .sm\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif !important;
-  }
-
-  .sm\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+    font-family: Times New Roman !important;
   }
 
   .sm\:font-hairline {
@@ -28317,92 +28265,20 @@ video {
     font-weight: 900 !important;
   }
 
-  .sm\:h-0 {
-    height: 0 !important;
+  .sm\:h-1\/2 {
+    height: 50vh !important;
   }
 
-  .sm\:h-1 {
-    height: 0.25rem !important;
+  .sm\:h-3\/4 {
+    height: 75vh !important;
   }
 
-  .sm\:h-2 {
-    height: 0.5rem !important;
+  .sm\:h-lg {
+    height: 24px !important;
   }
 
-  .sm\:h-3 {
-    height: 0.75rem !important;
-  }
-
-  .sm\:h-4 {
-    height: 1rem !important;
-  }
-
-  .sm\:h-5 {
-    height: 1.25rem !important;
-  }
-
-  .sm\:h-6 {
-    height: 1.5rem !important;
-  }
-
-  .sm\:h-8 {
-    height: 2rem !important;
-  }
-
-  .sm\:h-10 {
-    height: 2.5rem !important;
-  }
-
-  .sm\:h-12 {
-    height: 3rem !important;
-  }
-
-  .sm\:h-16 {
-    height: 4rem !important;
-  }
-
-  .sm\:h-20 {
-    height: 5rem !important;
-  }
-
-  .sm\:h-24 {
-    height: 6rem !important;
-  }
-
-  .sm\:h-32 {
-    height: 8rem !important;
-  }
-
-  .sm\:h-40 {
-    height: 10rem !important;
-  }
-
-  .sm\:h-48 {
-    height: 12rem !important;
-  }
-
-  .sm\:h-56 {
-    height: 14rem !important;
-  }
-
-  .sm\:h-64 {
-    height: 16rem !important;
-  }
-
-  .sm\:h-auto {
-    height: auto !important;
-  }
-
-  .sm\:h-px {
-    height: 1px !important;
-  }
-
-  .sm\:h-full {
-    height: 100% !important;
-  }
-
-  .sm\:h-screen {
-    height: 100vh !important;
+  .sm\:h-xl {
+    height: 48px !important;
   }
 
   .sm\:text-xs {
@@ -31833,10 +31709,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .sm\:shadow-2xl {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .sm\:shadow-inner {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -31845,8 +31717,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .sm\:shadow-focus {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .sm\:shadow-none {
     box-shadow: none !important;
+  }
+
+  .sm\:shadow-white {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .sm\:hover\:shadow-xs:hover {
@@ -31873,10 +31753,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .sm\:hover\:shadow-2xl:hover {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .sm\:hover\:shadow-inner:hover {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -31885,8 +31761,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .sm\:hover\:shadow-focus:hover {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .sm\:hover\:shadow-none:hover {
     box-shadow: none !important;
+  }
+
+  .sm\:hover\:shadow-white:hover {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .sm\:focus\:shadow-xs:focus {
@@ -31913,10 +31797,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .sm\:focus\:shadow-2xl:focus {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .sm\:focus\:shadow-inner:focus {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -31925,8 +31805,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .sm\:focus\:shadow-focus:focus {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .sm\:focus\:shadow-none:focus {
     box-shadow: none !important;
+  }
+
+  .sm\:focus\:shadow-white:focus {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .sm\:fill-current {
@@ -34129,6 +34017,30 @@ video {
 
   .sm\:w-screen {
     width: 100vw !important;
+  }
+
+  .sm\:w-1\/7 {
+    width: 14.2857143% !important;
+  }
+
+  .sm\:w-2\/7 {
+    width: 28.5714286% !important;
+  }
+
+  .sm\:w-3\/7 {
+    width: 42.8571429% !important;
+  }
+
+  .sm\:w-4\/7 {
+    width: 57.1428571% !important;
+  }
+
+  .sm\:w-5\/7 {
+    width: 71.4285714% !important;
+  }
+
+  .sm\:w-6\/7 {
+    width: 85.7142857% !important;
   }
 
   .sm\:z-0 {
@@ -46196,15 +46108,7 @@ video {
   }
 
   .md\:font-sans {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-  }
-
-  .md\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif !important;
-  }
-
-  .md\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+    font-family: Times New Roman !important;
   }
 
   .md\:font-hairline {
@@ -46315,92 +46219,20 @@ video {
     font-weight: 900 !important;
   }
 
-  .md\:h-0 {
-    height: 0 !important;
+  .md\:h-1\/2 {
+    height: 50vh !important;
   }
 
-  .md\:h-1 {
-    height: 0.25rem !important;
+  .md\:h-3\/4 {
+    height: 75vh !important;
   }
 
-  .md\:h-2 {
-    height: 0.5rem !important;
+  .md\:h-lg {
+    height: 24px !important;
   }
 
-  .md\:h-3 {
-    height: 0.75rem !important;
-  }
-
-  .md\:h-4 {
-    height: 1rem !important;
-  }
-
-  .md\:h-5 {
-    height: 1.25rem !important;
-  }
-
-  .md\:h-6 {
-    height: 1.5rem !important;
-  }
-
-  .md\:h-8 {
-    height: 2rem !important;
-  }
-
-  .md\:h-10 {
-    height: 2.5rem !important;
-  }
-
-  .md\:h-12 {
-    height: 3rem !important;
-  }
-
-  .md\:h-16 {
-    height: 4rem !important;
-  }
-
-  .md\:h-20 {
-    height: 5rem !important;
-  }
-
-  .md\:h-24 {
-    height: 6rem !important;
-  }
-
-  .md\:h-32 {
-    height: 8rem !important;
-  }
-
-  .md\:h-40 {
-    height: 10rem !important;
-  }
-
-  .md\:h-48 {
-    height: 12rem !important;
-  }
-
-  .md\:h-56 {
-    height: 14rem !important;
-  }
-
-  .md\:h-64 {
-    height: 16rem !important;
-  }
-
-  .md\:h-auto {
-    height: auto !important;
-  }
-
-  .md\:h-px {
-    height: 1px !important;
-  }
-
-  .md\:h-full {
-    height: 100% !important;
-  }
-
-  .md\:h-screen {
-    height: 100vh !important;
+  .md\:h-xl {
+    height: 48px !important;
   }
 
   .md\:text-xs {
@@ -49831,10 +49663,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .md\:shadow-2xl {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .md\:shadow-inner {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -49843,8 +49671,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .md\:shadow-focus {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .md\:shadow-none {
     box-shadow: none !important;
+  }
+
+  .md\:shadow-white {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .md\:hover\:shadow-xs:hover {
@@ -49871,10 +49707,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .md\:hover\:shadow-2xl:hover {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .md\:hover\:shadow-inner:hover {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -49883,8 +49715,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .md\:hover\:shadow-focus:hover {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .md\:hover\:shadow-none:hover {
     box-shadow: none !important;
+  }
+
+  .md\:hover\:shadow-white:hover {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .md\:focus\:shadow-xs:focus {
@@ -49911,10 +49751,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .md\:focus\:shadow-2xl:focus {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .md\:focus\:shadow-inner:focus {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -49923,8 +49759,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .md\:focus\:shadow-focus:focus {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .md\:focus\:shadow-none:focus {
     box-shadow: none !important;
+  }
+
+  .md\:focus\:shadow-white:focus {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .md\:fill-current {
@@ -52127,6 +51971,30 @@ video {
 
   .md\:w-screen {
     width: 100vw !important;
+  }
+
+  .md\:w-1\/7 {
+    width: 14.2857143% !important;
+  }
+
+  .md\:w-2\/7 {
+    width: 28.5714286% !important;
+  }
+
+  .md\:w-3\/7 {
+    width: 42.8571429% !important;
+  }
+
+  .md\:w-4\/7 {
+    width: 57.1428571% !important;
+  }
+
+  .md\:w-5\/7 {
+    width: 71.4285714% !important;
+  }
+
+  .md\:w-6\/7 {
+    width: 85.7142857% !important;
   }
 
   .md\:z-0 {
@@ -64194,15 +64062,7 @@ video {
   }
 
   .lg\:font-sans {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-  }
-
-  .lg\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif !important;
-  }
-
-  .lg\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+    font-family: Times New Roman !important;
   }
 
   .lg\:font-hairline {
@@ -64313,92 +64173,20 @@ video {
     font-weight: 900 !important;
   }
 
-  .lg\:h-0 {
-    height: 0 !important;
+  .lg\:h-1\/2 {
+    height: 50vh !important;
   }
 
-  .lg\:h-1 {
-    height: 0.25rem !important;
+  .lg\:h-3\/4 {
+    height: 75vh !important;
   }
 
-  .lg\:h-2 {
-    height: 0.5rem !important;
+  .lg\:h-lg {
+    height: 24px !important;
   }
 
-  .lg\:h-3 {
-    height: 0.75rem !important;
-  }
-
-  .lg\:h-4 {
-    height: 1rem !important;
-  }
-
-  .lg\:h-5 {
-    height: 1.25rem !important;
-  }
-
-  .lg\:h-6 {
-    height: 1.5rem !important;
-  }
-
-  .lg\:h-8 {
-    height: 2rem !important;
-  }
-
-  .lg\:h-10 {
-    height: 2.5rem !important;
-  }
-
-  .lg\:h-12 {
-    height: 3rem !important;
-  }
-
-  .lg\:h-16 {
-    height: 4rem !important;
-  }
-
-  .lg\:h-20 {
-    height: 5rem !important;
-  }
-
-  .lg\:h-24 {
-    height: 6rem !important;
-  }
-
-  .lg\:h-32 {
-    height: 8rem !important;
-  }
-
-  .lg\:h-40 {
-    height: 10rem !important;
-  }
-
-  .lg\:h-48 {
-    height: 12rem !important;
-  }
-
-  .lg\:h-56 {
-    height: 14rem !important;
-  }
-
-  .lg\:h-64 {
-    height: 16rem !important;
-  }
-
-  .lg\:h-auto {
-    height: auto !important;
-  }
-
-  .lg\:h-px {
-    height: 1px !important;
-  }
-
-  .lg\:h-full {
-    height: 100% !important;
-  }
-
-  .lg\:h-screen {
-    height: 100vh !important;
+  .lg\:h-xl {
+    height: 48px !important;
   }
 
   .lg\:text-xs {
@@ -67829,10 +67617,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .lg\:shadow-2xl {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .lg\:shadow-inner {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -67841,8 +67625,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .lg\:shadow-focus {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .lg\:shadow-none {
     box-shadow: none !important;
+  }
+
+  .lg\:shadow-white {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .lg\:hover\:shadow-xs:hover {
@@ -67869,10 +67661,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .lg\:hover\:shadow-2xl:hover {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .lg\:hover\:shadow-inner:hover {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -67881,8 +67669,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .lg\:hover\:shadow-focus:hover {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .lg\:hover\:shadow-none:hover {
     box-shadow: none !important;
+  }
+
+  .lg\:hover\:shadow-white:hover {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .lg\:focus\:shadow-xs:focus {
@@ -67909,10 +67705,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .lg\:focus\:shadow-2xl:focus {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .lg\:focus\:shadow-inner:focus {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -67921,8 +67713,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .lg\:focus\:shadow-focus:focus {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .lg\:focus\:shadow-none:focus {
     box-shadow: none !important;
+  }
+
+  .lg\:focus\:shadow-white:focus {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .lg\:fill-current {
@@ -70125,6 +69925,30 @@ video {
 
   .lg\:w-screen {
     width: 100vw !important;
+  }
+
+  .lg\:w-1\/7 {
+    width: 14.2857143% !important;
+  }
+
+  .lg\:w-2\/7 {
+    width: 28.5714286% !important;
+  }
+
+  .lg\:w-3\/7 {
+    width: 42.8571429% !important;
+  }
+
+  .lg\:w-4\/7 {
+    width: 57.1428571% !important;
+  }
+
+  .lg\:w-5\/7 {
+    width: 71.4285714% !important;
+  }
+
+  .lg\:w-6\/7 {
+    width: 85.7142857% !important;
   }
 
   .lg\:z-0 {
@@ -82192,15 +82016,7 @@ video {
   }
 
   .xl\:font-sans {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
-  }
-
-  .xl\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif !important;
-  }
-
-  .xl\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+    font-family: Times New Roman !important;
   }
 
   .xl\:font-hairline {
@@ -82311,92 +82127,20 @@ video {
     font-weight: 900 !important;
   }
 
-  .xl\:h-0 {
-    height: 0 !important;
+  .xl\:h-1\/2 {
+    height: 50vh !important;
   }
 
-  .xl\:h-1 {
-    height: 0.25rem !important;
+  .xl\:h-3\/4 {
+    height: 75vh !important;
   }
 
-  .xl\:h-2 {
-    height: 0.5rem !important;
+  .xl\:h-lg {
+    height: 24px !important;
   }
 
-  .xl\:h-3 {
-    height: 0.75rem !important;
-  }
-
-  .xl\:h-4 {
-    height: 1rem !important;
-  }
-
-  .xl\:h-5 {
-    height: 1.25rem !important;
-  }
-
-  .xl\:h-6 {
-    height: 1.5rem !important;
-  }
-
-  .xl\:h-8 {
-    height: 2rem !important;
-  }
-
-  .xl\:h-10 {
-    height: 2.5rem !important;
-  }
-
-  .xl\:h-12 {
-    height: 3rem !important;
-  }
-
-  .xl\:h-16 {
-    height: 4rem !important;
-  }
-
-  .xl\:h-20 {
-    height: 5rem !important;
-  }
-
-  .xl\:h-24 {
-    height: 6rem !important;
-  }
-
-  .xl\:h-32 {
-    height: 8rem !important;
-  }
-
-  .xl\:h-40 {
-    height: 10rem !important;
-  }
-
-  .xl\:h-48 {
-    height: 12rem !important;
-  }
-
-  .xl\:h-56 {
-    height: 14rem !important;
-  }
-
-  .xl\:h-64 {
-    height: 16rem !important;
-  }
-
-  .xl\:h-auto {
-    height: auto !important;
-  }
-
-  .xl\:h-px {
-    height: 1px !important;
-  }
-
-  .xl\:h-full {
-    height: 100% !important;
-  }
-
-  .xl\:h-screen {
-    height: 100vh !important;
+  .xl\:h-xl {
+    height: 48px !important;
   }
 
   .xl\:text-xs {
@@ -85827,10 +85571,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .xl\:shadow-2xl {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .xl\:shadow-inner {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -85839,8 +85579,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .xl\:shadow-focus {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .xl\:shadow-none {
     box-shadow: none !important;
+  }
+
+  .xl\:shadow-white {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .xl\:hover\:shadow-xs:hover {
@@ -85867,10 +85615,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .xl\:hover\:shadow-2xl:hover {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .xl\:hover\:shadow-inner:hover {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -85879,8 +85623,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .xl\:hover\:shadow-focus:hover {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .xl\:hover\:shadow-none:hover {
     box-shadow: none !important;
+  }
+
+  .xl\:hover\:shadow-white:hover {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .xl\:focus\:shadow-xs:focus {
@@ -85907,10 +85659,6 @@ video {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
   }
 
-  .xl\:focus\:shadow-2xl:focus {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  }
-
   .xl\:focus\:shadow-inner:focus {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) !important;
   }
@@ -85919,8 +85667,16 @@ video {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
   }
 
+  .xl\:focus\:shadow-focus:focus {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+  }
+
   .xl\:focus\:shadow-none:focus {
     box-shadow: none !important;
+  }
+
+  .xl\:focus\:shadow-white:focus {
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.76) !important;
   }
 
   .xl\:fill-current {
@@ -88123,6 +87879,30 @@ video {
 
   .xl\:w-screen {
     width: 100vw !important;
+  }
+
+  .xl\:w-1\/7 {
+    width: 14.2857143% !important;
+  }
+
+  .xl\:w-2\/7 {
+    width: 28.5714286% !important;
+  }
+
+  .xl\:w-3\/7 {
+    width: 42.8571429% !important;
+  }
+
+  .xl\:w-4\/7 {
+    width: 57.1428571% !important;
+  }
+
+  .xl\:w-5\/7 {
+    width: 71.4285714% !important;
+  }
+
+  .xl\:w-6\/7 {
+    width: 85.7142857% !important;
   }
 
   .xl\:z-0 {

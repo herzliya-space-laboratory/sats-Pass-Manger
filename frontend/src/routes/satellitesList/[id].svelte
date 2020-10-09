@@ -35,50 +35,32 @@
 	<title> {satellite.name} </title>
 </svelte:head>
 
-<div class='content'>
-	<h2>satellite name: {satellite.name}</h2>
-	<h2>noard id: {satellite.satId}</h2>
+<div class='container content-start'>
+	<h2 class="inline-block text-3xl mx-12 p-0 my-6"> satellite name: {satellite.name} </h2>
+	<h2 class="inline-block text-3xl mx-12 p-0 my-6"> noard id: {satellite.satId} </h2>
 
-	<button on:click = {reloadPass}> reload pass </button>
+	<button on:click = {reloadPass}
+	 class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mx-12 my-12 rounded-full">
+		reload pass 
+	</button>
 
-	<PassListTitle />
-	<div class = 'box'>
-		{#each satellite.pass as pass}
-			<Pass pass={pass} />
-		{/each}
+
+	<div class="flex flex-col">
+		<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+			<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+				<div class="shadow-white overflow-hidden border-b border-gray-800 sm:rounded-lg">
+					<table class="min-w-full divide-y divide-gray-200 ">
+						<PassListTitle />
+						<div class="h-3/4 overflow-y-auto">
+							<tbody class="bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
+								{#each satellite.pass as pass}
+									<Pass pass={pass} />
+								{/each}
+							</tbody>
+						</div>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
-
-	
 </div>
-
-
-<style>
-   	.box{
-        padding: 0px;
-        margin: 0;
-        height: 600px;
-        border: 1px solid #333;
-        overflow: auto;
-    }
-
-	h2{
-		font-size: 2em;
-	}
-
-	button {
-		background-color: gray; /* Green */
-		border: black 1px;
-		color: black;
-		padding: 15px 32px;
-		margin: 10px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
-	}
-
-	button:hover {
-		box-shadow: 0 12px 16px 0 rgba(255, 255, 255, 0.696), 0 17px 50px 0 rgba(255, 255, 255, 0.796);
-	}
-
-</style>
