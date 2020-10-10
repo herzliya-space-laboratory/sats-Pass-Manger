@@ -6,7 +6,7 @@
     let satId = '';
     
     function sendSatllliteToDataBase(){
-        axios.post("http://localhost:5000/api/v1/satellite/", {name, satId})
+        axios.post("http://localhost:4000/api/v1/satellite/", {name, satId})
     }
 </script>
 

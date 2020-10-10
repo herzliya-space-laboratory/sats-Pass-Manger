@@ -3,7 +3,7 @@
     import axios from "axios";
     
     export async function preload(page, session) {
-        let res = await axios.get("http://localhost:5000/api/v1/satellite/");
+        let res = await axios.get("http://localhost:4000/api/v1/satellite/");
         const data = res.data.data;
         return { data };
 	}

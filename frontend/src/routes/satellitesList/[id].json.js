@@ -3,7 +3,7 @@ export async function get(req, res, next) {
 	const axios = require('axios');
     
     //todo: get the uri from config file
-	const response = await axios.get(`http://localhost:5000/api/v1/satellite/${id}`)
+	const response = await axios.get(`http://localhost:4000/api/v1/satellite/${id}`)
     const satellite = response.data.data;
     const success = response.data.success;
     const status = response.status;

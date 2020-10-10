@@ -26,7 +26,7 @@
 	function reloadPass() {
 		const now = new Date();
 		const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
-		axios.get(`http://localhost:5000/api/v1/satellite/passes/${satellite._id}?endTime=${nextWeek}`)
+		axios.get(`http://localhost:4000/api/v1/satellite/passes/${satellite._id}?endTime=${nextWeek}`)
 	}
 </script>
 

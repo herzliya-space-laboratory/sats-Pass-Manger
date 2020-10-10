@@ -52,7 +52,7 @@
       },
       onSubmit: values => {
         alert(JSON.stringify(values));
-        axios.put(`http://localhost:5000/api/v1/pass/updatePlan/${pass._id}`, values);
+        axios.put(`http://localhost:4000/api/v1/pass/updatePlan/${pass._id}`, values);
       }
     });
 

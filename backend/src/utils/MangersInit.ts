@@ -1,7 +1,7 @@
 import expressApi from "../IO_Mangers/ApiManger/expressApi";
 import mangoDBManger from '../IO_Mangers/DBManger/mangoDBManger'
 
-const PORT: number = parseInt(process.env.PORT  || '5000');
+const PORT: number = parseInt(process.env.PORT  || '4000');
 
 export function createAPIManger() {
     switch (process.env.SERVER_MANGER_TYPE) {

@@ -3,7 +3,7 @@
     import axios from "axios";
     
     export async function preload(page, session) {
-        let res = await axios.get("http://localhost:5000/api/v1/getClosePass");
+        let res = await axios.get("http://localhost:4000/api/v1/getClosePass");
         const data = res.data.data;
         return { pass: data };
 	}
@@ -61,7 +61,7 @@
       },
       onSubmit: values => {
         alert(JSON.stringify(values));
-        axios.put(`http://localhost:5000/api/v1/pass/updateWhatWasExequte/${pass._id}`, values);
+        axios.put(`http://localhost:4000/api/v1/pass/updateWhatWasExequte/${pass._id}`, values);
       }
     });
     

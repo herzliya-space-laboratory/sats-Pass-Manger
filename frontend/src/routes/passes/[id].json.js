@@ -2,7 +2,7 @@ export async function get(req, res, next) {
 	const { id } = req.params;
 	const axios = require('axios');
     
-	const response = await axios.get(`http://localhost:5000/api/v1/pass/${id}`);
+	const response = await axios.get(`http://localhost:4000/api/v1/pass/${id}`);
     const passes = response.data.data;
     const success = response.data.success;
     const status = response.status;
