@@ -31,7 +31,7 @@ export default class ConcreteMediators implements IMediator
 
     private async getNewistPassTime(sender)
     {
-        return (await this.passesManger.getNewistPass()).startTime;
+        return (await this.passesManger.getNewistPass({params: {id: sender}})).startTime;
     }
 
 }

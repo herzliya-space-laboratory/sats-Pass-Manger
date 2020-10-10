@@ -192,10 +192,6 @@
 
 
 <style>
-	h2{
-		font-size: 2em;
-	}
-
 	input {
 		padding: 6px 10px;
 		margin: 8px 0;
@@ -221,10 +217,6 @@
 		display: inline-block;
 		font-size: 16px;
 	}
-
-    .button-group {
-      display: flex;
-    }
 
     button ~ button {
       margin-left: 15px;

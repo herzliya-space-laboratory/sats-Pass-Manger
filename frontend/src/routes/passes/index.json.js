@@ -1,5 +1,4 @@
 export async function get(req, res, next) {
-	console.log('passes/:id');
 	const axios = require('axios');
     
 	const response = await axios.get(`http://localhost:4000/api/v1/pass?sort=-startTime&limit=50`)

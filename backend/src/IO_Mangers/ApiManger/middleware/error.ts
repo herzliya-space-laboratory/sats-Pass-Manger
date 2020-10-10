@@ -1,6 +1,5 @@
 export default function errorHandler(err, req, res, next)
 {
-    console.log(err.stack);
 
     if(err.code === 11000 || err.name === "ValidationError")
     {

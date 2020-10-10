@@ -35,6 +35,11 @@ export default class PassesDBManger extends mangoDBManger implements IPassesDBMa
         return updated;
     }
 
+    async getNewist(id)
+    {
+        return await Pass.findOne({'Satellite': id}, {}, { sort: { 'startTime' : -1 } });
+    }
+
     getPassAmount() 
     {
         Pass.countDocuments({}, (err, count) => {

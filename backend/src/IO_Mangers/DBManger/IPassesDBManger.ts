@@ -7,5 +7,6 @@ export default interface IPassesDBManger extends IDBManager
     getSinglePass(id:ObjectId);
     createPass(PassToCrate);
     updatePass(id:ObjectId, dataToUpdate);
+    getNewist(id);
     getPassAmount();
 }

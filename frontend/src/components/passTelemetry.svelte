@@ -7,44 +7,6 @@
     export let handleChange;
 
     
-    // onMount(() => {
-    //     console.log(this);
-    //     let coll = document.getElementsByClassName("collapsible");
-    //     let i;
-
-    //     for (i = 0; i < coll.length; i++) {
-    //         coll[i].addEventListener("click", function() {
-    //     console.log(this);
-    //             this.classList.toggle("active");
-    //             let content = this.nextElementSibling;
-    //             if (content.style.maxHeight){
-    //                 content.style.maxHeight = "";
-    //             } else {
-    //                 content.style.maxHeight = "500000px";
-    //             } 
-    //         });
-    //     }
-    // });
-
-    // afterUpdate(() => {
-    //     console.log(this);
-    //     let coll = document.getElementsByClassName("collapsible");
-    //     let i;
-
-    //     for (i = 0; i < coll.length; i++) {
-    //         coll[i].addEventListener("click", function() {
-    //     console.log(this);
-    //             this.classList.toggle("active");
-    //             let content = this.nextElementSibling;
-    //             if (content.style.maxHeight){
-    //                 content.style.maxHeight = "";
-    //             } else {
-    //                 content.style.maxHeight = "500000px";
-    //             } 
-    //         });
-    //     }
-	// });
-
     const add = () => {
       $form.Telemetry = $form.Telemetry.concat({
                 st: "",

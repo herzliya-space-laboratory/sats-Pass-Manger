@@ -92,8 +92,7 @@ export default class passLogic extends BaseComponent
 
     async getNewistPass(req?:any , res?:any)
     {
-        const pass = (await this.db.getAllPasses({}, { sort:'-startTime'}))[0] || {startTime: new Date()};
-
+        const pass = (await this.db.getNewist(req.params.id)) || {startTime: new Date()};
         if(res)
             returnSuccessRespondToTheClient(res, 200, pass);
         else
