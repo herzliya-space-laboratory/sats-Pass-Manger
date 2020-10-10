@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "start": "NODE_ENV=production node server",
+    "start": "NODE_ENV=production ts-node src/server.ts",
     "dev": "nodemon src/server.ts",
     "test": "jest",
     "testw": "jest --watchAll"
@@ -21,6 +21,8 @@
     "jspredict": "^1.1.1",
     "mongodb": "^3.5.9",
     "mongoose": "^5.10.3",
+    "netlify-lambda": "^2.0.1",
+    "serverless-http": "^2.6.0",
     "ts-node": "^9.0.0"
   },
   "devDependencies": {
