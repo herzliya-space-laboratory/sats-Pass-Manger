@@ -26,16 +26,16 @@
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="shadow-white overflow-hidden border-b border-gray-800 sm:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200 ">
-                        <Title/>
-                        <div class="h-3/4 overflow-y-auto">
-                            <tbody class="bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
-                                {#each data as satellite}
-                                    <Satellite {...satellite}/>
-                                {/each}
-                            </tbody>
-                        </div>
-                    </table>
+                <table class="min-w-full divide-y divide-gray-200 ">
+                    <Title/>
+                    <div class="h-3/4 overflow-y-auto">
+                        <tbody class="bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
+                            {#each data as satellite}
+                                <Satellite {...satellite}/>
+                            {/each}
+                        </tbody>
+                    </div>
+                </table>
                 <AddSatellite />
             </div>
         </div>

@@ -27,7 +27,7 @@ export default class mangoDBManger implements IDBManager
 
     protected formatTheDBRequst(dbRequst: any, params: any, populate:any = '') {
         if(Object.keys(params).length === 0) return dbRequst;
-
+        
         if (this.populateRequset(params, populate))
             dbRequst = dbRequst.populate(populate);
 
@@ -39,7 +39,9 @@ export default class mangoDBManger implements IDBManager
     }
 
     private populateRequset(params: any, populate: any) {
-        
+        if(!params.select)  
+            return true;
+            
         if(typeof(params.select) != 'string')
             return false;
             

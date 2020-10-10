@@ -36,11 +36,11 @@
 </svelte:head>
 
 <div class='container content-start'>
-	<h2 class="inline-block text-3xl mx-12 p-0 my-6"> satellite name: {satellite.name} </h2>
-	<h2 class="inline-block text-3xl mx-12 p-0 my-6"> noard id: {satellite.satId} </h2>
+	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> satellite name: {satellite.name} </h2>
+	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> noard id: {satellite.satId} </h2>
 
 	<button on:click = {reloadPass}
-	 class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mx-12 my-12 rounded-full">
+	 class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mx-12 mt-5 mb-5 rounded-full">
 		reload pass 
 	</button>
 
