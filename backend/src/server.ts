@@ -36,9 +36,6 @@ initIOInputRoutes();
 process.on("unhandledRejection", (err: any, promise) => {
     if(!err.message) err.message = "server error";
     console.log(`error: ${err}`);
-
-    // APIManger.close();
-    // process.exit(1);
 })
 
 process.on('exit', () => {
@@ -67,6 +64,11 @@ function initIOInputRoutes()
             method: 'get',
             path: '/api/v1/satellite/passes/:id',
             callback: satelliteManger.getSatellitePassesAndSaveThem
+        },
+        {
+            method: 'get',
+            path: '/api/v1/satellites/passes/',
+            callback: satelliteManger.getAllSatellitesPassesAndSaveThem
         }
     ];
 
@@ -90,11 +92,6 @@ function initIOInputRoutes()
             method: 'put',
             path: '/api/v1/pass/updateWhatWasExequte/:id',
             callback: passesManger.UpdateWhatWasInAPass
-        },
-        {
-            method: 'get',
-            path: '/api/v1/getClosePass',
-            callback: passesManger.getClosestPass
         }
         
     ];

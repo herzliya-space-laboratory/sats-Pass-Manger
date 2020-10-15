@@ -21,6 +21,7 @@
 	import Pass from '../../components/passes/pass';
 	import PassListTitle from '../../components/passes/passListTitle';
 	export let passes;
+
 </script>
 
 

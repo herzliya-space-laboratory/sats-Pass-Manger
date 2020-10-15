@@ -1,37 +1,20 @@
 
 <script context="module">
     import axios from "axios";
-    
-    export async function preload(page, session) {
-        let res = await axios.get("http://localhost:4000/api/v1/getClosePass");
+    let id;
+    export async function preload({ params, query }) {
+        id = params.id
+        let res = await axios.get(`http://localhost:4000/api/v1/pass/${id}`);
         const data = res.data.data;
         return { pass: data };
 	}
 </script>
 
 <script>
-    import PassTelemetry from "../../components/passTelemetry.svelte"
     import { createForm } from "svelte-forms-lib";
     import { onMount } from 'svelte';
 
     export let pass;
-    
-    onMount(() => {
-        let coll = document.getElementsByClassName("collapsible");
-        let i;
-
-        for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-            content.style.maxHeight = null;
-            } else {
-            content.style.maxHeight = content.scrollHeight + "px";
-            } 
-        });
-        }
-    });
     
 	const {
       form,
@@ -43,28 +26,16 @@
     } = createForm({
       initialValues: {
 		whatWasExecute: pass.whatWasExecute || "",
-        Errors: pass.Errors || "none",
-        Telemetry: pass.Telemetry || [
-            {
-                st: '',
-                sst: '',
-                name: '',
-                parametrs: [
-                    {
-                        name: "",
-                        recivedValue: ""
-                    }
-                ]
-            }
-        ]
+        manualErrors: pass.manualErrors || "none",
+        systemErrors: pass.systemErrors || "none",
+        status: pass.status || ''
       },
       onSubmit: values => {
-        alert(JSON.stringify(values));
-        axios.put(`http://localhost:4000/api/v1/pass/updateWhatWasExequte/${pass._id}`, values);
+          
+        axios.put(`http://localhost:4000/api/v1/pass/updateWhatWasExequte/${pass._id}`, values)
+            .catch(e => alert(e.response.data.error));
       }
     });
-    
-
 </script>
 
 
@@ -75,7 +46,7 @@
 <div class="shadow-white overflow-hidden sm:rounded-lg">
     <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-white">
-            what was in a pass
+            post pass
         </h3>
 
         <p class="mt-1 max-w-2xl text-sm leading-5 text-white">
@@ -97,7 +68,7 @@
 
             <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-white">
-                    start time
+                    start time[local]
                 </dt>
 
                 <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
@@ -107,7 +78,7 @@
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-white">
-                    end time
+                    end time[local]
                 </dt>
 
                 <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
@@ -127,7 +98,7 @@
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-white">
-                    duration
+                    duration[min]
                 </dt>
 
                 <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
@@ -167,35 +138,25 @@
                     </dd>
                 </div>
                 
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm leading-5 font-medium text-white">
-                        pass Plan
-                    </dt>
-
-                    <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
-                        <ul class="border border-gray-200 rounded-md divide-y divide-gray-400">  
-                            {#each pass.Plan as commend, i}
-                                
-                                <li class="p-0 items-center text-sm">
-                                <button class="collapsible m-0">{commend.name}({commend.st}, {commend.sst}): </button>
-                                <div class = "content">
-                                    {#each commend.parametrs as parameter}
-                                        {`${parameter.name}: ${parameter.value}`} <br>
-                                    {/each}
-                                </div>
-                                </li>
-                            {/each}
-                        </ul>  
-                    </dd>
-                </div>
+                
             {/if}
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-white">
+                    pass status
+                </dt>
+
+                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
+                    <input class="w-3/4" placeholder="pass status" name = "status" bind:value={$form.status}/>
+                </dd>
+            </div>
 
             <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-white">
                     pass summary
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
                     <textarea 
                         class="w-3/4" 
                         placeholder="pass summary" 
@@ -206,28 +167,34 @@
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-white">
-                   errors summary if there where
+                   manual errors
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
                     <textarea 
                         class="w-3/4" 
                         placeholder="Errors summary" 
                         name = "Errors" 
-                        bind:value={$form.Errors}/>
+                        bind:value={$form.manualErrors}/>
                 </dd>
             </div>
             
-            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-white">
-                    data recived
+                   system errors
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
-                    <PassTelemetry form={form} errors={errors} handleChange={handleChange} />
+                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
+                    <textarea 
+                        class="w-3/4" 
+                        placeholder="Errors summary" 
+                        name = "Errors" 
+                        bind:value={$form.systemErrors}/>
                 </dd>
             </div>
             
+             
         </dl>
     </div>
 		
@@ -255,42 +222,6 @@
 
 
 <style>	
-    .content {
-        padding: 0 18px;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-out;
-        background-color: #111;
-    }
-
-    .collapsible {
-        background-color: #777;
-        color: #111;
-        cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border: none;
-        text-align: left;
-        outline: none;
-        font-size: 15px;
-    }
-
-    :global(.active), .collapsible:hover {
-        background-color: #555;
-    }
-
-    .collapsible:after {
-        content: '\002B';
-        color: #111;
-        font-weight: bold;
-        float: right;
-        margin-left: 5px;
-    }
-    
-    :global(.active:after) {
-        content: "\2212";
-    }
-
     button ~ button {
       margin-left: 15px;
     }

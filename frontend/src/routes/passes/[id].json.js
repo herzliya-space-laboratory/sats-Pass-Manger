@@ -2,10 +2,11 @@ export async function get(req, res, next) {
 	const { id } = req.params;
 	const axios = require('axios');
     
-	const response = await axios.get(`http://localhost:4000/api/v1/pass/${id}`);
+	const response = await axios.get(`http://localhost:4000/api/v1/pass/${id}?sort=-startTime`);
     const passes = response.data.data;
     const success = response.data.success;
-    const status = response.status;
+	const status = response.status;
+	
 
 	if (success) {
 		res.writeHead(status, {

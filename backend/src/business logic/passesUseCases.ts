@@ -50,9 +50,9 @@ export default class passLogic extends BaseComponent
         const id = req.params.id;
         const PassPlan:{
             goal: String,
-            Plan: [],
             PassPlanner: String,
-            PassExecuter: String
+            PassExecuter: String,
+            status: string
         } = req.body;
 
         if(!this.checkUpdatePassPlanIsValid(PassPlan))
@@ -69,8 +69,9 @@ export default class passLogic extends BaseComponent
         const id = req.params.id;
         const whatWasExecuted:{
             whatWasExecute: string,
-            Telemetry:any,
-            Errors: string,
+            manualErrors: string,
+            systemErrors: string,
+            status: string
         } = req.body;
         
         if(!this.checkUpdatePassExqtedIsValid(whatWasExecuted))
@@ -108,7 +109,6 @@ export default class passLogic extends BaseComponent
     private checkUpdatePassPlanIsValid(PassPlan)
     {
         if(PassPlan.goal == undefined || PassPlan.goal == '') return false;
-        if(PassPlan.Plan == undefined || PassPlan.Plan == []) return false;
         if(PassPlan.PassPlanner == undefined || PassPlan.PassPlanner == '') return false;
         if(PassPlan.PassExecuter == undefined || PassPlan.PassExecuter == '') return false;
         return true;
@@ -116,8 +116,8 @@ export default class passLogic extends BaseComponent
 
     private checkUpdatePassExqtedIsValid(whatWasExecuted) {
         if(whatWasExecuted.whatWasExecute == undefined || whatWasExecuted.whatWasExecute == '') return false;
-        if(whatWasExecuted.Telemetry == undefined || whatWasExecuted.Telemetry == []) return false;
-        if(whatWasExecuted.Errors == undefined || whatWasExecuted.Errors == '') return false;
+        if(whatWasExecuted.manualErrors == undefined || whatWasExecuted.manualErrors == '') return false;
+        if(whatWasExecuted.systemErrors == undefined || whatWasExecuted.systemErrors == '') return false;
         return true;
     }
 }

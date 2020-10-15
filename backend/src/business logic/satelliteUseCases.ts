@@ -76,4 +76,26 @@ export default class satelliteLogic extends BaseComponent
         
         returnSuccessRespondToTheClient(res, 200, passes)
     }
+
+    getAllSatellitesPassesAndSaveThem = async (req, res) => {
+        const sats:any = await this.db.getAllSatellites();
+        let passes = [];
+        for(let sat of sats)
+        {   
+            let startTime = await this.mediator.notify(sat._id, 'getNewistPassTime') || new Date();
+            startTime = new Date(startTime.getTime() + 30*60000);
+            
+            let endTime = new Date(req.query.endTime);
+
+            const satellite = await this.db.getSingleSatellites(sat._id);
+
+            const TLE = await getSatelliteTle(satellite.satId);
+
+            const newPasses = await findSatellitePasses(TLE, startTime, endTime, sat._id);
+            
+            passes.push(await this.mediator.notify(newPasses, 'newPassWasFount'));
+
+        }
+        returnSuccessRespondToTheClient(res, 200, passes)
+    }
 } 

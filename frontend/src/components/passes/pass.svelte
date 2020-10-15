@@ -9,12 +9,15 @@
 
 
 <tr class="flex w-full mb-4">
+    <td class="w-1/8 px-6 pt-6 whitespace-no-wrap">
+        <div class="text-sm text-center leading-5 text-white-900">{pass.status} </div>
+    </td>
 
-    <td class="w-1/7 px-6 pt-6 whitespace-no-wrap">
+    <td class="w-1/8 px-6 pt-6 whitespace-no-wrap">
         <div class="text-sm text-center leading-5 text-white-900">{pass.Satellite.name} </div>
     </td>
 
-    <td class="w-1/7 px-6 pt-4 whitespace-no-wrap">
+    <td class="w-1/8 px-6 pt-4 whitespace-no-wrap">
         <div class="flex items-center">
             <div class="ml-4">
                 <div class="text-sm text-center leading-5 font-medium text-white-900">
@@ -27,24 +30,24 @@
         </div>
     </td>
 
-    <td class="w-1/7 px-6 pt-4 whitespace-no-wrap">
+    <td class="w-1/8 px-6 pt-4 whitespace-no-wrap">
         {@html new Date(pass.startTime).toLocaleString().replace(',', '<br>')}
     </td>
 
-    <td class="w-1/7 px-6 text-center pt-4 whitespace-no-wrap">
+    <td class="w-1/8 px-6 text-center pt-4 whitespace-no-wrap">
         {@html new Date(pass.endTime).toLocaleString().replace(',', '<br>')}
     </td>
 
-    <td class="w-1/7 px-6 text-center pt-6 whitespace-no-wrap text-sm leading-5 text-gray-500">
+    <td class="w-1/8 px-6 text-center pt-6 whitespace-no-wrap text-sm leading-5 text-gray-500">
         {pass.maxElevation.toFixed(2)}
     </td>
 
 
-    <td class="w-1/7 px-6 text-center pt-6 whitespace-no-wrap text-sm leading-5 text-gray-500">
+    <td class="w-1/8 px-6 text-center pt-6 whitespace-no-wrap text-sm leading-5 text-gray-500">
         {pass.duration} 
     </td>
 
-    <td class="w-1/7 px-6 pt-6 whitespace-no-wrap text-center text-sm leading-5 font-medium">
+    <td class="w-1/8 px-6 pt-6 whitespace-no-wrap text-center text-sm leading-5 font-medium">
 
         <a href={passPageUrl} type="button"
          class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out">

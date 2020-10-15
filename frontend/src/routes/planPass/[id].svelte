@@ -19,7 +19,6 @@
 </script> 
 
 <script>
-    import PassCommends from "../../components/passCommends.svelte"
     import { createForm } from "svelte-forms-lib";
 	import axios from 'axios'
 	export let pass;
@@ -35,24 +34,13 @@
       initialValues: {
 		goal: pass.goal || "",
 		PassPlanner: pass.PassPlanner || "",
-		PassExecuter: pass.PassExecuter || "",
-        Plan: pass.Plan || [
-          {
-			st: "",
-			sst: "",
-			name: "",
-			parametrs: [
-				{
-					name: "",
-					value: ""
-				}
-			]
-          }
-        ]
+        PassExecuter: pass.PassExecuter || "",
+        status: pass.status || ""
       },
       onSubmit: values => {
         alert(JSON.stringify(values));
-        axios.put(`http://localhost:4000/api/v1/pass/updatePlan/${pass._id}`, values);
+        axios.put(`http://localhost:4000/api/v1/pass/updatePlan/${pass._id}`, values)
+            .catch(e => alert(e.response.data.error));
       }
     });
 
@@ -90,7 +78,7 @@
 
             <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-white">
-                    start time
+                    start time[local]
                 </dt>
 
                 <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
@@ -100,7 +88,7 @@
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-white">
-                    end time
+                    end time[local]
                 </dt>
 
                 <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
@@ -120,11 +108,21 @@
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm leading-5 font-medium text-white">
-                    duration
+                    duration[min]
                 </dt>
 
                 <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
                     {pass.duration}
+                </dd>
+            </div>
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-sm leading-5 font-medium text-white">
+                    pass status
+                </dt>
+
+                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
+                    <input class="w-3/4" placeholder="pass status" name = "status" bind:value={$form.status}/>
                 </dd>
             </div>
 
@@ -133,7 +131,7 @@
                     pass goal
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
 					<input class="w-3/4" placeholder="pass goal" name = "goal" bind:value={$form.goal}/>
                 </dd>
             </div>
@@ -143,7 +141,7 @@
                    pass planner
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
 					<input class="w-3/4" placeholder="pass planner" name = "PassPlanner" bind:value={$form.PassPlanner}/> 
                 </dd>
             </div>
@@ -153,18 +151,8 @@
                     pass executer
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
 					<input class="w-3/4" placeholder="pass executer" name = "PassExecuter" bind:value={$form.PassExecuter}/>
-                </dd>
-            </div>
-
-            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
-                    pass plan
-                </dt>
-
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
-                    <PassCommends form={form} errors={errors} handleChange={handleChange} />
                 </dd>
             </div>
         </dl>

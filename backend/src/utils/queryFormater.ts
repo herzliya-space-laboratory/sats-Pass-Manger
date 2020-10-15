@@ -4,8 +4,7 @@ export default function formatQueryAndGetPagination(query, totalElements)
     let params = moveTheSearchParamsFromTheQueryToNewObject(query);
     const formatQuery = addDollarSignAtTheBeginingOfAllTheQuryComparisonOperators(query);
     
-    params.limit = parseInt(query.limit, 10) || 100;
-
+    params.limit = parseInt(params.limit, 10) || 100;
     return {pagination, params, formatQuery};
 
 }

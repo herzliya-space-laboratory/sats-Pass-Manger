@@ -23,11 +23,20 @@
 
 	import axios from 'axios'
 	export let satellite;
-	function reloadPass() {
-		const now = new Date();
-		const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
-		axios.get(`http://localhost:4000/api/v1/satellite/passes/${satellite._id}?endTime=${nextWeek}`)
+	async function reloadPass() {
+		try {
+			location.reload();
+			
+		} catch (error) {
+			console.log(error);
+		}
+		
 	}
+
+
+    
+    const reloadPassEvery = 86400;
+    setInterval(reloadPass, reloadPassEvery);
 </script>
 
 

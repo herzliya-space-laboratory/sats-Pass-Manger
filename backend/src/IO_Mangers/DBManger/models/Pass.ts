@@ -10,15 +10,18 @@ const Pass = new mongoose.Schema({
         ref: 'Satellite'
     },
     
+    status: {
+        type: String,
+        default: 'not ready'
+    },
     goal: String,
-    Plan: Array,
     PassPlanner: String,
     PassExecuter: String,
 
     whatWasExecute: String,
-    Telemetry: Object,
-    Errors: String,
-    
+    manualErrors: String,
+    systemErrors: String,
+
     createdAt: {
         type: Date,
         default: Date.now
