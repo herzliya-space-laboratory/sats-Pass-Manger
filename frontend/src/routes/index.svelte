@@ -19,7 +19,10 @@
 
 
 	let limit = 10;
-	let endTime;
+
+	const now = new Date();
+	const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+	let endTime = nextWeek;
 
 	async function limitChange() {
 		let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=startTime&limit=${limit}&startTime[gte]=${new Date()}`);
@@ -35,17 +38,6 @@
 	}
 
 
-	async function reloadPass() {
-		await axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${endTime}`);
-		let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=startTime&startTime[lte]=${endTime}&startTime[gte]=${new Date()}`);
-        const data = res.data.data;
-        passes = data
-	}
-
-
-    
-    const reloadPassEvery = 86400;
-    setInterval(reloadPass, reloadPassEvery);
 </script>
 
 
@@ -60,7 +52,7 @@
 			<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 				<div class="shadow-white overflow-hidden border-b border-gray-800 sm:rounded-lg">
 					<table class="min-w-full divide-y divide-gray-200 ">
-						<PassListTitle />
+						<PassListTitle bind:passes={passes} />
 						<div class="h-3/4 overflow-y-auto">
 							<tbody class="w-full bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
 								{#each passes as pass}
@@ -81,11 +73,6 @@
 		or pass up to when
 		<input class="text-black" type = 'datetime-local' placeholder="how many pass" bind:value={endTime} on:change={endTimeChange}/>
 
-
-		<button on:click = {reloadPass}
-		class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mx-12 mt-5 mb-5 rounded-full">
-			reload pass 
-		</button>
 	</div>
 	
 </div>

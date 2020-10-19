@@ -344,7 +344,7 @@ describe('test the passes business logic', () => {
     })
 
     test("add pass plan to a pass", async () => {
-        expect.assertions(10);
+        expect.assertions(9);
 
         const id = new mongoose.Types.ObjectId();
         const now = new Date();
@@ -362,11 +362,8 @@ describe('test the passes business logic', () => {
 
         const passPlan = {
             goal: 'test pass',
-            Plan: [
-                {commend: 'test', id: 123}
-            ],
             PassPlanner: 'itai lupo',
-            PassExecuter: ''
+            PassExecuter: 'itai lupo'
         }
 
         const req = {body: passPlan, params: {id}}
@@ -377,6 +374,7 @@ describe('test the passes business logic', () => {
                 return this;
             },
             json: (obj) => {
+                
                 Object.keys(passToCreate).forEach(key => expect(obj.data[key]).toStrictEqual(passToCreate[key]));
                 Object.keys(passPlan).forEach(key => expect(obj.data.toObject()[key]).toEqual(passPlan[key]));
             }
@@ -422,7 +420,7 @@ describe('test the passes business logic', () => {
 
     })
 
-    test("add what was in pass to pass to a pass", async () => {
+    test("add post pass to pass to a pass", async () => {
         expect.assertions(9);
 
         const id = new mongoose.Types.ObjectId();
@@ -441,8 +439,8 @@ describe('test the passes business logic', () => {
 
         const whatWasExecute = {
             whatWasExecute: 'all',
-            Telemetry: {data: 123},
-            Errors: 'none',
+            manualErrors: 'none',
+            systemErrors: 'none',
         }
 
         const req = {body: whatWasExecute, params: {id}}

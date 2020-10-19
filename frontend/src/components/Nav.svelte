@@ -3,7 +3,7 @@
 
 	let pages = [
 		{
-			title: "next pass",
+			title: "next passes",
 			path: ".",
 			seg: undefined
 		},

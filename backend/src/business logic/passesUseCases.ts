@@ -100,12 +100,6 @@ export default class passLogic extends BaseComponent
             return pass;
     }
 
-     getClosestPass = async (req:any, res:any) =>
-    {
-        const pass = (await this.db.getAllPasses({'endTime': {'$gte': new Date()}}, { sort: 'endTime'}))[0];
-        returnSuccessRespondToTheClient(res, 200, pass);
-    }
-
     private checkUpdatePassPlanIsValid(PassPlan)
     {
         if(PassPlan.goal == undefined || PassPlan.goal == '') return false;
