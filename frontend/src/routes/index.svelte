@@ -52,7 +52,7 @@
 			<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 				<div class="shadow-white overflow-hidden border-b border-gray-800 sm:rounded-lg">
 					<table class="min-w-full divide-y divide-gray-200 ">
-						<PassListTitle bind:passes={passes} />
+						<PassListTitle bind:passes={passes} bind:endTime={endTime} bind:limit={limit}/>
 						<div class="h-3/4 overflow-y-auto">
 							<tbody class="w-full bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
 								{#each passes as pass}
@@ -71,7 +71,11 @@
 		<input class="text-black" placeholder="how many pass" bind:value={limit} on:change={limitChange}/>
 
 		or pass up to when
-		<input class="text-black" type = 'datetime-local' placeholder="how many pass" bind:value={endTime} on:change={endTimeChange}/>
+		<input 
+			class="text-black"
+			type = 'datetime-local' 
+			bind:value={endTime} 
+			on:change={endTimeChange}/>
 
 	</div>
 	

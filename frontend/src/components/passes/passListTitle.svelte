@@ -3,22 +3,29 @@
     import axios from 'axios';
 
     export let passes;
+	const now = new Date();
+    const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+    export let endTime = nextWeek;
+    export let limit = 0;
+
+
 	async function reloadPass() {
         try{
-		await axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${endTime}`);
-		let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=startTime`);
-        const data = res.data.data;
-        passes = data
+            await axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${endTime || nextWeek}&limit=${limit}`);
+            let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=startTime`);
+            const data = res.data.data;
+            passes = data
         }
         catch(e)
         {
+            console.log(e);
             alert(e);
         }
 	}
 
 
     
-    const reloadPassEvery = 86400;
+    const reloadPassEvery = 90*60*1000;
     setInterval(reloadPass, reloadPassEvery);
 </script>
 

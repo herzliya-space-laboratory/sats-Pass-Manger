@@ -49,7 +49,7 @@
             post pass
         </h3>
 
-        <p class="mt-1 max-w-2xl text-sm leading-5 text-white">
+        <p class="mt-1 max-w-2xl text-xl leading-5 text-white">
             pass details and plan.
         </p>
     </div>
@@ -57,51 +57,51 @@
     <div>
         <dl>
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
+                <dt class="text-xl leading-5 font-medium text-white">
                     satellite name
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
                     {pass.Satellite.name}
                 </dd>
             </div>
 
             <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
+                <dt class="text-xl leading-5 font-medium text-white">
                     start time[local]
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
-                    {new Date(pass.startTime).toLocaleString().replace(',', ' ')}
+                <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
+                    {new Date(pass.startTime).toLocaleString('he-IL').replace(',', ' ')}
                 </dd>
             </div>
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
+                <dt class="text-xl leading-5 font-medium text-white">
                     end time[local]
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
-                    {new Date(pass.endTime).toLocaleString().replace(',', ' ')}
+                <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
+                    {new Date(pass.endTime).toLocaleString('he-IL').replace(',', ' ')}
                 </dd>
             </div>
 
             <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
+                <dt class="text-xl leading-5 font-medium text-white">
                     max elevation
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
                     {pass.maxElevation.toFixed(2)}
                 </dd>
             </div>
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
+                <dt class="text-xl leading-5 font-medium text-white">
                     duration[min]
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
                     {pass.duration}
                 </dd>
             </div>
@@ -109,31 +109,31 @@
         
             {#if pass.goal}
                 <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm leading-5 font-medium text-white">
+                    <dt class="text-xl leading-5 font-medium text-white">
                         goal
                     </dt>
 
-                    <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
                         {pass.goal}
                     </dd>
                 </div>
 
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm leading-5 font-medium text-white">
+                    <dt class="text-xl leading-5 font-medium text-white">
                         pass planner
                     </dt>
 
-                    <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
                         {pass.PassPlanner}
                     </dd>
                 </div>
                 
                 <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm leading-5 font-medium text-white">
+                    <dt class="text-xl leading-5 font-medium text-white">
                         pass executer
                     </dt>
 
-                    <dd class="mt-1 text-sm leading-5 text-white sm:mt-0 sm:col-span-2">
+                    <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
                         {pass.PassExecuter}
                     </dd>
                 </div>
@@ -142,21 +142,21 @@
             {/if}
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
+                <dt class="text-xl leading-5 font-medium text-white">
                     pass status
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
                     <input class="w-3/4" placeholder="pass status" name = "status" bind:value={$form.status}/>
                 </dd>
             </div>
 
             <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
+                <dt class="text-xl leading-5 font-medium text-white">
                     pass summary
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
                     <textarea 
                         class="w-3/4" 
                         placeholder="pass summary" 
@@ -166,11 +166,11 @@
             </div>
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
+                <dt class="text-xl leading-5 font-medium text-white">
                    manual errors
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
                     <textarea 
                         class="w-3/4" 
                         placeholder="Errors summary" 
@@ -181,11 +181,11 @@
             
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-sm leading-5 font-medium text-white">
+                <dt class="text-xl leading-5 font-medium text-white">
                    system errors
                 </dt>
 
-                <dd class="mt-1 text-sm leading-5 text-black sm:mt-0 sm:col-span-2">
+                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
                     <textarea 
                         class="w-3/4" 
                         placeholder="Errors summary" 
@@ -202,7 +202,7 @@
         <button 
             type="button" 
             on:click={handleSubmit}
-            class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 hover:bg-gray-200 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
+            class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 hover:bg-gray-200 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
             >
                 submit
             </button>
@@ -210,7 +210,7 @@
         <button 
             type="button"
             on:click={handleReset}
-            class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
+            class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
             >
                 reset
             </button>

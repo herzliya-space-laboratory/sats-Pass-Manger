@@ -26,11 +26,11 @@
     </td>
 
     <td class="w-1/7 text-xl px-6 py-4 text-center whitespace-no-wrap">
-        {@html new Date(pass.startTime).toLocaleString().replace(',', '<br>')}        
+        {@html new Date(pass.startTime).toLocaleString('he-IL').replace(',', '<br>')}        
     </td>
 
     <td class="w-1/7 text-xl px-6 text-center py-4 whitespace-no-wrap">
-        {@html new Date(pass.endTime).toLocaleString().replace(',', '<br>')}
+        {@html new Date(pass.endTime).toLocaleString('he-IL').replace(',', '<br>')}
     </td>
 
     <td class="w-1/7 text-xl px-6 text-center py-4 whitespace-no-wrap leading-5 text-gray-500">
