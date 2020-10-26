@@ -1,6 +1,6 @@
 import jspredict from 'jspredict'
 
-export default async function findSatellitePasses(tle, startTime, endTime, satDbID)
+export default function findSatellitePasses(tle, startTime, endTime, satDbID)
 {
     const qth = [32.27, 34.88, 0];
     let passes = jspredict.transits(tle, qth, startTime, endTime);

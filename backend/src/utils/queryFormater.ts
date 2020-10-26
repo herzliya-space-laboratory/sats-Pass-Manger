@@ -1,10 +1,13 @@
-export default function formatQueryAndGetPagination(query, totalElements)
+export default function formatQueryAndGetPagination(query, totalElements?)
 {
-    const pagination = FormatPagination(query, totalElements);
+    let pagination;
+    if(totalElements)
+        pagination = FormatPagination(query, totalElements);
+    
     let params = moveTheSearchParamsFromTheQueryToNewObject(query);
     const formatQuery = addDollarSignAtTheBeginingOfAllTheQuryComparisonOperators(query);
     
-    params.limit = parseInt(params.limit, 10) || 100;
+    params.limit = parseInt(params.limit, 10) || undefined;
     return {pagination, params, formatQuery};
 
 }
@@ -22,10 +25,10 @@ function FormatPagination(query, total)
     const pagination:any = {};
 
     if(endIndex < total) 
-        pagination.next = {page: page + 1, limit}
+        pagination.next = {page: page + 1, limit: limit * (page + 1)}
     
     if(startIndex > 0) 
-        pagination.last = {page: page - 1, limit}
+        pagination.last = {page: page - 1, limit: limit * (page - 1)}
 
     return pagination;
 

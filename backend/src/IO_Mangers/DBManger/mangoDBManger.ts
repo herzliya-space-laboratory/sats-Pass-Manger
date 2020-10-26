@@ -16,7 +16,7 @@ export default class mangoDBManger implements IDBManager
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: false,
-            useUnifiedTopology: false,
+            useUnifiedTopology: true,
             keepAlive: 1
         })
         .then(conn => console.log(`mongoDB Connected: ${conn.connection.host}`));
