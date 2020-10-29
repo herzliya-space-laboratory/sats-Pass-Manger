@@ -5,7 +5,7 @@ export default interface ISatellitesDBManger extends IDBManager
 {
     getSatellitesAmount();
     getAllSatellites(query?, params?);
-    getSingleSatellites(id:ObjectId);
+    getSingleSatellite(id:ObjectId);
 
     createSatellite(satelliteToCreate: { name: string; satId: number; });
 }

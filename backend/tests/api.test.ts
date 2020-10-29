@@ -40,8 +40,6 @@ describe("check route funcnalty", () => {
             .expect(200)
             .expect(JSON.stringify({ sucssus: true }))
             .then(v => done());
-
-        // return req;
     })
 })
 

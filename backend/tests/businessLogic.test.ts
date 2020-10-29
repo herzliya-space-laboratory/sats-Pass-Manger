@@ -12,6 +12,7 @@ import PassesDBManger from 'IO_Mangers/DBManger/PassesDBManger';
 import passLogic from 'business logic/passesUseCases';
 import ISatellitesDBManger from 'IO_Mangers/DBManger/ISatellitesDBManger';
 import IPassesDBManger from 'IO_Mangers/DBManger/IPassesDBManger';
+import ConcreteMediators from 'Mediator/ConcreteMediators';
 
 
 let satelliteManger:satelliteLogic;
@@ -36,6 +37,10 @@ beforeEach(async () => {
 
     passDB = new PassesDBManger();
     passManger = new passLogic(passDB);
+    
+    let meditor = new ConcreteMediators(passManger, satelliteManger); 
+    satelliteManger.setMediator(meditor);
+    passManger.setMediator(meditor);
 });
 
 
@@ -86,7 +91,6 @@ describe('test the satellite business logic', () => {
             json: (obj) => {
                 Object.keys(output.toObject()).forEach(key =>
                      expect(obj.data[key]).toEqual(output[key]));
-                
             }
         }
 
@@ -178,6 +182,35 @@ describe('test the satellite business logic', () => {
         await satelliteManger.createSatellite({body: satelliteToCreate}, res);
         await satelliteManger.getSingleSatellite({params: {id}}, res);
     })
+
+    test('get and save sat passes', async () => {
+        expect.assertions(3);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const satelliteToCreate = {
+            _id: id,
+            name: 'test 1',
+            satId:  44854 
+        }
+
+        satDB.createSatellite(satelliteToCreate);
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200);
+                return this;
+            },
+            json: (obj) => {
+                expect(obj).toBeTruthy();
+            }
+        }
+
+        await satelliteManger.getSatellitePassesAndSaveThem({query: {endTime: new Date(Date.now() + 1000000)}, params: {id}}, res);
+
+        let output = await satDB.getSingleSatellite(id);
+        expect(output).not.toEqual([]);
+    }, 50000000);
 })
 
 describe('test the passes business logic', () => {

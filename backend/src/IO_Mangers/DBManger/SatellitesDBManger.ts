@@ -14,7 +14,7 @@ export default class SatellitesDBManger extends mangoDBManger implements ISatell
         return await dbRequst;
     }
 
-    async getSingleSatellites(id){
+    async getSingleSatellite(id){
         const resSatellite = await Satellite.findById(id).populate(
             {
                 path: 'pass',

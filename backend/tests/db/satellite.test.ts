@@ -170,7 +170,7 @@ describe("satellite db test", () => {
     test("get single satellite from db from empty db shold return null", async () => {
         const id = new mongoose.Types.ObjectId()
         
-        const res = await db.getSingleSatellites(id);
+        const res = await db.getSingleSatellite(id);
 
         expect(res).toBeNull();
 
@@ -188,7 +188,7 @@ describe("satellite db test", () => {
         const output = await Satellite.create(satelliteToCreate);
         
         
-        const res = await db.getSingleSatellites(id);
+        const res = await db.getSingleSatellite(id);
        
         Object.keys(output.toObject()).forEach(key => expect(res[key]).toEqual(output[key]));
 
@@ -207,7 +207,7 @@ describe("satellite db test", () => {
         let res = await db.createSatellite(satelliteToCreate);
         res.pass = undefined;
 
-        const check = await db.getSingleSatellites(id);
+        const check = await db.getSingleSatellite(id);
 
         expect(check).not.toBeNull();
         Object.keys(check.toObject()).forEach(key => expect(res[key]).toEqual(check[key]));

@@ -27,7 +27,7 @@ export default class satelliteLogic extends BaseComponent
     getSingleSatellite = async (req, res) => {
         const id = req.params.id;
 
-        const satellite = await this.db.getSingleSatellites(id);
+        const satellite = await this.db.getSingleSatellite(id);
 
         if(!satellite)
             returnRespondToTheClientWithErr(res, 404, satellite,
@@ -66,7 +66,7 @@ export default class satelliteLogic extends BaseComponent
         
         let endTime = new Date(req.query.endTime);
 
-        const satellite = await this.db.getSingleSatellites(id);
+        const satellite = await this.db.getSingleSatellite(id);
 
         const TLE = await getSatelliteTle(satellite.satId);
 
@@ -87,7 +87,7 @@ export default class satelliteLogic extends BaseComponent
             
             let endTime = new Date(req.query.endTime);
 
-            const satellite = await this.db.getSingleSatellites(sat._id);
+            const satellite = await this.db.getSingleSatellite(sat._id);
 
             const TLE = await getSatelliteTle(satellite.satId);
 
