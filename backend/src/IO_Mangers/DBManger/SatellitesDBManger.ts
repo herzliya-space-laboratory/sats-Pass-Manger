@@ -2,6 +2,7 @@ import mangoDBManger from './mangoDBManger'
 import ISatellitesDBManger from "./ISatellitesDBManger";
 
 import Satellite from './models/Satellite';
+import { textChangeRangeIsUnchanged } from 'typescript';
 
 export default class SatellitesDBManger extends mangoDBManger implements ISatellitesDBManger
 {
@@ -31,6 +32,15 @@ export default class SatellitesDBManger extends mangoDBManger implements ISatell
         return cratedSatellite;
     }
 
+    async changeSatelliteData(id: any, dataToChange: Object) {
+        return await Satellite.findByIdAndUpdate(id, dataToChange, {
+            new: true
+        }) 
+    }
+
+    async deleteSingleSatellite(id: any) {
+        return await Satellite.findByIdAndDelete(id);
+    }
 
     getSatellitesAmount() 
     {

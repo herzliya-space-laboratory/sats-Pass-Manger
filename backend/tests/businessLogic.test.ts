@@ -71,7 +71,7 @@ describe('test the satellite business logic', () => {
     })
 
     test("get satellite return the satellite", async () => {
-        expect.assertions(7);
+        expect.assertions(8);
 
         const id = new mongoose.Types.ObjectId();
         
@@ -151,7 +151,7 @@ describe('test the satellite business logic', () => {
             }
 
         return satelliteManger.getAllSatellites(req, res);
-    })
+    }, 20000)
 
     test("create satellite", async () => {
         expect.assertions(8);
@@ -171,8 +171,6 @@ describe('test the satellite business logic', () => {
                 return this;
             },
             json: (obj) => {
-                obj.data.__v = undefined;
-                obj.data.createdAt = undefined;
                 Object.keys(satelliteToCreate).forEach(key =>
                      expect(obj.data[key]).toEqual(satelliteToCreate[key]));
             }
@@ -183,7 +181,7 @@ describe('test the satellite business logic', () => {
         await satelliteManger.getSingleSatellite({params: {id}}, res);
     })
 
-    test('get and save sat passes', async () => {
+    test('get and save satllite passes', async () => {
         expect.assertions(3);
 
         const id = new mongoose.Types.ObjectId();
@@ -194,7 +192,7 @@ describe('test the satellite business logic', () => {
             satId:  44854 
         }
 
-        satDB.createSatellite(satelliteToCreate);
+        await satDB.createSatellite(satelliteToCreate);
 
         const res = {
             status: function(status){
@@ -210,7 +208,36 @@ describe('test the satellite business logic', () => {
 
         let output = await satDB.getSingleSatellite(id);
         expect(output).not.toEqual([]);
-    }, 50000000);
+    });
+
+    test('get and save all satllites passes', async () => {
+        expect.assertions(3);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const satelliteToCreate = {
+            _id: id,
+            name: 'test 1',
+            satId:  44854 
+        }
+
+        await satDB.createSatellite(satelliteToCreate);
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200);
+                return this;
+            },
+            json: (obj) => {
+                expect(obj).toBeTruthy();
+            }
+        }
+
+        await satelliteManger.getAllSatellitesPassesAndSaveThem({query: {endTime: new Date(Date.now() + 1000000)}}, res);
+
+        let output = await satDB.getSingleSatellite(id);
+        expect(output).not.toEqual([]);
+    });
 })
 
 describe('test the passes business logic', () => {

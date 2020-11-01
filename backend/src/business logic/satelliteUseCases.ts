@@ -67,9 +67,9 @@ export default class satelliteLogic extends BaseComponent
         let endTime = new Date(req.query.endTime);
 
         const satellite = await this.db.getSingleSatellite(id);
-
-        const TLE = await getSatelliteTle(satellite.satId);
-
+        
+        let TLE = await this.getTle(satellite);
+        
         const newPasses = await findSatellitePasses(TLE, startTime, endTime, id);
         
         const passes = await this.mediator.notify(newPasses, 'newPassWasFount');
@@ -87,9 +87,7 @@ export default class satelliteLogic extends BaseComponent
             
             let endTime = new Date(req.query.endTime);
 
-            const satellite = await this.db.getSingleSatellite(sat._id);
-
-            const TLE = await getSatelliteTle(satellite.satId);
+            const TLE = await this.getTle(sat);
 
             const newPasses = await findSatellitePasses(TLE, startTime, endTime, sat._id);
             
@@ -97,5 +95,20 @@ export default class satelliteLogic extends BaseComponent
 
         }
         returnSuccessRespondToTheClient(res, 200, passes)
+    }
+
+    private async getTle(satellite) {
+        let TLE;
+        try
+        {
+            TLE = await getSatelliteTle(satellite.satId);
+            this.db.changeSatelliteData(satellite._id, {tle: TLE});
+        }
+        catch(e)
+        {
+            console.log(e);
+            TLE = satellite.tle;
+        }
+        return TLE;
     }
 } 

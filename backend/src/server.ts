@@ -20,7 +20,8 @@ import ConcreteMediators from "./Mediator/ConcreteMediators";
 let DBManger:IDBManger = createDBManger();
 DBManger.connect(process.env.MONGO_URI);
 
-const APIManger: IAPIManagers = createAPIManger();
+const PORT: number = parseInt(process.env.PORT  || '4000');
+const APIManger: IAPIManagers = createAPIManger(PORT);
 
 let satDBManger:ISatellitesDBManger = new SatellitesDBManger();
 const satelliteManger:satelliteLogic = new satelliteLogic(satDBManger);

@@ -214,6 +214,51 @@ describe("satellite db test", () => {
 
     })
     
+    test("change satllite data", async () => {
+        const id = new mongoose.Types.ObjectId();
+        
+        const satelliteToCreate = {
+            _id: id,
+            name: 'test 1',
+            satId: 1
+        }
+
+        const dataToChange = {
+            name: 'test 2',
+            satId: 2
+        }
+
+        await db.createSatellite(satelliteToCreate);
+        let res = await db.changeSatelliteData(id, dataToChange);
+        res.pass = undefined;
+
+        const check = await db.getSingleSatellite(id);
+
+        expect(check).not.toBeNull();
+        Object.keys(check.toObject()).forEach(key => expect(res[key]).toEqual(check[key]));
+    })
+
+    test("delete satllite", async () => {
+        const id = new mongoose.Types.ObjectId();
+        
+        const satelliteToCreate = {
+            _id: id,
+            name: 'test 1',
+            satId: 1
+        }
+
+        const dataToChange = {
+            name: 'test 2',
+            satId: 2
+        }
+
+        await db.createSatellite(satelliteToCreate);
+        await db.deleteSingleSatellite(id);
+        
+        const check = await db.getSingleSatellite(id);
+
+        expect(check).toBeNull();
+    })
 
 })
 

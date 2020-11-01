@@ -39,22 +39,22 @@ describe("pass db test", () => {
         const toCreate = 
             [
                 {
-                    goal: 'test 1',
+                    goal: '1',
                     startTime: new Date(),
                     endTime: new Date()
                 },
                 {
-                    goal: 'test 2',
+                    goal: '2',
                     startTime: new Date(),
                     endTime: new Date()
                 },
                 {
-                    goal: 'test 3',
+                    goal: '3',
                     startTime: new Date(),
                     endTime: new Date()
                 },
                 {
-                    goal: 'test 4',
+                    goal: '4',
                     startTime: new Date(),
                     endTime: new Date()
                 }
@@ -63,7 +63,7 @@ describe("pass db test", () => {
         await Pass.create(toCreate);
 
         const res = (await db.getAllPasses())
-            .sort((a, b) => a.startTime.getMilliseconds() - b.startTime.getMilliseconds());
+            .sort((a, b) => parseInt(a.goal) - parseInt(b.goal));
 
         for(let i = 0; i < toCreate.length; i++)
         {            

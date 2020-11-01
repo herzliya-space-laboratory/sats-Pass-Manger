@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import getSatelliteTle from '../../../utils/getSatelliteTle';
 
 const Satellite = new mongoose.Schema({
     name:{
@@ -10,6 +11,7 @@ const Satellite = new mongoose.Schema({
         required: [true, 'please add the satellite id']
     },
     passes: Object,
+    tle: String,
     createdAt: {
         type: Date,
         default: Date.now
@@ -18,6 +20,11 @@ const Satellite = new mongoose.Schema({
 {
     toJSON: {virtuals: true},
     toObject: {virtuals: true}
+})
+
+Satellite.pre('save', async function(next){
+    this.tle = await getSatelliteTle(this.satId);
+    next();
 })
 
 Satellite.virtual('pass', {
