@@ -1,14 +1,16 @@
 <script context="module">
 	let id;
+	let limit = 50;
+	let page = 1;
 	export async function preload({ params, query }) {
 		id = params.id;
 
-		const res = await this.fetch(`passes.json`);
+		const res = await this.fetch(`passes.json?limit=${limit}&page=${page}`);
 		const data = await res.json();
 
 		if (res.status === 200) 
 		{
-			return { passes: data };
+			return { passes: data.passes, pageData: data.page};
 		}
 		else
 		{
@@ -18,10 +20,47 @@
 </script> 
 
 <script>
+	import axios from 'axios';
+	
 	import Pass from '../../components/passes/pass';
 	import PassListTitle from '../../components/passes/passListTitle';
+	import PageSelect from '../../components/passes/pageSelect';
+	import Filter from '../../components/passes/filter';
 	export let passes;
+	export let pageData;
+	let query = "";
+	let sort = "startTime";
+	let changePage = (p) => async () => {
+		page = p;
+		await reloadPass();
+	}
 
+	const now = new Date();
+    const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+	async function reloadPass() {
+		try{
+			await axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${nextWeek}`);
+			let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=${sort}&limit=${limit}&page=${page}${query}`);
+			const data = res.data.data;
+			passes = data;
+			pageData = res.data.pagination;
+		}
+		catch(e)
+		{
+			console.log(e);
+			alert(e);
+		}
+	}
+
+    
+    const reloadPassEvery = 90*60*1000;
+	setInterval(reloadPass, reloadPassEvery);
+	
+	$:{
+		sort = sort;
+		reloadPass();
+	}
 </script>
 
 
@@ -36,7 +75,7 @@
 			<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 				<div class="shadow-white overflow-hidden border-b border-gray-800 sm:rounded-lg">
 					<table class="min-w-full divide-y divide-gray-200 ">
-						<PassListTitle bind:passes={passes} />
+						<PassListTitle {reloadPass} bind:sort = {sort}/>
 						<div class="h-3/4 overflow-y-auto">
 							<tbody class="w-full bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
 								{#each passes as pass}
@@ -45,6 +84,8 @@
 							</tbody>
 						</div>
 					</table>
+					<Filter bind:query = {query} {reloadPass}/>
+					<PageSelect bind:page = {pageData} {changePage}/>
 				</div>
 			</div>
 		</div>

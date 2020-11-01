@@ -8,7 +8,7 @@ export default function formatQueryAndGetPagination(query, totalElements?)
     const formatQuery = addDollarSignAtTheBeginingOfAllTheQuryComparisonOperators(query);
      
     params.limit = parseInt(params.limit, 10) || undefined;
-    params.skip = params.page * params.limit || undefined;
+    params.skip = (params.page - 1) * params.limit || undefined;
     return {pagination, params, formatQuery};
 
 }
@@ -23,14 +23,15 @@ function FormatPagination(query, total)
 
     const endIndex = (page * limit);
     const startIndex = (page - 1) * limit;
-    const pagination:any = {};
+    const pagination:any = {page, limit};
 
     if(endIndex < total) 
         pagination.next = {page: page + 1, limit: limit * (page + 1)}
     
     if(startIndex > 0) 
-        pagination.last = {page: page - 1, limit: limit * (page - 1)}
+        pagination.previous = {page: page - 1, limit: limit * (page - 1)}
 
+    pagination.last = {page: Math.floor(total/limit) + 1, limit: total}
     return pagination;
 
 }

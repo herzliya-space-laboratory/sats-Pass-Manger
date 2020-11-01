@@ -24,6 +24,7 @@
     "svelte-forms-lib": "^1.2.2"
   },
   "devDependencies": {
+    "cypress": "^5.5.0",
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^8.1.0",
     "sapper": "^0.27.0",

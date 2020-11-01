@@ -30,7 +30,7 @@ export default class mangoDBManger implements IDBManager
         
         if (this.populateRequset(params, populate))
             dbRequst = dbRequst.populate(populate);
-        console.log(params);
+            
         dbRequst = dbRequst.select(params.select);
         dbRequst = dbRequst.sort(params.sort);
         dbRequst = dbRequst.skip(params.skip);

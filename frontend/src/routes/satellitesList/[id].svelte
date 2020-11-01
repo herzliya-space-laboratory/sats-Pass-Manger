@@ -24,12 +24,7 @@
 	import axios from 'axios'
 	export let satellite;
 	async function reloadPass() {
-		try {
-			location.reload();
-			
-		} catch (error) {
-			console.log(error);
-		}
+		location.reload();
 		
 	}
 

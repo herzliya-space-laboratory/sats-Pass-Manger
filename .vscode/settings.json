@@ -1,0 +1,6 @@
+{
+    "jest.pathToJest": "backend/node_modules/.bin/jest",
+    "jest.showCoverageOnLoad": true,
+    "jestTestExplorer.pathToJest": "cd ./backend && npm run test",
+    "jest.pathToConfig": "./backend/jest.config.js"
+}
