@@ -2,9 +2,9 @@ import jspredict from 'jspredict'
 
 export default function findSatellitePasses(tle, startTime, endTime, satDbID)
 {
-    const qth = [32.27, 34.88, 0];
+    const qth = [34.88, 32.27,  0];
     let passes = jspredict.transits(tle, qth, startTime, endTime);
-
+    
     passes = formatPasses(passes, satDbID);
 
     return passes;

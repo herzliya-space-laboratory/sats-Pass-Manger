@@ -1,7 +1,7 @@
 import ErrorResponse = require("../utils/errorResponse");
 
 import IPassesDBManger from "../IO_Mangers/DBManger/IPassesDBManger";
-import formatQueryAndGetPagination from "../utils/queryFormater";
+import { formatQueryForMoongose, formatPagination } from "../utils/queryFormater";
 
 import {
     returnSuccessRespondToTheClient,
@@ -39,9 +39,11 @@ export default class passLogic extends BaseComponent
         const query = req.query || {};
 
         const passTotalAmount = this.db.getPassAmount()
-        const {pagination, formatQuery, params} = formatQueryAndGetPagination(query, passTotalAmount);
+        let {formatQuery, params} = formatQueryForMoongose(query);
 
         const resPass = await this.db.getAllPasses(formatQuery, params);
+
+        let pagination = formatPagination(query, passTotalAmount);
 
         returnSuccessRespondToTheClientWithPage(res, 200, resPass, pagination);
     }

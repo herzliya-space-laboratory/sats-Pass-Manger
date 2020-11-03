@@ -1,20 +1,16 @@
-export default function formatQueryAndGetPagination(query, totalElements?)
-{
-    let pagination;
-    if(totalElements)
-        pagination = FormatPagination(query, totalElements);
-    
+export function formatQueryForMoongose(query)
+{    
     let params = moveTheSearchParamsFromTheQueryToNewObject(query);
     const formatQuery = addDollarSignAtTheBeginingOfAllTheQuryComparisonOperators(query);
      
     params.limit = parseInt(params.limit, 10) || undefined;
     params.skip = (params.page - 1) * params.limit || undefined;
-    return {pagination, params, formatQuery};
+    return {params, formatQuery};
 
 }
 
 
-function FormatPagination(query, total)
+export function formatPagination(query, total)
 {
     if(!query) return {};
 

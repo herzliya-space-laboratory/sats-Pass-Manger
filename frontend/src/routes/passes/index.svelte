@@ -10,7 +10,7 @@
 
 		if (res.status === 200) 
 		{
-			return { passes: data.passes, pageData: data.page};
+			return { passes: data.passes, pageData: data.page };
 		}
 		else
 		{
@@ -70,6 +70,7 @@
 
 
 <div class='container'>
+	<Filter bind:query = {query} {reloadPass}/>
 	<div class="flex flex-col">
 		<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 			<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -84,7 +85,6 @@
 							</tbody>
 						</div>
 					</table>
-					<Filter bind:query = {query} {reloadPass}/>
 					<PageSelect bind:page = {pageData} {changePage}/>
 				</div>
 			</div>

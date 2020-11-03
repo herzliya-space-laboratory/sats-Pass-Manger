@@ -1,7 +1,7 @@
 import ErrorResponse = require("../utils/errorResponse");
 
 import ISatellitesDBManger from "../IO_Mangers/DBManger/ISatellitesDBManger";
-import formatQueryAndGetPagination from "../utils/queryFormater";
+import { formatQueryForMoongose, formatPagination} from "../utils/queryFormater";
 
 import getSatelliteTle from "../utils/getSatelliteTle";
 import findSatellitePasses from "../utils/getSatellitePasses";
@@ -42,9 +42,10 @@ export default class satelliteLogic extends BaseComponent
         const query = req.query || {};
 
         const SatellitesTotalAmount = this.db.getSatellitesAmount()
-        const {pagination, formatQuery, params} = formatQueryAndGetPagination(query, SatellitesTotalAmount);
+        const {formatQuery, params} = formatQueryForMoongose(query);
 
         const resSatellites = await this.db.getAllSatellites(formatQuery, params);
+        let pagination = formatPagination(query, SatellitesTotalAmount);
 
         returnSuccessRespondToTheClientWithPage(res, 200, resSatellites, pagination);
     }
@@ -74,7 +75,7 @@ export default class satelliteLogic extends BaseComponent
         
         const passes = await this.mediator.notify(newPasses, 'newPassWasFount');
         
-        returnSuccessRespondToTheClient(res, 200, passes)
+        returnSuccessRespondToTheClient(res, 200, passes);
     }
 
     getAllSatellitesPassesAndSaveThem = async (req, res) => {
@@ -94,6 +95,7 @@ export default class satelliteLogic extends BaseComponent
             passes.push(await this.mediator.notify(newPasses, 'newPassWasFount'));
 
         }
+        
         returnSuccessRespondToTheClient(res, 200, passes)
     }
 

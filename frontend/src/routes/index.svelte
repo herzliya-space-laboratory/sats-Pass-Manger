@@ -5,8 +5,8 @@
     export async function preload(page, session) {
 		const now = new Date();
 		const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-		await axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${nextWeek}`);
-        let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=startTime&limit=10&startTime[gte]=${new Date()}`);
+		await axios.get(`http://localhost:4000/api/v1/satellites/passes/?endTime=${nextWeek}`);
+        let res = await axios.get(`http://localhost:4000/api/v1/pass/?sort=startTime&limit=10&startTime[gte]=${new Date()}&page=${1}`);
         const data = res.data.data;
         return { passes: data };
 	}
@@ -25,14 +25,14 @@
 	let endTime = nextWeek;
 
 	async function limitChange() {
-		let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=startTime&limit=${limit}&startTime[gte]=${new Date()}`);
+		let res = await axios.get(`http://localhost:4000/api/v1/pass/?sort=startTime&limit=${limit}&startTime[gte]=${new Date()}&page=${1}`);
         const data = res.data.data;
         passes = data
 	}
 
 	async function endTimeChange() {
-		await axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${endTime}`);
-		let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=startTime&startTime[lte]=${endTime}&startTime[gte]=${new Date()}`);
+		await axios.get(`http://localhost:4000/api/v1/satellites/passes/?endTime=${endTime}`);
+		let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=startTime&startTime[lte]=${endTime}&startTime[gte]=${new Date()}&page=${1}`);
         const data = res.data.data;
         passes = data
 	}
