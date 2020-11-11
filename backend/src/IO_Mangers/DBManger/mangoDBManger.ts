@@ -42,9 +42,6 @@ export default class mangoDBManger implements IDBManager
         if(!params.select)  
             return true;
             
-        if(typeof(params.select) != 'string')
-            return false;
-            
         return params.select == "" ||
             (params.select.includes(populate) && !params.select.includes(`-${populate}`));
     }

@@ -2,8 +2,12 @@
 <script>
     export let pass;
 
-    const didThePassHappen = new Date(pass.startTime) < new Date();
-    const passPageUrl = `/${didThePassHappen ? 'whatWasInAPass' : 'planPass'}/${pass._id}`;
+    let didThePassHappen = new Date(pass.startTime) < new Date();
+    let passPageUrl = `/${didThePassHappen ? 'whatWasInAPass' : 'planPass'}/${pass._id}`;
+    $:  {
+        didThePassHappen = new Date(pass.startTime) < new Date();
+        passPageUrl = `/${didThePassHappen ? 'whatWasInAPass' : 'planPass'}/${pass._id}`;
+    }
 
 </script>
 

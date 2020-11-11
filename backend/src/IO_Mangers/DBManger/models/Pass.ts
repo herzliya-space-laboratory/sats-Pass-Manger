@@ -14,13 +14,23 @@ const Pass = new mongoose.Schema({
         type: String,
         default: 'not ready'
     },
+    systemsItRelateTo: [String],
     goal: String,
+    description: String,
     PassPlanner: String,
     PassExecuter: String,
+    PassPlaylestInHoopenest: String,
 
     whatWasExecute: String,
-    manualErrors: String,
-    systemErrors: String,
+    manualErrors: {
+        type: [mongoose.Schema.ObjectId],
+        ref: 'Error'
+    },
+    systemErrors: {
+        type: [mongoose.Schema.ObjectId],
+        ref: 'Error'
+    },
+    tlm: [Object],
 
     createdAt: {
         type: Date,

@@ -39,7 +39,7 @@ export default class satelliteLogic extends BaseComponent
 
 
     getAllSatellites = async (req, res) => {
-        const query = req.query || {};
+        const query = req.query;
 
         const SatellitesTotalAmount = this.db.getSatellitesAmount()
         const {formatQuery, params} = formatQueryForMoongose(query);

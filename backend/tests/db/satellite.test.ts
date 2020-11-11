@@ -168,7 +168,7 @@ describe("satellite db test", () => {
     })
 
     test("get single satellite from db from empty db shold return null", async () => {
-        const id = new mongoose.Types.ObjectId()
+        const id = new mongoose.Types.ObjectId();
         
         const res = await db.getSingleSatellite(id);
 

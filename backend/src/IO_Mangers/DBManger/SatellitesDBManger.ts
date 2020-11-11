@@ -45,7 +45,6 @@ export default class SatellitesDBManger extends mangoDBManger implements ISatell
     getSatellitesAmount() 
     {
         Satellite.countDocuments({}, (err, count) => {
-            if(err) throw new Error(err);
             this.satelliteAmount = count;
         })
 

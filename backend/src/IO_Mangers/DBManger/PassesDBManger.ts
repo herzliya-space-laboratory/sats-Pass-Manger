@@ -43,7 +43,6 @@ export default class PassesDBManger extends mangoDBManger implements IPassesDBMa
     getPassAmount() 
     {
         Pass.countDocuments({}, (err, count) => {
-            if(err) throw new Error(err);
             this.passAmount = count;
         })
 

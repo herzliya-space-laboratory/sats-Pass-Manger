@@ -481,7 +481,7 @@ describe('test the passes business logic', () => {
     })
 
     test("add post pass to pass to a pass", async () => {
-        expect.assertions(9);
+        expect.assertions(7);
 
         const id = new mongoose.Types.ObjectId();
         const now = new Date();
@@ -498,9 +498,7 @@ describe('test the passes business logic', () => {
         await passDB.createPass(passToCreate);
 
         const whatWasExecute = {
-            whatWasExecute: 'all',
-            manualErrors: 'none',
-            systemErrors: 'none',
+            whatWasExecute: 'all'
         }
 
         const req = {body: whatWasExecute, params: {id}}

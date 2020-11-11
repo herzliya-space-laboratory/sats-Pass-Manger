@@ -1,10 +1,12 @@
 export function formatQueryForMoongose(query)
 {    
-    let params = moveTheSearchParamsFromTheQueryToNewObject(query);
-    const formatQuery = addDollarSignAtTheBeginingOfAllTheQuryComparisonOperators(query);
+    let formatQuery = {...query};
+    let params = moveTheSearchParamsFromTheQueryToNewObject(formatQuery);
+    formatQuery = addDollarSignAtTheBeginingOfAllTheQuryComparisonOperators(formatQuery);
      
     params.limit = parseInt(params.limit, 10) || undefined;
-    params.skip = (params.page - 1) * params.limit || undefined;
+    if(params.page && params.limit)
+        params.skip = (params.page - 1) * params.limit;
     return {params, formatQuery};
 
 }
@@ -12,10 +14,8 @@ export function formatQueryForMoongose(query)
 
 export function formatPagination(query, total)
 {
-    if(!query) return {};
-
-    const page = parseInt(query.page, 10) || 1;
-    const limit = parseInt(query.limit, 10) || 100;
+    const page = parseInt(query.page, 10);
+    const limit = parseInt(query.limit, 10);
 
     const endIndex = (page * limit);
     const startIndex = (page - 1) * limit;

@@ -96,10 +96,7 @@ export default class passLogic extends BaseComponent
     async getNewistPass(req?:any , res?:any)
     {
         const pass = (await this.db.getNewist(req.params.id)) || {startTime: new Date()};
-        if(res)
-            returnSuccessRespondToTheClient(res, 200, pass);
-        else
-            return pass;
+        return pass;
     }
 
     private checkUpdatePassPlanIsValid(PassPlan)
@@ -112,8 +109,6 @@ export default class passLogic extends BaseComponent
 
     private checkUpdatePassExqtedIsValid(whatWasExecuted) {
         if(whatWasExecuted.whatWasExecute == undefined || whatWasExecuted.whatWasExecute == '') return false;
-        if(whatWasExecuted.manualErrors == undefined || whatWasExecuted.manualErrors == '') return false;
-        if(whatWasExecuted.systemErrors == undefined || whatWasExecuted.systemErrors == '') return false;
         return true;
     }
 }
