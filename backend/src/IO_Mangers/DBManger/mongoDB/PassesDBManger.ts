@@ -1,7 +1,7 @@
 import mangoDBManger from './mangoDBManger'
-import IPassesDBManger from "./IPassesDBManger";
+import IPassesDBManger from "../intrface/IPassesDBManger";
 
-import Pass from "./models/Pass";
+import Pass from "../models/Pass";
 
 export default class PassesDBManger extends mangoDBManger implements IPassesDBManger
 {

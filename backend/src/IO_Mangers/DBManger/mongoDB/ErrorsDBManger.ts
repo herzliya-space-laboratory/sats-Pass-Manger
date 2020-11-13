@@ -1,7 +1,7 @@
 import mangoDBManger from './mangoDBManger'
-import IErrorsDBManger from "./IErrorsDBManger";
+import IErrorsDBManger from "../intrface/IErrorsDBManger";
 
-import Error from "./models/Error";
+import Error from "../models/Error";
 
 export default class ErrorsDBManger extends mangoDBManger implements IErrorsDBManger
 {
@@ -16,7 +16,7 @@ export default class ErrorsDBManger extends mangoDBManger implements IErrorsDBMa
     }
 
     async getSingleErrors(id) {
-        let resError = await Error.findById(id);
+        const resError = await Error.findById(id);
         
 
         return resError;
@@ -24,20 +24,20 @@ export default class ErrorsDBManger extends mangoDBManger implements IErrorsDBMa
 
     async createError(ErrorToCreate) 
     {
-        let newError = await Error.create(ErrorToCreate);
+        const newError = await Error.create(ErrorToCreate);
 
         return newError;
     }
 
     async updateError(id, dataToUpdate) 
     {
-        let updatedError = await Error.findByIdAndUpdate(id, dataToUpdate);
+        const updatedError = await Error.findByIdAndUpdate(id, dataToUpdate);
 
         return updatedError;
     }
 
     async deleteError(id) {
-        let deleted = await Error.findByIdAndDelete(id);
+        const deleted = await Error.findByIdAndDelete(id);
 
         return deleted;
     }

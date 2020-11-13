@@ -1,6 +1,6 @@
 import ErrorResponse = require("../utils/errorResponse");
 
-import IPassesDBManger from "../IO_Mangers/DBManger/IPassesDBManger";
+import IPassesDBManger from "../IO_Mangers/DBManger/intrface/IPassesDBManger";
 import { formatQueryForMoongose, formatPagination } from "../utils/queryFormater";
 
 import {

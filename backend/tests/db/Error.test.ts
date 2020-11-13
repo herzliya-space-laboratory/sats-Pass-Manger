@@ -1,6 +1,6 @@
 require('../../src/utils/dotenvInit');
 
-import ErrorsDBManger from '../../src/IO_Mangers/DBManger/ErrorsDBManger';
+import ErrorsDBManger from '../../src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger';
 
 import Error from '../../src/IO_Mangers/DBManger/models/Error';
 
@@ -68,7 +68,7 @@ describe("error db test", () => {
         }];
 
         await Error.create(testErrors);
-        const res = await db.getAllErrors();
+        const res = (await db.getAllErrors()).sort((a, b) => a.howLongWillItTakeToSolve - b.howLongWillItTakeToSolve);
 
         expect(res.length).toEqual(testErrors.length);
 

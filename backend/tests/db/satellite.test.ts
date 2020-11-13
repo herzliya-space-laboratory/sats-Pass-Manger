@@ -1,6 +1,7 @@
 require('../../src/utils/dotenvInit');
 
-import SatellitesDBManger from '../../src/IO_Mangers/DBManger/SatellitesDBManger';
+import ISatellitesDBManger from '../../src/IO_Mangers/DBManger/intrface/ISatellitesDBManger';
+import SatellitesDBManger from '../../src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger';
 
 import Satellite from '../../src/IO_Mangers/DBManger/models/Satellite';
 
@@ -9,7 +10,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 
 
-let db:SatellitesDBManger;
+let db:ISatellitesDBManger;
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {

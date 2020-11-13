@@ -1,6 +1,6 @@
 import ErrorResponse = require("../utils/errorResponse");
 
-import ISatellitesDBManger from "../IO_Mangers/DBManger/ISatellitesDBManger";
+import ISatellitesDBManger from "../IO_Mangers/DBManger/intrface/ISatellitesDBManger";
 import { formatQueryForMoongose, formatPagination} from "../utils/queryFormater";
 
 import getSatelliteTle from "../utils/getSatelliteTle";

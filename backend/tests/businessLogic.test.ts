@@ -1,17 +1,17 @@
 require("../src/utils/dotenvInit");
 
-import IDBManger from '../src/IO_Mangers/DBManger/IDBManger';
-import mangoDBManger from '../src/IO_Mangers/DBManger/mangoDBManger';
+import IDBManger from '../src/IO_Mangers/DBManger/intrface/IDBManger';
+import mangoDBManger from '../src/IO_Mangers/DBManger/mongoDB/mangoDBManger';
 
 import mongoose = require('mongoose');
 import { MongoMemoryServer } from "mongodb-memory-server";
 
 import satelliteLogic from '../src/business logic/satelliteUseCases';
-import SatellitesDBManger from 'IO_Mangers/DBManger/SatellitesDBManger';
-import PassesDBManger from 'IO_Mangers/DBManger/PassesDBManger';
+import SatellitesDBManger from 'IO_Mangers/DBManger/mongoDB/SatellitesDBManger';
+import PassesDBManger from 'IO_Mangers/DBManger/mongoDB/PassesDBManger';
 import passLogic from 'business logic/passesUseCases';
-import ISatellitesDBManger from 'IO_Mangers/DBManger/ISatellitesDBManger';
-import IPassesDBManger from 'IO_Mangers/DBManger/IPassesDBManger';
+import ISatellitesDBManger from 'IO_Mangers/DBManger/intrface/ISatellitesDBManger';
+import IPassesDBManger from 'IO_Mangers/DBManger/intrface/IPassesDBManger';
 import ConcreteMediators from 'Mediator/ConcreteMediators';
 
 

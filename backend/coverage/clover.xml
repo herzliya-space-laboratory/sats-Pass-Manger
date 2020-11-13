@@ -1,54 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605093794683" clover="3.2.0">
-  <project timestamp="1605093794683" name="All files">
-    <metrics statements="318" coveredstatements="308" conditionals="119" coveredconditionals="101" methods="89" coveredmethods="86" elements="526" coveredelements="495" complexity="0" loc="318" ncloc="318" packages="7" files="20" classes="20"/>
+<coverage generated="1605276041531" clover="3.2.0">
+  <project timestamp="1605276041531" name="All files">
+    <metrics statements="273" coveredstatements="266" conditionals="104" coveredconditionals="96" methods="77" coveredmethods="74" elements="454" coveredelements="436" complexity="0" loc="273" ncloc="273" packages="6" files="15" classes="15"/>
     <package name="IO_Mangers.ApiManger">
-      <metrics statements="22" coveredstatements="22" conditionals="2" coveredconditionals="1" methods="7" coveredmethods="7"/>
+      <metrics statements="22" coveredstatements="19" conditionals="2" coveredconditionals="1" methods="7" coveredmethods="4"/>
       <file name="expressApi.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/ApiManger/expressApi.ts">
-        <metrics statements="22" coveredstatements="22" conditionals="2" coveredconditionals="1" methods="7" coveredmethods="7"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="19" count="3" type="stmt"/>
-        <line num="21" count="3" type="stmt"/>
-        <line num="23" count="3" type="stmt"/>
+        <metrics statements="22" coveredstatements="19" conditionals="2" coveredconditionals="1" methods="7" coveredmethods="4"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="40" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="IO_Mangers.DBManger.models">
+      <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="Error.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/models/Error.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
-        <line num="29" count="3" type="stmt"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
-        <line num="38" count="3" type="stmt"/>
-        <line num="40" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="42" count="3" type="stmt"/>
-        <line num="43" count="3" type="stmt"/>
-        <line num="47" count="2" type="stmt"/>
-        <line num="49" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
-        <line num="53" count="3" type="stmt"/>
-        <line num="55" count="2" type="stmt"/>
+      </file>
+      <file name="Pass.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/models/Pass.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="41" count="6" type="stmt"/>
+      </file>
+      <file name="Satellite.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/models/Satellite.ts">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
+        <line num="26" count="28" type="stmt"/>
+        <line num="27" count="28" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="38" count="6" type="stmt"/>
+      </file>
+      <file name="Test.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/models/Test.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="IO_Mangers.ApiManger.middleware">
-      <metrics statements="7" coveredstatements="2" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="error.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/ApiManger/middleware/error.ts">
-        <metrics statements="4" coveredstatements="1" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="4" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="9" count="0" type="cond" truecount="0" falsecount="2"/>
-      </file>
-      <file name="logger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/ApiManger/middleware/logger.ts">
-        <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="IO_Mangers.DBManger">
-      <metrics statements="88" coveredstatements="88" conditionals="41" coveredconditionals="39" methods="29" coveredmethods="29"/>
-      <file name="ErrorsDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/ErrorsDBManger.ts">
+    <package name="IO_Mangers.DBManger.mongoDB">
+      <metrics statements="105" coveredstatements="105" conditionals="50" coveredconditionals="49" methods="35" coveredmethods="35"/>
+      <file name="ErrorsDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts">
         <metrics statements="20" coveredstatements="20" conditionals="9" coveredconditionals="9" methods="6" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -71,7 +87,7 @@
         <line num="42" count="1" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
       </file>
-      <file name="PassesDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/PassesDBManger.ts">
+      <file name="PassesDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/mongoDB/PassesDBManger.ts">
         <metrics statements="23" coveredstatements="23" conditionals="10" coveredconditionals="10" methods="8" coveredmethods="8"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
@@ -97,7 +113,7 @@
         <line num="49" count="2" type="stmt"/>
         <line num="51" count="2" type="stmt"/>
       </file>
-      <file name="SatellitesDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/SatellitesDBManger.ts">
+      <file name="SatellitesDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts">
         <metrics statements="22" coveredstatements="22" conditionals="11" coveredconditionals="11" methods="8" coveredmethods="8"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
@@ -122,70 +138,55 @@
         <line num="51" count="1" type="stmt"/>
         <line num="53" count="2" type="stmt"/>
       </file>
-      <file name="mangoDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/mangoDBManger.ts">
-        <metrics statements="23" coveredstatements="23" conditionals="11" coveredconditionals="9" methods="7" coveredmethods="7"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
-        <line num="6" count="5" type="stmt"/>
-        <line num="8" count="5" type="stmt"/>
-        <line num="13" count="39" type="stmt"/>
-        <line num="15" count="39" type="stmt"/>
-        <line num="22" count="39" type="stmt"/>
-        <line num="24" count="39" type="stmt"/>
-        <line num="25" count="39" type="stmt"/>
-        <line num="28" count="19" type="cond" truecount="1" falsecount="1"/>
-        <line num="29" count="19" type="cond" truecount="2" falsecount="0"/>
-        <line num="31" count="9" type="cond" truecount="2" falsecount="0"/>
-        <line num="32" count="4" type="stmt"/>
-        <line num="34" count="9" type="stmt"/>
-        <line num="35" count="9" type="stmt"/>
-        <line num="36" count="9" type="stmt"/>
-        <line num="37" count="9" type="stmt"/>
-        <line num="38" count="9" type="stmt"/>
-        <line num="41" count="5" type="stmt"/>
-        <line num="42" count="9" type="cond" truecount="2" falsecount="0"/>
-        <line num="43" count="4" type="stmt"/>
-        <line num="45" count="5" type="cond" truecount="2" falsecount="1"/>
-        <line num="48" count="5" type="stmt"/>
-      </file>
-    </package>
-    <package name="IO_Mangers.DBManger.models">
-      <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="Error.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/models/Error.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="TestsDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/mongoDB/TestsDBManger.ts">
+        <metrics statements="17" coveredstatements="17" conditionals="9" coveredconditionals="9" methods="6" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="13" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="33" count="1" type="stmt"/>
       </file>
-      <file name="Pass.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/models/Pass.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="3" count="5" type="stmt"/>
-        <line num="41" count="5" type="stmt"/>
-      </file>
-      <file name="Satellite.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/models/Satellite.ts">
-        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="2" count="5" type="stmt"/>
-        <line num="4" count="5" type="stmt"/>
-        <line num="25" count="5" type="stmt"/>
-        <line num="26" count="28" type="stmt"/>
-        <line num="27" count="28" type="stmt"/>
-        <line num="30" count="5" type="stmt"/>
-        <line num="38" count="5" type="stmt"/>
+      <file name="mangoDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts">
+        <metrics statements="23" coveredstatements="23" conditionals="11" coveredconditionals="10" methods="7" coveredmethods="7"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="13" count="46" type="stmt"/>
+        <line num="15" count="46" type="stmt"/>
+        <line num="22" count="46" type="stmt"/>
+        <line num="24" count="46" type="stmt"/>
+        <line num="25" count="46" type="stmt"/>
+        <line num="28" count="22" type="cond" truecount="1" falsecount="1"/>
+        <line num="29" count="22" type="cond" truecount="2" falsecount="0"/>
+        <line num="31" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="5" type="stmt"/>
+        <line num="34" count="10" type="stmt"/>
+        <line num="35" count="10" type="stmt"/>
+        <line num="36" count="10" type="stmt"/>
+        <line num="37" count="10" type="stmt"/>
+        <line num="38" count="10" type="stmt"/>
+        <line num="41" count="6" type="stmt"/>
+        <line num="42" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="43" count="4" type="stmt"/>
+        <line num="45" count="6" type="cond" truecount="3" falsecount="0"/>
+        <line num="48" count="6" type="stmt"/>
       </file>
     </package>
     <package name="Mediator">
-      <metrics statements="18" coveredstatements="18" conditionals="8" coveredconditionals="7" methods="8" coveredmethods="8"/>
-      <file name="BaseComponent.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/Mediator/BaseComponent.ts">
-        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="6" count="56" type="cond" truecount="1" falsecount="1"/>
-        <line num="7" count="28" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="56" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-      </file>
+      <metrics statements="12" coveredstatements="12" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
       <file name="ConcreteMediators.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/Mediator/ConcreteMediators.ts">
         <metrics statements="12" coveredstatements="12" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
         <line num="6" count="1" type="stmt"/>
@@ -316,7 +317,7 @@
       </file>
     </package>
     <package name="utils">
-      <metrics statements="65" coveredstatements="62" conditionals="18" coveredconditionals="16" methods="15" coveredmethods="14"/>
+      <metrics statements="13" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="MangersInit.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/utils/MangersInit.ts">
         <metrics statements="10" coveredstatements="8" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
@@ -335,70 +336,6 @@
         <line num="1" count="6" type="stmt"/>
         <line num="2" count="6" type="stmt"/>
         <line num="4" count="6" type="stmt"/>
-      </file>
-      <file name="getSatellitePasses.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/utils/getSatellitePasses.ts">
-        <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="14" count="3" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="23" count="3" type="stmt"/>
-      </file>
-      <file name="getSatelliteTle.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/utils/getSatelliteTle.ts">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="7" type="stmt"/>
-        <line num="3" count="7" type="stmt"/>
-        <line num="6" count="33" type="stmt"/>
-        <line num="7" count="33" type="stmt"/>
-        <line num="8" count="33" type="stmt"/>
-        <line num="10" count="33" type="stmt"/>
-      </file>
-      <file name="queryFormater.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/utils/queryFormater.ts">
-        <metrics statements="31" coveredstatements="31" conditionals="14" coveredconditionals="14" methods="6" coveredmethods="6"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="3" count="8" type="stmt"/>
-        <line num="4" count="8" type="stmt"/>
-        <line num="5" count="8" type="stmt"/>
-        <line num="7" count="8" type="cond" truecount="2" falsecount="0"/>
-        <line num="8" count="8" type="cond" truecount="4" falsecount="0"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="10" count="8" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
-        <line num="20" count="4" type="stmt"/>
-        <line num="21" count="4" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
-        <line num="24" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="27" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="30" count="4" type="stmt"/>
-        <line num="31" count="4" type="stmt"/>
-        <line num="36" count="8" type="stmt"/>
-        <line num="37" count="8" type="stmt"/>
-        <line num="39" count="8" type="stmt"/>
-        <line num="40" count="32" type="cond" truecount="2" falsecount="0"/>
-        <line num="41" count="32" type="stmt"/>
-        <line num="44" count="8" type="cond" truecount="2" falsecount="0"/>
-        <line num="46" count="8" type="stmt"/>
-        <line num="50" count="8" type="stmt"/>
-        <line num="51" count="8" type="stmt"/>
-        <line num="52" count="8" type="stmt"/>
-        <line num="53" count="8" type="stmt"/>
-      </file>
-      <file name="sendResponse.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/utils/sendResponse.ts">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="8" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="21" count="3" type="stmt"/>
       </file>
     </package>
   </project>

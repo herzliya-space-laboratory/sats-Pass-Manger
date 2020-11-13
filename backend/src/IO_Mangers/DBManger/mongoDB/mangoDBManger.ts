@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-import IDBManager from "./IDBManger";
+import IDBManager from "../intrface/IDBManger";
 
-import Satellite from './models/Satellite';
-import Pass from "./models/Pass";
+import Satellite from '../models/Satellite';
+import Pass from "../models/Pass";
 
 export default class mangoDBManger implements IDBManager
 {

@@ -1,7 +1,7 @@
 import mangoDBManger from './mangoDBManger'
-import ISatellitesDBManger from "./ISatellitesDBManger";
+import ISatellitesDBManger from "../intrface/ISatellitesDBManger";
 
-import Satellite from './models/Satellite';
+import Satellite from '../models/Satellite';
 import { textChangeRangeIsUnchanged } from 'typescript';
 
 export default class SatellitesDBManger extends mangoDBManger implements ISatellitesDBManger

@@ -1,6 +1,7 @@
 require('../../src/utils/dotenvInit');
 
-import PassesDBManger from '../../src/IO_Mangers/DBManger/PassesDBManger';
+import IPassesDBManger from '../../src/IO_Mangers/DBManger/intrface/IPassesDBManger';
+import PassesDBManger from '../../src/IO_Mangers/DBManger/mongoDB/PassesDBManger';
 
 import Pass from '../../src/IO_Mangers/DBManger/models/Pass';
 
@@ -9,7 +10,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 
 
-let db:PassesDBManger;
+let db:IPassesDBManger;
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {

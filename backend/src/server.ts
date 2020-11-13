@@ -2,17 +2,17 @@ require("./utils/dotenvInit");
 
 import IAPIManagers from "./IO_Mangers/ApiManger/IAPIManager";
 
-import IDBManger from './IO_Mangers/DBManger/IDBManger';
+import IDBManger from './IO_Mangers/DBManger/intrface/IDBManger';
 import { createDBManger, createAPIManger } from "./utils/MangersInit";
 
 import satelliteLogic from "./business logic/satelliteUseCases";
 import passLogic from "./business logic/passesUseCases";
 
-import IPassesDBManger from "IO_Mangers/DBManger/IPassesDBManger";
-import ISatellitesDBManger from "IO_Mangers/DBManger/ISatellitesDBManger";
+import IPassesDBManger from "IO_Mangers/DBManger/intrface//IPassesDBManger";
+import ISatellitesDBManger from "IO_Mangers/DBManger/intrface/ISatellitesDBManger";
 
-import SatellitesDBManger from "./IO_Mangers/DBManger/SatellitesDBManger";
-import PassesDBManger from "./IO_Mangers/DBManger/PassesDBManger";
+import SatellitesDBManger from "./IO_Mangers/DBManger/mongoDB/SatellitesDBManger";
+import PassesDBManger from "./IO_Mangers/DBManger/mongoDB/PassesDBManger";
 
 import ConcreteMediators from "./Mediator/ConcreteMediators";
 

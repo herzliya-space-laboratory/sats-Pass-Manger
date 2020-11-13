@@ -3,7 +3,7 @@ require("../../src/utils/dotenvInit");
 import {createAPIManger, createDBManger} from "../../src/utils/MangersInit";
 
 import expressApi from "../../src/IO_Mangers/ApiManger/expressApi";
-import mangoDBManger from "../../src/IO_Mangers/DBManger/mangoDBManger";
+import mangoDBManger from "../../src/IO_Mangers/DBManger/mongoDB/mangoDBManger";
 
 
 test("api init", () => {
