@@ -70,5 +70,10 @@
     "paths": {
       "@alias/*": [ "path/to/alias/*" ]
         }
+    },
+    "typedocOptions": {
+      "mode": "file",
+      "out": "docs",
+      "readme": "../README.md"
     }
 }
