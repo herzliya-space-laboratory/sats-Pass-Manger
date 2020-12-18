@@ -4,11 +4,13 @@ import IDBManager from "../intrface/IDBManger";
 
 import Satellite from '../models/Satellite';
 import Pass from "../models/Pass";
+import User from "../models/User";
 
 export default class mangoDBManger implements IDBManager
 {
     protected satelliteAmount: number;
     protected passAmount: number;
+    protected userAmount: number;
 
     connect(URI) 
     {
@@ -22,6 +24,7 @@ export default class mangoDBManger implements IDBManager
         .then(conn => console.log(`mongoDB Connected: ${conn.connection.host}`));
         
         Satellite.countDocuments().then(count => this.satelliteAmount = count);
+        User.countDocuments().then(count => this.userAmount = count);
         Pass.countDocuments().then(count => this.passAmount = count);
     }   
 

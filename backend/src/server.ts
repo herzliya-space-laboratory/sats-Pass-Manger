@@ -7,12 +7,15 @@ import { createDBManger, createAPIManger } from "./utils/MangersInit";
 
 import satelliteLogic from "./business logic/satelliteUseCases";
 import passLogic from "./business logic/passesUseCases";
+import authLogic from "./business logic/authUseCases";
 
 import IPassesDBManger from "IO_Mangers/DBManger/intrface//IPassesDBManger";
 import ISatellitesDBManger from "IO_Mangers/DBManger/intrface/ISatellitesDBManger";
+import IAuthDBManger from "IO_Mangers/DBManger/intrface/IAuthDBManger";
 
 import SatellitesDBManger from "./IO_Mangers/DBManger/mongoDB/SatellitesDBManger";
 import PassesDBManger from "./IO_Mangers/DBManger/mongoDB/PassesDBManger";
+import AuthDBManger from "./IO_Mangers/DBManger/mongoDB/AuthDBManger";
 
 import ConcreteMediators from "./Mediator/ConcreteMediators";
 
@@ -29,6 +32,9 @@ const satelliteManger:satelliteLogic = new satelliteLogic(satDBManger);
 
 const passDBManger:IPassesDBManger = new PassesDBManger();
 const passesManger:passLogic = new passLogic(passDBManger);
+
+const authDBManger:IAuthDBManger = new AuthDBManger();
+const authManger:authLogic = new authLogic(authDBManger);
 
 const mediator = new ConcreteMediators(passesManger, satelliteManger);
 
@@ -95,6 +101,39 @@ function initIOInputRoutes()
             callback: passesManger.UpdateWhatWasInAPass
         }
         
+    ];
+
+    const userRoutes = [
+        {
+            method: 'get',
+            path: '/api/v1/user/',
+            callback: authManger.getAllUsers
+        },
+        {
+            method: 'get',
+            path: '/api/v1/user/:id',
+            callback: authManger.getSingleUser
+        },
+        {
+            method: 'get',
+            path: '/api/v1/login/',
+            callback: authManger.login
+        },
+        {
+            method: 'post',
+            path: '/api/v1/register/',
+            callback: authManger.register
+        },
+        {
+            method: 'delete',
+            path: '/api/v1/user/',
+            callback: authManger.deleteSingleUser
+        },
+        {
+            method: 'put',
+            path: '/api/v1/user/',
+            callback: authManger.updatSingleUser
+        }
     ];
 
     const routes = [

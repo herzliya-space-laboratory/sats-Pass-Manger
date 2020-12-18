@@ -7,5 +7,6 @@ export default interface IAuthDBManger
     createUser(UserToCreate);
     updateUser(id:ObjectId, dataToUpdate);
     deleteUser(id:ObjectId);
-    findUser(findBy, withPassword);
+    findUser(findBy, withPassword?);
+    getSatellitesAmount();
 }

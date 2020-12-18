@@ -22,26 +22,35 @@ export default class AuthDBManger extends mangoDBManger implements IAuthDBManger
 
     async createUser(UserToCreate: any) {
         const newUser = await User.create(UserToCreate);
-
+        this.userAmount++;
         return newUser;
     }
     
     async updateUser(id: any, dataToUpdate: any) {
-        const updatedUser = await User.findByIdAndUpdate(id, dataToUpdate);
+        const updatedUser = await User.findByIdAndUpdate(id, dataToUpdate, {new: true});
 
         return updatedUser;
     }
     
     async deleteUser(id: any) {
         const deleted = await User.findByIdAndDelete(id);
-
+        this.userAmount--;
         return deleted;
     }
     
-    async findUser(findBy: any, withPassword) {
+    async findUser(findBy: any, withPassword = false) {
         const dbRequst = User.findOne(findBy);
         if(withPassword) dbRequst.select('+password');
         const user = await dbRequst;
         return user;
     }  
+
+    getSatellitesAmount() 
+    {
+        User.countDocuments({}, (err, count) => {
+            this.userAmount = count;
+        })
+
+        return this.userAmount;
+    }
 }

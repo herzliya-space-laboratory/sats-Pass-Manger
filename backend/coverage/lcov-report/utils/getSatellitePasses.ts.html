@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">18.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>2/11</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">18.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>2/11</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -90,20 +90,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,27 +112,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import jspredict from 'jspredict'
 &nbsp;
-export default function findSatellitePasses(tle, startTime, endTime, satDbID)
+export default function <span class="fstat-no" title="function not covered" >findSatellitePasses(</span>tle, startTime, endTime, satDbID)
 {
-    const qth = [32.27, 34.88, 0];
+    const qth = <span class="cstat-no" title="statement not covered" >[32.27, 34.88, 0];</span>
     let passes;
     
-    passes = jspredict.transits(tle, qth, startTime, endTime);
-    console.log(tle, passes, endTime, startTime);
+<span class="cstat-no" title="statement not covered" >    passes = jspredict.transits(tle, qth, startTime, endTime);</span>
+<span class="cstat-no" title="statement not covered" >    console.log(tle, passes, endTime, startTime);</span>
     
-    passes = formatPasses(passes, satDbID);
-    console.log(passes);
+<span class="cstat-no" title="statement not covered" >    passes = formatPasses(passes, satDbID);</span>
+<span class="cstat-no" title="statement not covered" >    console.log(passes);</span>
     
-    return passes;
+<span class="cstat-no" title="statement not covered" >    return passes;</span>
 }
 &nbsp;
-function formatPasses(passes: any, satDbID) {
-    passes = passes.map(<span class="fstat-no" title="function not covered" >pass </span>=&gt; {
+function <span class="fstat-no" title="function not covered" >formatPasses(</span>passes: any, satDbID) {
+<span class="cstat-no" title="statement not covered" >    passes = passes.map(<span class="fstat-no" title="function not covered" >pass </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        return {</span>
             startTime: new Date(pass.start),
             endTime: new Date(pass.end),
@@ -141,7 +141,7 @@ function formatPasses(passes: any, satDbID) {
             Satellite: satDbID
         };
     });
-    return passes;
+<span class="cstat-no" title="statement not covered" >    return passes;</span>
 }
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
@@ -151,7 +151,7 @@ function formatPasses(passes: any, satDbID) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Dec 13 2020 22:53:49 GMT+0200 (Israel Standard Time)
+                at Wed Dec 16 2020 04:19:15 GMT+0200 (Israel Standard Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

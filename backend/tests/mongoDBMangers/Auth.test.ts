@@ -33,7 +33,7 @@ describe("auth db test", () => {
     })
     test("get all errors from db shold return them", async () => {
 
-        const testErrors = [{
+        const testUsers = [{
             name: "1",
             email: "1@gmail.com",
             role: "student",
@@ -53,18 +53,18 @@ describe("auth db test", () => {
             
         }];
 
-        await User.create(testErrors);
+        await User.create(testUsers);
         const res = (await db.getAllUsers())
             .sort((a, b) => parseInt(a.name)- parseInt(b.name));
 
-        expect(res.length).toEqual(testErrors.length);
+        expect(res.length).toEqual(testUsers.length);
 
-        for(let i = 0; i < testErrors.length; i++)
+        for(let i = 0; i < testUsers.length; i++)
         {
             
-            Object.keys(testErrors[i]).forEach(key => {
+            Object.keys(testUsers[i]).forEach(key => {
                 if(key !== "password")
-                    expect(res[i][key]).toEqual(testErrors[i][key]);
+                    expect(res[i][key]).toEqual(testUsers[i][key]);
             });
         }
     })
@@ -72,7 +72,7 @@ describe("auth db test", () => {
     test("get Single User by id", async () => {
         const _id = new mongoose.Types.ObjectId();
 
-        const testError = {
+        const testUser = {
             _id,    
             name: "1",
             email: "1@gmail.com",
@@ -80,12 +80,12 @@ describe("auth db test", () => {
             password: "123456" 
         };
 
-        await User.create(testError);
+        await User.create(testUser);
         const res = await db.getSingleUser(_id);
 
-        Object.keys(testError).forEach(key => {
+        Object.keys(testUser).forEach(key => {
             if(key !== "password")
-                expect(res[key]).toEqual(testError[key]);
+                expect(res[key]).toEqual(testUser[key]);
         });
         
     })
@@ -93,7 +93,7 @@ describe("auth db test", () => {
     test("update Single User by id", async () => {
         const _id = new mongoose.Types.ObjectId();
 
-        const testError = { 
+        const testUser = { 
             _id,    
             name: "1",
             email: "1@gmail.com",
@@ -106,7 +106,7 @@ describe("auth db test", () => {
             role: "instructions",
         };
 
-        await User.create(testError);
+        await User.create(testUser);
         
         await db.updateUser(_id, ToUpdate);
         const res = await db.getSingleUser(_id);
@@ -120,7 +120,7 @@ describe("auth db test", () => {
     test("create single User", async () => {
         const _id = new mongoose.Types.ObjectId();
 
-        const testError = {
+        const testUser = {
             _id,    
             name: "1",
             email: "1@gmail.com",
@@ -128,19 +128,19 @@ describe("auth db test", () => {
             password: "123456"
         };
 
-        await db.createUser(testError);
+        await db.createUser(testUser);
         const res = await db.getSingleUser(_id);
 
-        Object.keys(testError).forEach(key => {
+        Object.keys(testUser).forEach(key => {
             if(key !== "password")
-                expect(res[key]).toEqual(testError[key]);
+                expect(res[key]).toEqual(testUser[key]);
         });
     })
 
     test('delete user', async () => {
         const _id = new mongoose.Types.ObjectId();
 
-        const testError = {
+        const testUser = {
             _id,    
             name: "1",
             email: "1@gmail.com",
@@ -148,7 +148,7 @@ describe("auth db test", () => {
             password: "123456"
         };
 
-        await db.createUser(testError);
+        await db.createUser(testUser);
         
         await db.deleteUser(_id);
         const res = await db.getSingleUser(_id);
@@ -160,7 +160,7 @@ describe("auth db test", () => {
         const _id = new mongoose.Types.ObjectId();
         const email = "1@gmail.com";
         const password = "123456";
-        const testError = {
+        const testUser = {
             _id,    
             name: "1",
             email,
@@ -168,13 +168,13 @@ describe("auth db test", () => {
             password
         };
 
-        await User.create(testError);
+        await User.create(testUser);
         const res = await db.findUser({ email }, true);
 
         expect(await res.matchPassword(password)).toEqual(true);
-        Object.keys(testError).forEach(key => {
+        Object.keys(testUser).forEach(key => {
             if(key !== "password")
-                expect(res[key]).toEqual(testError[key]);
+                expect(res[key]).toEqual(testUser[key]);
         });
         
     })

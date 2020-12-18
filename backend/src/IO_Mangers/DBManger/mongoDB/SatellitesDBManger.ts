@@ -28,7 +28,7 @@ export default class SatellitesDBManger extends mangoDBManger implements ISatell
     async createSatellite(satelliteToCreate) 
     {
         const cratedSatellite = await Satellite.create(satelliteToCreate);
-
+        this.satelliteAmount++;
         return cratedSatellite;
     }
 
@@ -39,6 +39,7 @@ export default class SatellitesDBManger extends mangoDBManger implements ISatell
     }
 
     async deleteSingleSatellite(id: any) {
+        this.satelliteAmount--;
         return await Satellite.findByIdAndDelete(id);
     }
 

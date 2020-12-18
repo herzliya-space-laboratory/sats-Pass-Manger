@@ -1,5 +1,7 @@
 require("../src/utils/dotenvInit");
 
+import jwt from 'jsonwebtoken';
+
 import IDBManger from '../src/IO_Mangers/DBManger/intrface/IDBManger';
 import mangoDBManger from '../src/IO_Mangers/DBManger/mongoDB/mangoDBManger';
 
@@ -8,19 +10,29 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 import satelliteLogic from '../src/business logic/satelliteUseCases';
 import SatellitesDBManger from 'IO_Mangers/DBManger/mongoDB/SatellitesDBManger';
+
 import PassesDBManger from 'IO_Mangers/DBManger/mongoDB/PassesDBManger';
 import passLogic from 'business logic/passesUseCases';
+
+import AuthDBManger from 'IO_Mangers/DBManger/mongoDB/AuthDBManger';
+import authLogic from 'business logic/authUseCases';
+
 import ISatellitesDBManger from 'IO_Mangers/DBManger/intrface/ISatellitesDBManger';
 import IPassesDBManger from 'IO_Mangers/DBManger/intrface/IPassesDBManger';
+import IAuthDBManger from 'IO_Mangers/DBManger/intrface/IAuthDBManger';
+
 import ConcreteMediators from 'Mediator/ConcreteMediators';
+import ErrorResponse from 'utils/errorResponse';
 
 
 let satelliteManger:satelliteLogic;
 let passManger:passLogic;
+let usersManger:authLogic;
 
 let db:IDBManger;
 let passDB:IPassesDBManger;
 let satDB:ISatellitesDBManger;
+let userDB:IAuthDBManger;
 
 let mongoServer: MongoMemoryServer;
 
@@ -37,6 +49,9 @@ beforeEach(async () => {
 
     passDB = new PassesDBManger();
     passManger = new passLogic(passDB);
+
+    userDB = new AuthDBManger();
+    usersManger = new authLogic(userDB);
     
     let meditor = new ConcreteMediators(passManger, satelliteManger); 
     satelliteManger.setMediator(meditor);
@@ -48,7 +63,7 @@ afterEach(() => {
     return mongoose.disconnect();
 })
 
-describe('test the satellite business logic', () => {
+describe('satellite business logic', () => {
 
     test("get satellite from empty db return 404 no found err", () => {
         expect.assertions(3);
@@ -240,7 +255,7 @@ describe('test the satellite business logic', () => {
     });
 })
 
-describe('test the passes business logic', () => {
+describe('passes business logic', () => {
     test("get pass from empty db return 404 no found err", () => {
         expect.assertions(3);
 
@@ -552,6 +567,528 @@ describe('test the passes business logic', () => {
 
         await passManger.UpdateWhatWasInAPass(req, res);
 
+
+    })
+})
+
+describe('auth business logic', () => {
+    test("regester a user return valid user token", async () => {
+        expect.assertions(2);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+        const req = { body: testUser};
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                const token = obj.data;
+                const decode = jwt.verify(token, process.env.JWT_SECRET);
+                expect(decode.id).toBeTruthy();
+            }
+        }
+
+
+        await usersManger.register(req, res, () => {});
+    })
+
+    test("regester a user saves it in the db", async () => {
+        expect.assertions(4);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+
+        const req = { body: testUser};
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {}
+        }
+
+
+        await usersManger.register(req, res, () => {});
+
+        const savedUser = await userDB.findUser({ email: testUser.email });
+        Object.keys(testUser).forEach(key => {
+            if(key !== "password")
+                expect(savedUser[key]).toEqual(testUser[key]);
+        });
+    })
+
+    test("regester a user encript password and match it", async () => {
+        expect.assertions(3);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+
+        const req = { body: testUser};
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {}
+        }
+
+
+        await usersManger.register(req, res, () => {});
+
+        const savedUser = await userDB.findUser({ email: testUser.email }, true);
+        
+        expect(savedUser.password).not.toBe(testUser.password);
+
+        expect(await savedUser.matchPassword(testUser.password)).toBe(true);
+
+    })
+
+    test("regestered user can login", async () => {
+        expect.assertions(4);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+
+        const req = { body: testUser};
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                const token = obj.data;
+                const decode = jwt.verify(token, process.env.JWT_SECRET);
+                expect(decode.id).toBeTruthy();
+            }
+        }
+
+
+        await usersManger.register(req, res, () => {});
+        await usersManger.login(req, res, () => {});
+    })
+
+    test("empty user cannt login", async () => {
+        expect.assertions(1);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+
+        const req = { body: testUser};
+        const res = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {}
+        }
+
+        const next = function(err){
+                expect(err).toEqual(new ErrorResponse('please provide an email and a password', 400));
+                return this;
+            }
+
+        await usersManger.register(req, res, () => {});
+        await usersManger.login({body: {}}, res, next);
+    })
+
+    test("not register user cannt login", async () => {
+        expect.assertions(1);
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+        const req = { body: testUser};
+        
+        const res = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {}
+        }
+
+        const next = function(err){
+                expect(err).toEqual(new ErrorResponse(`invalid credentials`, 401));
+                return this;
+            }
+
+
+        await usersManger.login(req, res, next);
+    })
+
+    test("user with wrong password cannt login", async () => {
+        expect.assertions(1);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+
+        const req = { body: testUser};
+        const res = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {}
+        }
+
+        const next = function(err){
+                expect(err).toEqual(new ErrorResponse(`invalid credentials`, 401));
+                return this;
+            }
+
+        await usersManger.register(req, res, () => {});
+        req.body.password = "123457";
+        await usersManger.login(req, res, next);
+    })
+
+    test("login user can accses protect routes", async () => {
+        expect.assertions(2);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+        const req:any = { body: testUser,
+            headers: {}};
+
+        const res = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {
+                req.headers.authorization = 'Bearer ' + obj.data;
+            }
+        }
+
+        const next = (err?) =>
+        {
+            expect(err).toBeFalsy();
+            expect(req.user).toBeTruthy();
+        }
+
+        await usersManger.register(req, res, () => {});
+        await usersManger.protect(req, {}, next)
+    })
+
+    test("not login user cant accses protect routes", async () => {
+        expect.assertions(2);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+        const req:any = { body: testUser,
+            headers: {}};
+
+        const res = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {
+            }
+        }
+
+        const next = (err?) =>
+        {
+            expect(err).toEqual(new ErrorResponse('not authorize to acccess this route', 401));
+            expect(req.user).toBeFalsy();
+        }
+
+        await usersManger.register(req, res, () => {});
+        await usersManger.protect(req, {}, next)
+    })
+
+    test("not existing user cant accses protect routes", async () => {
+        expect.assertions(3);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+        const req:any = { body: testUser,
+            headers: {}};
+
+        const res = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {
+                req.headers.authorization = 'Bearer ' + obj.data;
+            }
+        }
+
+        const next = (err?) =>
+        {
+            expect(err).toEqual(new ErrorResponse('not authorize to acccess this route', 401));
+            expect(req.user).toBeFalsy();
+        }
+
+        await usersManger.register(req, res, () => {});
+
+        const token = req.headers.authorization.split(' ')[1];
+        const decode = jwt.verify(token, process.env.JWT_SECRET);
+        await userDB.deleteUser(decode.id);
+
+        await usersManger.protect(req, {}, next)
+    })
+
+    test("users with the right roles are authorize to the right routes", async () => {
+        expect.assertions(1);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+        const req:any = { body: testUser, user: testUser};
+        const res = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {
+            }
+        }
+
+        const next = (err?) =>
+        {
+            expect(err).toBeFalsy();
+        }
+
+        await usersManger.register(req, res, () => {});
+
+        usersManger.authorize("student", "admin")(req, {}, next);
+    })
+
+    test("users with out the right roles are authorize to the right routes", async () => {
+        expect.assertions(1);
+
+        const testUser = {
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        };
+        const req:any = { body: testUser, user: testUser};
+        const res = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {
+            }
+        }
+
+        const next = (err?) =>
+        {
+            expect(err).toEqual(new ErrorResponse(`User role is not authorized to access this route `, 403));
+        }
+
+        await usersManger.register(req, res, () => {});
+
+        usersManger.authorize("instructions", "admin")(req, {}, next);
+    })
+
+    test('get all users', async () => {
+        expect.assertions(1 + 4*4);
+        
+        let UsersToCreate = 
+        [
+            {
+                name: "1",
+                email: "1@gmail.com",
+                role: "student",
+                password: "123456"
+            },
+            {
+                name: "2",
+                email: "2@gmail.com",
+                role: "student",
+                password: "123456"
+            },
+            {
+                name: "3",
+                email: "2@gmail.com",
+                role: "student",
+                password: "123456"
+            },
+            {
+                name: "4",
+                email: "2@gmail.com",
+                role: "student",
+                password: "123456"
+            }
+        ];
+        
+        
+        await userDB.createUser(UsersToCreate);
+        
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                UsersToCreate = UsersToCreate.sort((a, b) => parseInt(a.name) - parseInt(b.name));
+                obj.data = obj.data.sort((a, b) => parseInt(a.name) - parseInt(b.name));
+
+                for(let i = 0; i < obj.data.length; i++)
+                {
+                    Object.keys(UsersToCreate).forEach(key => expect(obj.data[i][key]).toBe(UsersToCreate[i][key]))
+                }
+            }
+        }
+
+        await usersManger.getAllUsers({}, res);
+    })
+
+
+    test("get user from empty db return 404 no found err", () => {
+        expect.assertions(3);
+
+        const id = new mongoose.Types.ObjectId()
+        
+        const res = {
+            status: function(status){
+                expect(status).toBe(404)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.data).toBeNull();
+                expect(obj.error).toBe(`user with id: ${id} wasnt found`)
+            }
+        }
+
+
+        return usersManger.getSingleUser({params: {id}}, res);
+    })
+
+    test("get user return the user", async () => {
+        expect.assertions(2);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const passToCreate = {
+            _id: id, 
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        }
+
+        const output = await userDB.createUser(passToCreate);
+        output.password = undefined;
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.data.toObject()).toEqual(output.toObject());
+            }
+        }
+
+
+        return usersManger.getSingleUser({params: {id}}, res);
+    })
+
+    test("update user", async () => {
+        expect.assertions(2);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const passToCreate = {
+            _id: id, 
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        }
+
+        const output = await userDB.createUser(passToCreate);
+        output.password = undefined;
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.data.email).toBe("2@gmail.com");
+            }
+        }
+
+
+        return usersManger.updatSingleUser({params: {id}, body: {email: "2@gmail.com"}}, res);
+    })
+
+    
+    test("delete user", async () => {
+        expect.assertions(2);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const passToCreate = {
+            _id: id, 
+            name: "1",
+            email: "1@gmail.com",
+            role: "student",
+            password: "123456"
+        }
+
+        const output = await userDB.createUser(passToCreate);
+
+        const res1 = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {
+            }
+        }
+        const res2 = {
+            status: function(status){
+                expect(status).toBe(404)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.error).toBe(`user with id: ${id} wasnt found`);
+            }
+        }
+
+
+        await usersManger.deleteSingleUser({params: {id}}, res1);
+        return usersManger.getSingleUser({params: {id}}, res2);
 
     })
 

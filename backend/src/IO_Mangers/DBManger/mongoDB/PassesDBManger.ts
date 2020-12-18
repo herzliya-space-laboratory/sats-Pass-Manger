@@ -22,7 +22,7 @@ export default class PassesDBManger extends mangoDBManger implements IPassesDBMa
     async createPass(passToCreate) 
     {
         const cratedPass = await Pass.create(passToCreate);
-
+        this.passAmount++;
         return cratedPass;
     }
 
