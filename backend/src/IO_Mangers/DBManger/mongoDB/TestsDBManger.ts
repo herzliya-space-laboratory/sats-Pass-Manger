@@ -20,14 +20,22 @@ export default class TestsDBManger extends mangoDBManger implements ITestsDBMang
     }
 
     async createTest(testToCreate) {
-        await Test.create(testToCreate);
+        return await Test.create(testToCreate);
     }
 
     async updateTest(_id, dataToUpdate) {
-        await Test.findByIdAndUpdate(_id, dataToUpdate);
+        return await Test.findByIdAndUpdate(_id, dataToUpdate, {new: true});
     }
 
     async deleteTest(_id: any) {
-        await Test.findByIdAndDelete(_id);
+        return await Test.findByIdAndDelete(_id);
+    }
+
+    getTestsAmount() {
+        Test.countDocuments({}, (err, count) => {
+            this.testsAmount = count;
+        })
+
+        return this.testsAmount;
     }
 }

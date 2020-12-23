@@ -17,9 +17,15 @@ import passLogic from 'business logic/passesUseCases';
 import AuthDBManger from 'IO_Mangers/DBManger/mongoDB/AuthDBManger';
 import authLogic from 'business logic/authUseCases';
 
+import testsLogic from '../src/business logic/testsUseCases';
+import testsDBManger from 'IO_Mangers/DBManger/mongoDB/TestsDBManger';
+
+
 import ISatellitesDBManger from 'IO_Mangers/DBManger/intrface/ISatellitesDBManger';
 import IPassesDBManger from 'IO_Mangers/DBManger/intrface/IPassesDBManger';
 import IAuthDBManger from 'IO_Mangers/DBManger/intrface/IAuthDBManger';
+import ITestsDBManger from 'IO_Mangers/DBManger/intrface/ITestsDBManger';
+
 
 import ConcreteMediators from 'Mediator/ConcreteMediators';
 import ErrorResponse from 'utils/errorResponse';
@@ -28,11 +34,14 @@ import ErrorResponse from 'utils/errorResponse';
 let satelliteManger:satelliteLogic;
 let passManger:passLogic;
 let usersManger:authLogic;
+let testManger:testsLogic;
+
 
 let db:IDBManger;
 let passDB:IPassesDBManger;
 let satDB:ISatellitesDBManger;
 let userDB:IAuthDBManger;
+let testDB:ITestsDBManger;
 
 let mongoServer: MongoMemoryServer;
 
@@ -52,6 +61,9 @@ beforeEach(async () => {
 
     userDB = new AuthDBManger();
     usersManger = new authLogic(userDB);
+
+    testDB = new testsDBManger();
+    testManger = new testsLogic(testDB);
     
     let meditor = new ConcreteMediators(passManger, satelliteManger); 
     satelliteManger.setMediator(meditor);
@@ -255,19 +267,18 @@ describe('satellite business logic', () => {
     });
 
 
-    test("update user", async () => {
+    test("update satllite", async () => {
         expect.assertions(2);
 
         const id = new mongoose.Types.ObjectId();
         
-        const passToCreate = {
+        const satlliteToCreate = {
             _id: id,
             name: 'test 1',
             satId: 1
         }
 
-        const output = await satDB.createSatellite(passToCreate);
-        output.password = undefined;
+        await satDB.createSatellite(satlliteToCreate);
 
         const res = {
             status: function(status){
@@ -284,18 +295,18 @@ describe('satellite business logic', () => {
     })
 
     
-    test("delete user", async () => {
+    test("delete satllite", async () => {
         expect.assertions(2);
 
         const id = new mongoose.Types.ObjectId();
         
-        const passToCreate = {
+        const satlliteToCreate = {
             _id: id,
             name: 'test 1',
             satId: 1
         }
 
-        const output = await satDB.createSatellite(passToCreate);
+         await satDB.createSatellite(satlliteToCreate);
 
 
         const res1 = {
@@ -1159,6 +1170,206 @@ describe('auth business logic', () => {
 
         await usersManger.deleteSingleUser({params: {id}}, res1);
         return usersManger.getSingleUser({params: {id}}, res2);
+
+    })
+
+})
+
+
+describe('tests use cases', () => {
+    test("get test from empty db return 404 no found err", () => {
+        expect.assertions(3);
+
+        const id = new mongoose.Types.ObjectId()
+        
+        const res = {
+            status: function(status){
+                expect(status).toBe(404)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.data).toBeNull();
+                expect(obj.error).toBe(`test with id: ${id} wasnt found`)
+            }
+        }
+
+
+        return testManger.getSingleTest({params: {id}}, res);
+    })
+
+    test("get test return the pass", async () => {
+        expect.assertions(2);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const testToCreate = {
+            _id: id,
+            goal: "aaaa"
+        }
+
+        const output = await testDB.createTest(testToCreate);
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.data.toObject()).toEqual(output.toObject());
+            }
+        }
+
+
+        return testManger.getSingleTest({params: {id}}, res);
+    })
+
+    test("get all tests with Length < 3 and sort by Length and select of Length & Planner", async () => {
+        expect.assertions(10);
+        
+        let testsToCreate = 
+        [
+            {
+                Planner: 'test 2',
+                Length: 2
+            },
+            {
+                Planner: 'test 1',
+                Length: 1
+            },
+            
+            {
+                Planner: 'test 3',
+                Length: 3
+            },
+            {
+                Planner: 'test 4',
+                Length: 4
+            }
+        ];
+        
+        
+        await testDB.createTest(testsToCreate);
+        
+        testsToCreate = testsToCreate.sort((a, b) => a.Length - b.Length);
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                for(let i = 0; i < obj.data.length; i++)
+                {
+                    expect(testsToCreate[i].Length).toEqual(obj.data[i].Length);
+                    expect(obj.data[i].Length).toBeLessThanOrEqual(3);
+                    expect(Object.keys(obj.data[i].toObject())).toEqual(['_id', 'Planner', 'Length']);
+                }
+            }
+        }
+        
+        const req = {
+                query: {
+                    Length: {lte: 3},
+                    sort: 'Length',
+                    select: 'Length Planner'
+
+                }
+            }
+
+        return testManger.getAllTests(req, res);
+    }, 20000)
+
+    test("create test", async () => {
+        expect.assertions(8);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const testToCreate = {
+            _id: id,
+            Planner: 'test 2',
+            Length: 2
+        }
+
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                Object.keys(testToCreate).forEach(key =>
+                     expect(obj.data[key]).toEqual(testToCreate[key]));
+            }
+        }
+
+
+        await testManger.createTest({body: testToCreate}, res);
+        await testManger.getSingleTest({params: {id}}, res);
+    })
+
+    test("update test", async () => {
+        expect.assertions(2);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const testToCreate = {
+            _id: id,
+            Planner: 'test 2',
+            Length: 2
+        }
+
+        await testDB.createTest(testToCreate);
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.data.Planner).toBe("test3");
+            }
+        }
+
+
+        return testManger.updatSingleTest({params: {id}, body: {Planner: "test3"}}, res);
+         
+    })
+
+    
+    test("delete test", async () => {
+        expect.assertions(2);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const passToCreate = {
+            _id: id,
+            Planner: 'test 2',
+            Length: 2
+        }
+
+        await testDB.createTest(passToCreate);
+
+
+        const res1 = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {
+            }
+        }
+        const res2 = {
+            status: function(status){
+                expect(status).toBe(404)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.error).toBe(`test with id: ${id} wasnt found`);
+            }
+        }
+
+
+        await testManger.deleteSingleTest({params: {id}}, res1);
+        return testManger.getSingleTest({params: {id}}, res2);
 
     })
 

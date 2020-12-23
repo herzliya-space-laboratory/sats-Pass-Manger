@@ -78,7 +78,7 @@
 								<li class="tsd-kind-class"><a href="classes/passesdbmanger.html" class="tsd-kind-icon">PassesDBManger</a></li>
 								<li class="tsd-kind-class"><a href="classes/satellitesdbmanger.html" class="tsd-kind-icon">SatellitesDBManger</a></li>
 								<li class="tsd-kind-class"><a href="classes/testsdbmanger.html" class="tsd-kind-icon">TestsDBManger</a></li>
-								<li class="tsd-kind-class"><a href="classes/courseslogic.html" class="tsd-kind-icon">courses<wbr>Logic</a></li>
+								<li class="tsd-kind-class"><a href="classes/authlogic.html" class="tsd-kind-icon">auth<wbr>Logic</a></li>
 								<li class="tsd-kind-class"><a href="classes/expressapi.html" class="tsd-kind-icon">express<wbr>Api</a></li>
 								<li class="tsd-kind-class"><a href="classes/mangodbmanger.html" class="tsd-kind-icon">mangoDBManger</a></li>
 								<li class="tsd-kind-class"><a href="classes/passlogic.html" class="tsd-kind-icon">pass<wbr>Logic</a></li>
@@ -109,6 +109,8 @@
 								<li class="tsd-kind-variable"><a href="globals.html#satellite" class="tsd-kind-icon">Satellite</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#test" class="tsd-kind-icon">Test</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#api" class="tsd-kind-icon">api</a></li>
+								<li class="tsd-kind-variable"><a href="globals.html#authdbmanger" class="tsd-kind-icon">authDBManger</a></li>
+								<li class="tsd-kind-variable"><a href="globals.html#authmanger" class="tsd-kind-icon">auth<wbr>Manger</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#db" class="tsd-kind-icon">db</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#dotenv" class="tsd-kind-icon">dotenv</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#express" class="tsd-kind-icon">express</a></li>
@@ -123,7 +125,9 @@
 								<li class="tsd-kind-variable"><a href="globals.html#satdb" class="tsd-kind-icon">satDB</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#satdbmanger" class="tsd-kind-icon">satDBManger</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#satellitemanger" class="tsd-kind-icon">satellite<wbr>Manger</a></li>
+								<li class="tsd-kind-variable"><a href="globals.html#userdb" class="tsd-kind-icon">userDB</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#userschema" class="tsd-kind-icon">user<wbr>Schema</a></li>
+								<li class="tsd-kind-variable"><a href="globals.html#usersmanger" class="tsd-kind-icon">users<wbr>Manger</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -157,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">APIManger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IAPIManagers</span><span class="tsd-signature-symbol"> = createAPIManger(PORT)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/server.ts#L24">src/server.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L27">src/server.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -167,7 +171,7 @@
 					<div class="tsd-signature tsd-kind-icon">DBManger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">IDBManger</span><span class="tsd-signature-symbol"> = createDBManger()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/server.ts#L20">src/server.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L23">src/server.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,7 +181,7 @@
 					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = new mongoose.Schema({whenTheErrorSpoted: Date,whatTheSimptoms: String,isTheSimptomRepeat: Boolean,whoSpotedTheSymptom: String,hypothesis: String,solveProcess: [{type: mongoose.Schema.ObjectId,ref: &#x27;Test&#x27;}],howLongWillItTakeToSolve: Number,WasSolved: Boolean,howWasItSolved: String,systemsItRelateTo: [String],createdAt: {type: Date,default: Date.now}})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/IO_Mangers/DBManger/models/Error.ts#L3">src/IO_Mangers/DBManger/models/Error.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/models/Error.ts#L3">src/IO_Mangers/DBManger/models/Error.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -187,7 +191,7 @@
 					<div class="tsd-signature tsd-kind-icon">PORT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = parseInt(process.env.PORT  || &#x27;4000&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/server.ts#L23">src/server.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L26">src/server.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -197,7 +201,7 @@
 					<div class="tsd-signature tsd-kind-icon">Pass<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = new mongoose.Schema({startTime: Date,endTime: Date,maxElevation: Number,duration: Number,Satellite: {type: mongoose.Schema.ObjectId,ref: &#x27;Satellite&#x27;},status: {type: String,default: &#x27;not ready&#x27;},systemsItRelateTo: [String],goal: String,description: String,PassPlanner: String,PassExecuter: String,PassPlaylestInHoopenest: String,whatWasExecute: String,manualErrors: {type: [mongoose.Schema.ObjectId],ref: &#x27;Error&#x27;},systemErrors: {type: [mongoose.Schema.ObjectId],ref: &#x27;Error&#x27;},tlm: [Object],createdAt: {type: Date,default: Date.now}})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/IO_Mangers/DBManger/models/Pass.ts#L3">src/IO_Mangers/DBManger/models/Pass.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/models/Pass.ts#L3">src/IO_Mangers/DBManger/models/Pass.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -207,7 +211,7 @@
 					<div class="tsd-signature tsd-kind-icon">Satellite<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = new mongoose.Schema({name:{type: String,required: [true, &#x27;please add the satellite name&#x27;]},satId:{type: Number,required: [true, &#x27;please add the satellite id&#x27;]},passes: Object,tle: String,createdAt: {type: Date,default: Date.now}},{toJSON: {virtuals: true},toObject: {virtuals: true}})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/IO_Mangers/DBManger/models/Satellite.ts#L4">src/IO_Mangers/DBManger/models/Satellite.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/models/Satellite.ts#L4">src/IO_Mangers/DBManger/models/Satellite.ts:4</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -217,7 +221,7 @@
 					<div class="tsd-signature tsd-kind-icon">Test<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = new mongoose.Schema({goal: String,systemsItRelateTo: [String],plan: [String],Planner: String,executor: String,whenWillItBe: Date,Length: Number,hypothesis: String,result: String,conclusions: String})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/IO_Mangers/DBManger/models/Test.ts#L3">src/IO_Mangers/DBManger/models/Test.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/models/Test.ts#L3">src/IO_Mangers/DBManger/models/Test.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -227,7 +231,27 @@
 					<div class="tsd-signature tsd-kind-icon">api<span class="tsd-signature-symbol">:</span> <a href="interfaces/iapimanager.html" class="tsd-signature-type">IAPIManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/tests/api.test.ts#L6">tests/api.test.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/api.test.ts#L6">tests/api.test.ts:6</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="authdbmanger" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> authDBManger</h3>
+					<div class="tsd-signature tsd-kind-icon">authDBManger<span class="tsd-signature-symbol">:</span> <a href="interfaces/iauthdbmanger.html" class="tsd-signature-type">IAuthDBManger</a><span class="tsd-signature-symbol"> = new AuthDBManger()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L36">src/server.ts:36</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="authmanger" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> auth<wbr>Manger</h3>
+					<div class="tsd-signature tsd-kind-icon">auth<wbr>Manger<span class="tsd-signature-symbol">:</span> <a href="classes/authlogic.html" class="tsd-signature-type">authLogic</a><span class="tsd-signature-symbol"> = new authLogic(authDBManger)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L37">src/server.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -237,12 +261,12 @@
 					<div class="tsd-signature tsd-kind-icon">db<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ITestsDBManger</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/tests/businessLogic.test.ts#L21">tests/businessLogic.test.ts:21</a></li>
-							<li>Defined in tests/mongoDBMangers/Auth.test.ts:12</li>
-							<li>Defined in tests/mongoDBMangers/Error.test.ts:12</li>
-							<li>Defined in tests/mongoDBMangers/passes.test.ts:13</li>
-							<li>Defined in tests/mongoDBMangers/satellite.test.ts:13</li>
-							<li>Defined in tests/mongoDBMangers/test.test.ts:13</li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/businessLogic.test.ts#L32">tests/businessLogic.test.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/Auth.test.ts#L12">tests/mongoDBMangers/Auth.test.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/Error.test.ts#L12">tests/mongoDBMangers/Error.test.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/passes.test.ts#L13">tests/mongoDBMangers/passes.test.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/satellite.test.ts#L13">tests/mongoDBMangers/satellite.test.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/test.test.ts#L13">tests/mongoDBMangers/test.test.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -252,7 +276,7 @@
 					<div class="tsd-signature tsd-kind-icon">dotenv<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = require(&quot;dotenv&quot;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/dotenvInit.ts#L1">src/utils/dotenvInit.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/dotenvInit.ts#L1">src/utils/dotenvInit.ts:1</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -262,7 +286,7 @@
 					<div class="tsd-signature tsd-kind-icon">express<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">e</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/IO_Mangers/ApiManger/expressApi.ts#L2">src/IO_Mangers/ApiManger/expressApi.ts:2</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/ApiManger/expressApi.ts#L2">src/IO_Mangers/ApiManger/expressApi.ts:2</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -272,7 +296,7 @@
 					<div class="tsd-signature tsd-kind-icon">mediator<span class="tsd-signature-symbol">:</span> <a href="classes/concretemediators.html" class="tsd-signature-type">ConcreteMediators</a><span class="tsd-signature-symbol"> = new ConcreteMediators(passesManger, satelliteManger)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/server.ts#L33">src/server.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L39">src/server.ts:39</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -282,12 +306,12 @@
 					<div class="tsd-signature tsd-kind-icon">mongo<wbr>Server<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MongoMemoryServer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/tests/businessLogic.test.ts#L25">tests/businessLogic.test.ts:25</a></li>
-							<li>Defined in tests/mongoDBMangers/Auth.test.ts:13</li>
-							<li>Defined in tests/mongoDBMangers/Error.test.ts:13</li>
-							<li>Defined in tests/mongoDBMangers/passes.test.ts:14</li>
-							<li>Defined in tests/mongoDBMangers/satellite.test.ts:14</li>
-							<li>Defined in tests/mongoDBMangers/test.test.ts:14</li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/businessLogic.test.ts#L37">tests/businessLogic.test.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/Auth.test.ts#L13">tests/mongoDBMangers/Auth.test.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/Error.test.ts#L13">tests/mongoDBMangers/Error.test.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/passes.test.ts#L14">tests/mongoDBMangers/passes.test.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/satellite.test.ts#L14">tests/mongoDBMangers/satellite.test.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/test.test.ts#L14">tests/mongoDBMangers/test.test.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -297,12 +321,12 @@
 					<div class="tsd-signature tsd-kind-icon">mongoose<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/tests/businessLogic.test.ts#L6">tests/businessLogic.test.ts:6</a></li>
-							<li>Defined in tests/mongoDBMangers/Auth.test.ts:7</li>
-							<li>Defined in tests/mongoDBMangers/Error.test.ts:7</li>
-							<li>Defined in tests/mongoDBMangers/passes.test.ts:8</li>
-							<li>Defined in tests/mongoDBMangers/satellite.test.ts:8</li>
-							<li>Defined in tests/mongoDBMangers/test.test.ts:8</li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/businessLogic.test.ts#L8">tests/businessLogic.test.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/Auth.test.ts#L7">tests/mongoDBMangers/Auth.test.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/Error.test.ts#L7">tests/mongoDBMangers/Error.test.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/passes.test.ts#L8">tests/mongoDBMangers/passes.test.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/satellite.test.ts#L8">tests/mongoDBMangers/satellite.test.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/mongoDBMangers/test.test.ts#L8">tests/mongoDBMangers/test.test.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -312,7 +336,7 @@
 					<div class="tsd-signature tsd-kind-icon">passDB<span class="tsd-signature-symbol">:</span> <a href="interfaces/ipassesdbmanger.html" class="tsd-signature-type">IPassesDBManger</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/tests/businessLogic.test.ts#L22">tests/businessLogic.test.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/businessLogic.test.ts#L33">tests/businessLogic.test.ts:33</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -322,7 +346,7 @@
 					<div class="tsd-signature tsd-kind-icon">passDBManger<span class="tsd-signature-symbol">:</span> <a href="interfaces/ipassesdbmanger.html" class="tsd-signature-type">IPassesDBManger</a><span class="tsd-signature-symbol"> = new PassesDBManger()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/server.ts#L30">src/server.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L33">src/server.ts:33</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -332,7 +356,7 @@
 					<div class="tsd-signature tsd-kind-icon">pass<wbr>Manger<span class="tsd-signature-symbol">:</span> <a href="classes/passlogic.html" class="tsd-signature-type">passLogic</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/tests/businessLogic.test.ts#L19">tests/businessLogic.test.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/businessLogic.test.ts#L29">tests/businessLogic.test.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -342,7 +366,7 @@
 					<div class="tsd-signature tsd-kind-icon">passes<wbr>Manger<span class="tsd-signature-symbol">:</span> <a href="classes/passlogic.html" class="tsd-signature-type">passLogic</a><span class="tsd-signature-symbol"> = new passLogic(passDBManger)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/server.ts#L31">src/server.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L34">src/server.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -352,7 +376,7 @@
 					<div class="tsd-signature tsd-kind-icon">request<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = require(&#x27;supertest&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/tests/api.test.ts#L3">tests/api.test.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/api.test.ts#L3">tests/api.test.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -362,7 +386,7 @@
 					<div class="tsd-signature tsd-kind-icon">satDB<span class="tsd-signature-symbol">:</span> <a href="interfaces/isatellitesdbmanger.html" class="tsd-signature-type">ISatellitesDBManger</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/tests/businessLogic.test.ts#L23">tests/businessLogic.test.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/businessLogic.test.ts#L34">tests/businessLogic.test.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -372,7 +396,7 @@
 					<div class="tsd-signature tsd-kind-icon">satDBManger<span class="tsd-signature-symbol">:</span> <a href="interfaces/isatellitesdbmanger.html" class="tsd-signature-type">ISatellitesDBManger</a><span class="tsd-signature-symbol"> = new SatellitesDBManger()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/server.ts#L26">src/server.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L29">src/server.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -382,8 +406,18 @@
 					<div class="tsd-signature tsd-kind-icon">satellite<wbr>Manger<span class="tsd-signature-symbol">:</span> <a href="classes/satellitelogic.html" class="tsd-signature-type">satelliteLogic</a><span class="tsd-signature-symbol"> = new satelliteLogic(satDBManger)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/server.ts#L27">src/server.ts:27</a></li>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/tests/businessLogic.test.ts#L18">tests/businessLogic.test.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L30">src/server.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/businessLogic.test.ts#L28">tests/businessLogic.test.ts:28</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="userdb" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagLet">Let</span> userDB</h3>
+					<div class="tsd-signature tsd-kind-icon">userDB<span class="tsd-signature-symbol">:</span> <a href="interfaces/iauthdbmanger.html" class="tsd-signature-type">IAuthDBManger</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/businessLogic.test.ts#L35">tests/businessLogic.test.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -393,7 +427,17 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = new mongoose.Schema({name: {type: String,required: [true, &#x27;Please add name&#x27;]},email: {type: String,required: [true, &#x27;Please add email&#x27;],unique : true,dropDups: true,match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,&#x27;Please add a valid email&#x27;]},role: {type: String,enum: [&#x27;student&#x27;, &#x27;instructions&#x27;, &#x27;admin&#x27;],default: &#x27;student&#x27;},password: {type: String,required: [true, &#x27;Please add password&#x27;],minlength: 6,select: false},restPasswordToken: String,restPasswordExpire: Date,createdAt: {type: Date,default: Date.now()}})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/IO_Mangers/DBManger/models/User.ts:5</li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/models/User.ts#L5">src/IO_Mangers/DBManger/models/User.ts:5</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="usersmanger" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagLet">Let</span> users<wbr>Manger</h3>
+					<div class="tsd-signature tsd-kind-icon">users<wbr>Manger<span class="tsd-signature-symbol">:</span> <a href="classes/authlogic.html" class="tsd-signature-type">authLogic</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/tests/businessLogic.test.ts#L30">tests/businessLogic.test.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -410,7 +454,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/queryFormater.ts#L49">src/utils/queryFormater.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/queryFormater.ts#L49">src/utils/queryFormater.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -433,7 +477,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/MangersInit.ts#L5">src/utils/MangersInit.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/MangersInit.ts#L5">src/utils/MangersInit.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -456,7 +500,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/MangersInit.ts#L14">src/utils/MangersInit.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/MangersInit.ts#L14">src/utils/MangersInit.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="classes/mangodbmanger.html" class="tsd-signature-type">mangoDBManger</a></h4>
@@ -473,7 +517,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/IO_Mangers/ApiManger/middleware/error.ts#L1">src/IO_Mangers/ApiManger/middleware/error.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/ApiManger/middleware/error.ts#L5">src/IO_Mangers/ApiManger/middleware/error.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -505,7 +549,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/getSatellitePasses.ts#L3">src/utils/getSatellitePasses.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/getSatellitePasses.ts#L3">src/utils/getSatellitePasses.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -537,7 +581,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/queryFormater.ts#L15">src/utils/queryFormater.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/queryFormater.ts#L15">src/utils/queryFormater.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -563,7 +607,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/getSatellitePasses.ts#L17">src/utils/getSatellitePasses.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/getSatellitePasses.ts#L15">src/utils/getSatellitePasses.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -589,7 +633,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/queryFormater.ts#L1">src/utils/queryFormater.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/queryFormater.ts#L1">src/utils/queryFormater.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -620,7 +664,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/getSatelliteTle.ts#L3">src/utils/getSatelliteTle.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/getSatelliteTle.ts#L3">src/utils/getSatelliteTle.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -643,7 +687,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/server.ts#L46">src/server.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/server.ts#L52">src/server.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -660,7 +704,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/IO_Mangers/ApiManger/middleware/logger.ts#L1">src/IO_Mangers/ApiManger/middleware/logger.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/ApiManger/middleware/logger.ts#L1">src/IO_Mangers/ApiManger/middleware/logger.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -689,7 +733,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/queryFormater.ts#L35">src/utils/queryFormater.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/queryFormater.ts#L35">src/utils/queryFormater.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -712,7 +756,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/sendResponse.ts#L9">src/utils/sendResponse.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/sendResponse.ts#L9">src/utils/sendResponse.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -744,7 +788,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/sendResponse.ts#L1">src/utils/sendResponse.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/sendResponse.ts#L1">src/utils/sendResponse.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -773,7 +817,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/utils/sendResponse.ts#L19">src/utils/sendResponse.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/utils/sendResponse.ts#L19">src/utils/sendResponse.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -832,7 +876,7 @@
 						<a href="classes/testsdbmanger.html" class="tsd-kind-icon">TestsDBManger</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/courseslogic.html" class="tsd-kind-icon">courses<wbr>Logic</a>
+						<a href="classes/authlogic.html" class="tsd-kind-icon">auth<wbr>Logic</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/expressapi.html" class="tsd-kind-icon">express<wbr>Api</a>
@@ -895,6 +939,12 @@
 						<a href="globals.html#api" class="tsd-kind-icon">api</a>
 					</li>
 					<li class=" tsd-kind-variable">
+						<a href="globals.html#authdbmanger" class="tsd-kind-icon">authDBManger</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#authmanger" class="tsd-kind-icon">auth<wbr>Manger</a>
+					</li>
+					<li class=" tsd-kind-variable">
 						<a href="globals.html#db" class="tsd-kind-icon">db</a>
 					</li>
 					<li class=" tsd-kind-variable">
@@ -937,7 +987,13 @@
 						<a href="globals.html#satellitemanger" class="tsd-kind-icon">satellite<wbr>Manger</a>
 					</li>
 					<li class=" tsd-kind-variable">
+						<a href="globals.html#userdb" class="tsd-kind-icon">userDB</a>
+					</li>
+					<li class=" tsd-kind-variable">
 						<a href="globals.html#userschema" class="tsd-kind-icon">user<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#usersmanger" class="tsd-kind-icon">users<wbr>Manger</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#adddollarsignatthebeginingofallthequrycomparisonoperators" class="tsd-kind-icon">add<wbr>Dollar<wbr>Sign<wbr>AtThe<wbr>Begining<wbr>OfAll<wbr>The<wbr>Qury<wbr>Comparison<wbr>Operators</a>

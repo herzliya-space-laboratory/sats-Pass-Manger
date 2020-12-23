@@ -5,13 +5,14 @@ import IDBManager from "../intrface/IDBManger";
 import Satellite from '../models/Satellite';
 import Pass from "../models/Pass";
 import User from "../models/User";
+import Test from "../models/Test";
 
 export default class mangoDBManger implements IDBManager
 {
     protected satelliteAmount: number;
     protected passAmount: number;
     protected userAmount: number;
-
+    protected testsAmount: number;
     connect(URI) 
     {
         mongoose.connect(URI, {
@@ -26,6 +27,8 @@ export default class mangoDBManger implements IDBManager
         Satellite.countDocuments().then(count => this.satelliteAmount = count);
         User.countDocuments().then(count => this.userAmount = count);
         Pass.countDocuments().then(count => this.passAmount = count);
+        Test.countDocuments().then(count => this.testsAmount = count);
+
     }   
 
     protected formatTheDBRequst(dbRequst: any, params: any, populate:any = '') {

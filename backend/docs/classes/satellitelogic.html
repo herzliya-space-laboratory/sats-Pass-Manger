@@ -100,12 +100,14 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitelogic.html#createsatellite" class="tsd-kind-icon">create<wbr>Satellite</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitelogic.html#deletesinglesatellite" class="tsd-kind-icon">delete<wbr>Single<wbr>Satellite</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitelogic.html#getallsatellites" class="tsd-kind-icon">get<wbr>All<wbr>Satellites</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitelogic.html#getallsatellitespassesandsavethem" class="tsd-kind-icon">get<wbr>All<wbr>Satellites<wbr>Passes<wbr>And<wbr>Save<wbr>Them</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitelogic.html#getsatellitepassesandsavethem" class="tsd-kind-icon">get<wbr>Satellite<wbr>Passes<wbr>And<wbr>Save<wbr>Them</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitelogic.html#getsinglesatellite" class="tsd-kind-icon">get<wbr>Single<wbr>Satellite</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="satellitelogic.html#gettle" class="tsd-kind-icon">get<wbr>Tle</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="satellitelogic.html#setmediator" class="tsd-kind-icon">set<wbr>Mediator</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitelogic.html#updatsinglesatellite" class="tsd-kind-icon">updat<wbr>Single<wbr>Satellite</a></li>
 							</ul>
 						</section>
 					</div>
@@ -124,7 +126,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="basecomponent.html">BaseComponent</a>.<a href="basecomponent.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/business logic/satelliteUseCases.ts#L18">src/business logic/satelliteUseCases.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L18">src/business logic/satelliteUseCases.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -146,7 +148,7 @@
 					<div class="tsd-signature tsd-kind-icon">db<span class="tsd-signature-symbol">:</span> <a href="../interfaces/isatellitesdbmanger.html" class="tsd-signature-type">ISatellitesDBManger</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/business logic/satelliteUseCases.ts#L18">src/business logic/satelliteUseCases.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L18">src/business logic/satelliteUseCases.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -157,7 +159,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="basecomponent.html">BaseComponent</a>.<a href="basecomponent.html#mediator">mediator</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/Mediator/BaseComponent.ts#L4">src/Mediator/BaseComponent.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/Mediator/BaseComponent.ts#L4">src/Mediator/BaseComponent.ts:4</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -168,13 +170,42 @@
 					<a name="createsatellite" class="tsd-anchor"></a>
 					<h3>create<wbr>Satellite</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Satellite<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Satellite<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, next<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/business logic/satelliteUseCases.ts#L53">src/business logic/satelliteUseCases.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L53">src/business logic/satelliteUseCases.ts:53</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>res: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> next: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="deletesinglesatellite" class="tsd-anchor"></a>
+					<h3>delete<wbr>Single<wbr>Satellite</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Single<wbr>Satellite<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L79">src/business logic/satelliteUseCases.ts:79</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -200,7 +231,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/business logic/satelliteUseCases.ts#L41">src/business logic/satelliteUseCases.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L41">src/business logic/satelliteUseCases.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -226,7 +257,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/business logic/satelliteUseCases.ts#L81">src/business logic/satelliteUseCases.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L107">src/business logic/satelliteUseCases.ts:107</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -252,7 +283,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/business logic/satelliteUseCases.ts#L62">src/business logic/satelliteUseCases.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L88">src/business logic/satelliteUseCases.ts:88</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -278,7 +309,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/business logic/satelliteUseCases.ts#L27">src/business logic/satelliteUseCases.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L27">src/business logic/satelliteUseCases.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -304,7 +335,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/business logic/satelliteUseCases.ts#L102">src/business logic/satelliteUseCases.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L128">src/business logic/satelliteUseCases.ts:128</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -328,7 +359,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="basecomponent.html">BaseComponent</a>.<a href="basecomponent.html#setmediator">setMediator</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/47da76f/backend/src/Mediator/BaseComponent.ts#L10">src/Mediator/BaseComponent.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/Mediator/BaseComponent.ts#L10">src/Mediator/BaseComponent.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -338,6 +369,35 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="updatsinglesatellite" class="tsd-anchor"></a>
+					<h3>updat<wbr>Single<wbr>Satellite</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">updat<wbr>Single<wbr>Satellite<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/business logic/satelliteUseCases.ts#L65">src/business logic/satelliteUseCases.ts:65</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>res: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>next: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -371,6 +431,9 @@
 								<a href="satellitelogic.html#createsatellite" class="tsd-kind-icon">create<wbr>Satellite</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="satellitelogic.html#deletesinglesatellite" class="tsd-kind-icon">delete<wbr>Single<wbr>Satellite</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="satellitelogic.html#getallsatellites" class="tsd-kind-icon">get<wbr>All<wbr>Satellites</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -387,6 +450,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="satellitelogic.html#setmediator" class="tsd-kind-icon">set<wbr>Mediator</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="satellitelogic.html#updatsinglesatellite" class="tsd-kind-icon">updat<wbr>Single<wbr>Satellite</a>
 							</li>
 						</ul>
 					</li>

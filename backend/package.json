@@ -7,7 +7,8 @@
     "start": "NODE_ENV=production ts-node src/server.ts",
     "dev": "nodemon src/server.ts",
     "test": "jest --coverage",
-    "testw": "jest --watchAll --coverage"
+    "testw": "jest --watchAll --coverage",
+    "doc": "typedoc"
   },
   "keywords": [],
   "author": "itai lupo",

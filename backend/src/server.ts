@@ -8,14 +8,19 @@ import { createDBManger, createAPIManger } from "./utils/MangersInit";
 import satelliteLogic from "./business logic/satelliteUseCases";
 import passLogic from "./business logic/passesUseCases";
 import authLogic from "./business logic/authUseCases";
+import testsLogic from "./business logic/testsUseCases";
+
 
 import IPassesDBManger from "IO_Mangers/DBManger/intrface//IPassesDBManger";
 import ISatellitesDBManger from "IO_Mangers/DBManger/intrface/ISatellitesDBManger";
 import IAuthDBManger from "IO_Mangers/DBManger/intrface/IAuthDBManger";
+import ITestsDBManger from "IO_Mangers/DBManger/intrface/ITestsDBManger";
+
 
 import SatellitesDBManger from "./IO_Mangers/DBManger/mongoDB/SatellitesDBManger";
 import PassesDBManger from "./IO_Mangers/DBManger/mongoDB/PassesDBManger";
 import AuthDBManger from "./IO_Mangers/DBManger/mongoDB/AuthDBManger";
+import TestsDBManger from "./IO_Mangers/DBManger/mongoDB/TestsDBManger";
 
 import ConcreteMediators from "./Mediator/ConcreteMediators";
 
@@ -35,6 +40,11 @@ const passesManger:passLogic = new passLogic(passDBManger);
 
 const authDBManger:IAuthDBManger = new AuthDBManger();
 const authManger:authLogic = new authLogic(authDBManger);
+
+const testDBManger:ITestsDBManger = new TestsDBManger();
+const testsManger:testsLogic = new testsLogic(testDBManger);
+
+
 
 const mediator = new ConcreteMediators(passesManger, satelliteManger);
 
@@ -146,10 +156,40 @@ function initIOInputRoutes()
         }
     ];
 
+    const testsRoutes = [
+        {
+            method: 'get',
+            path: '/api/v1/test/',
+            callback: testsManger.getAllTests
+        },
+        {
+            method: 'get',
+            path: '/api/v1/test/:id',
+            callback: testsManger.getSingleTest
+        },
+        {
+            method: 'put',
+            path: '/api/v1/test/:id',
+            callback: [authManger.protect, testsManger.updatSingleTest]
+        },
+        {
+            method: 'post',
+            path: '/api/v1/test/:id',
+            callback: [authManger.protect, testsManger.createTest]
+        },
+        {
+            method: 'delete',
+            path: '/api/v1/test/:id',
+            callback: [authManger.protect, testsManger.deleteSingleTest]
+        }
+        
+    ];
+
     const routes = [
         ...satellitesRoutes,
         ...passesRoutes,
-        ...userRoutes
+        ...userRoutes,
+        ...testsRoutes
         ];
 
     routes.forEach(route => {
