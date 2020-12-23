@@ -40,7 +40,7 @@
 
 	async function reloadPass() {
 		try{
-			await axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${nextWeek}`);
+			axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${nextWeek}`);
 			let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=${sort}&limit=${limit}&page=${page}${query}`);
 			const data = res.data.data;
 			passes = data;
@@ -69,15 +69,15 @@
 </svelte:head>
 
 
-<div class='container'>
+<div class='container m-auto'>
 	<Filter bind:query = {query} {reloadPass}/>
 	<div class="flex flex-col">
 		<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-			<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-				<div class="shadow-white overflow-hidden border-b border-gray-800 sm:rounded-lg">
-					<table class="min-w-full divide-y divide-gray-200 ">
+			<div class="py-2 align-middle inline-block sm:px-6 lg:px-8">
+				<div class="shadow-white border-b border-gray-800 sm:rounded-lg">
+					<table class="overflow-x-auto divide-y divide-gray-200">
 						<PassListTitle {reloadPass} bind:sort = {sort}/>
-						<div class="h-3/4 overflow-y-auto">
+						<div class="h-3/4 overflow-auto">
 							<tbody class="w-full bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
 								{#each passes as pass}
 									<Pass pass={pass} />

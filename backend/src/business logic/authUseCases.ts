@@ -85,7 +85,7 @@ export default class authLogic
 
     login = async (req, res, next) => {
         const { email, password } = req.body;
-
+        
         if(!email || !password)
             return next(new ErrorResponse('please provide an email and a password', 400));
 
@@ -107,20 +107,22 @@ export default class authLogic
 
     protect = async (req, res, next) => {
         let token;
-    
+        
         if(req.headers.authorization && req.headers.authorization.startsWith('Bearer'))
             token = req.headers.authorization.split(' ')[1];
-        
+
         if(!token)
             return next(new ErrorResponse('not authorize to acccess this route', 401));
     
         try {
+            
             const decode = jwt.verify(token, process.env.JWT_SECRET);
-    
             req.user = await this.db.getSingleUser(decode.id);
     
             next();
         } catch (error) {
+            console.log(error);
+
             return next(new ErrorResponse('not authorize to acccess this route', 401));
         }
     }

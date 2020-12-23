@@ -21,11 +21,22 @@
 	import Pass from '../../components/satellitesList/pass';
 	import PassListTitle from '../../components/satellitesList/passListTitle';
 
-	import axios from 'axios'
 	export let satellite;
 	async function reloadPass() {
-		location.reload();
-		
+		fetch(`satellitesList/${satellite._id}.json`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        }
+		})
+		.then(res => {
+			res.json().then(data => {
+				satellite = data;	
+			})
+		}).catch(e => {
+			alert(e)
+		});
 	}
 
 

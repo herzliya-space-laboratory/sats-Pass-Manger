@@ -1,7 +1,6 @@
 <script context="module">
     let id;
-    
-	export async function preload({ params, query }) {
+	export async function preload({ params, query }, session) {
 		id = params.id;
 
 		const res = await this.fetch(`passes/${id}.json`);
@@ -19,6 +18,8 @@
 </script> 
 
 <script>
+    import { goto, stores } from "@sapper/app";
+    const { session } = stores();
     import { createForm } from "svelte-forms-lib";
 	import axios from 'axios'
 	export let pass;
@@ -39,12 +40,18 @@
       },
       onSubmit: values => {
         alert(JSON.stringify(values));
-        axios.put(`http://localhost:4000/api/v1/pass/updatePlan/${pass._id}`, values)
-            .catch(e => alert(e.response.data.error));
+        
+        let config = {
+            headers: {
+                authorization: "Bearer " +  $session.token,
+            }
+        }
+        
+        axios.put(`http://localhost:4000/api/v1/pass/updatePlan/${pass._id}`, values, config)
+            .catch(e => alert( e.response.data.error));
       }
     });
-
-   
+    
 </script>
 
 
@@ -121,8 +128,12 @@
                     pass status
                 </dt>
 
-                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
-                    <input class="w-3/4" placeholder="pass status" name = "status" bind:value={$form.status}/>
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+                        <input class="w-3/4 text-black" placeholder="pass status" name = "status" bind:value={$form.status}/>
+                    {:else}
+                        {pass.status}
+                    {/if}
                 </dd>
             </div>
 
@@ -131,8 +142,13 @@
                     pass goal
                 </dt>
 
-                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
-					<input class="w-3/4" placeholder="pass goal" name = "goal" bind:value={$form.goal}/>
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+                        <input class="w-3/4 text-black" placeholder="pass goal" name = "goal" bind:value={$form.goal}/>
+                    {:else}
+                        {pass.goal}
+                    {/if}
+					
                 </dd>
             </div>
 
@@ -141,8 +157,12 @@
                    pass planner
                 </dt>
 
-                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
-					<input class="w-3/4" placeholder="pass planner" name = "PassPlanner" bind:value={$form.PassPlanner}/> 
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+					    <input class="w-3/4 text-black" placeholder="pass planner" name = "PassPlanner" bind:value={$form.PassPlanner}/> 
+                    {:else}
+                        {pass.PassPlanner}
+                    {/if}
                 </dd>
             </div>
 
@@ -151,30 +171,36 @@
                     pass executer
                 </dt>
 
-                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
-					<input class="w-3/4" placeholder="pass executer" name = "PassExecuter" bind:value={$form.PassExecuter}/>
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+					    <input class="w-3/4 text-black" placeholder="pass executer" name = "PassExecuter" bind:value={$form.PassExecuter}/>
+                    {:else}
+                        {pass.PassPlanner}
+                    {/if}
                 </dd>
             </div>
         </dl>
     </div>
 		
-    <div class="flex">
-        <button 
-            type="button" 
-            on:click={handleSubmit}
-            class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 hover:bg-gray-200 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
-            >
-                submit
-            </button>
+    {#if $session.token}
+        <div class="flex">
+            <button 
+                type="button" 
+                on:click={handleSubmit}
+                class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 hover:bg-gray-200 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
+                >
+                    submit
+                </button>
 
-        <button 
-            type="button"
-            on:click={handleReset}
-            class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
-            >
-                reset
-            </button>
-    </div>
+            <button 
+                type="button"
+                on:click={handleReset}
+                class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
+                >
+                    reset
+                </button>
+        </div>
+    {/if}
 
 </div>
 

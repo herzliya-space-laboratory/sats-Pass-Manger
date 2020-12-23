@@ -1,4 +1,4 @@
-import ErrorResponse = require("../utils/errorResponse");
+import ErrorResponse from "../utils/errorResponse";
 
 import IPassesDBManger from "../IO_Mangers/DBManger/intrface/IPassesDBManger";
 import { formatQueryForMoongose, formatPagination } from "../utils/queryFormater";
@@ -67,7 +67,7 @@ export default class passLogic extends BaseComponent
         returnSuccessRespondToTheClient(res, 200, updatedPass);
     }
 
-    UpdateWhatWasInAPass = async (req, res) => {
+    UpdateWhatWasInAPass = async (req, res, next) => {
         const id = req.params.id;
         const whatWasExecuted:{
             whatWasExecute: string,
@@ -78,12 +78,16 @@ export default class passLogic extends BaseComponent
         
         if(!this.checkUpdatePassExqtedIsValid(whatWasExecuted))
         {
-            returnRespondToTheClientWithErr(res, 400, null, 'please fill all the data');
+            next(new ErrorResponse('please fill all the data', 400))
             return;
         }
 
-        const updatedPass = await this.db.updatePass(id, whatWasExecuted);
-        returnSuccessRespondToTheClient(res, 200, updatedPass);
+        try {
+            const updatedPass = await this.db.updatePass(id, whatWasExecuted);
+            returnSuccessRespondToTheClient(res, 200, updatedPass);            
+        } catch (error) {
+            next(error);
+        }
     }
 
     async createPasses(passes: any) 

@@ -253,6 +253,74 @@ describe('satellite business logic', () => {
         let output = await satDB.getSingleSatellite(id);
         expect(output).not.toEqual([]);
     });
+
+
+    test("update user", async () => {
+        expect.assertions(2);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const passToCreate = {
+            _id: id,
+            name: 'test 1',
+            satId: 1
+        }
+
+        const output = await satDB.createSatellite(passToCreate);
+        output.password = undefined;
+
+        const res = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.data.name).toBe("test2");
+            }
+        }
+
+
+        return satelliteManger.updatSingleSatellite({params: {id}, body: {name: "test2"}}, res, null);
+    })
+
+    
+    test("delete user", async () => {
+        expect.assertions(2);
+
+        const id = new mongoose.Types.ObjectId();
+        
+        const passToCreate = {
+            _id: id,
+            name: 'test 1',
+            satId: 1
+        }
+
+        const output = await satDB.createSatellite(passToCreate);
+
+
+        const res1 = {
+            status: function(status){
+                return this;
+            },
+            json: (obj) => {
+            }
+        }
+        const res2 = {
+            status: function(status){
+                expect(status).toBe(404)
+                return this;
+            },
+            json: (obj) => {
+                expect(obj.error).toBe(`Satellite with id: ${id} wasnt found`);
+            }
+        }
+
+
+        await satelliteManger.deleteSingleSatellite({params: {id}}, res1);
+        return satelliteManger.getSingleSatellite({params: {id}}, res2);
+
+    })
+
 })
 
 describe('passes business logic', () => {
@@ -529,11 +597,11 @@ describe('passes business logic', () => {
             }
         }
 
-        await passManger.UpdateWhatWasInAPass(req, res);
+        await passManger.UpdateWhatWasInAPass(req, res, null);
     })
 
     test('add what was in pass to pass with wrong parmeter return 404, please fill all the data', async () => {
-        expect.assertions(3);
+        expect.assertions(2);
 
         const id = new mongoose.Types.ObjectId();
         const now = new Date();
@@ -556,16 +624,18 @@ describe('passes business logic', () => {
 
         const res = {
             status: function(status){
-                expect(status).toBe(400);
                 return this;
             },
             json: (obj) => {
-                expect(obj.success).toBe(false);
-                expect(obj.error).toBe('please fill all the data');
             }
         }
+        const next = (err) => {
+            expect(err.statusCode).toBe(400);
+            expect(err.message).toBe("please fill all the data");
 
-        await passManger.UpdateWhatWasInAPass(req, res);
+        }
+
+        await passManger.UpdateWhatWasInAPass(req, res, next);
 
 
     })

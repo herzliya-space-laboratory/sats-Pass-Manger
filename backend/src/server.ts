@@ -63,9 +63,19 @@ function initIOInputRoutes()
             callback: satelliteManger.getSingleSatellite
         },
         {
+            method: 'delete',
+            path: '/api/v1/satellite/:id',
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), satelliteManger.deleteSingleSatellite]
+        },
+        {
+            method: 'put',
+            path: '/api/v1/satellite/:id',
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), satelliteManger.updatSingleSatellite]
+        },
+        {
             method: 'post',
             path: '/api/v1/satellite/',
-            callback: satelliteManger.createSatellite
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), satelliteManger.createSatellite]
         },
         {
             method: 'get',
@@ -93,12 +103,12 @@ function initIOInputRoutes()
         {
             method: 'put',
             path: '/api/v1/pass/updatePlan/:id',
-            callback: passesManger.UpdatePassPlan
+            callback: [authManger.protect, passesManger.UpdatePassPlan]
         },
         {
             method: 'put',
             path: '/api/v1/pass/updateWhatWasExequte/:id',
-            callback: passesManger.UpdateWhatWasInAPass
+            callback: [authManger.protect, passesManger.UpdateWhatWasInAPass]
         }
         
     ];
@@ -107,41 +117,44 @@ function initIOInputRoutes()
         {
             method: 'get',
             path: '/api/v1/user/',
-            callback: authManger.getAllUsers
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.getAllUsers]
         },
         {
             method: 'get',
             path: '/api/v1/user/:id',
-            callback: authManger.getSingleUser
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.getSingleUser]
         },
         {
-            method: 'get',
+            method: 'post',
             path: '/api/v1/login/',
             callback: authManger.login
         },
         {
             method: 'post',
             path: '/api/v1/register/',
-            callback: authManger.register
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.register]
         },
         {
             method: 'delete',
             path: '/api/v1/user/',
-            callback: authManger.deleteSingleUser
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.deleteSingleUser]
         },
         {
             method: 'put',
             path: '/api/v1/user/',
-            callback: authManger.updatSingleUser
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.updatSingleUser]
         }
     ];
 
     const routes = [
         ...satellitesRoutes,
-        ...passesRoutes
+        ...passesRoutes,
+        ...userRoutes
         ];
 
     routes.forEach(route => {
         APIManger.addRoute(route.method, route.path, route.callback);
     })
+
+    APIManger.initMiddleware();
 }

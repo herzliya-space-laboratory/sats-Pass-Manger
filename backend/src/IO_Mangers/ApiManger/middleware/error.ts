@@ -1,11 +1,28 @@
 
+import ErrorResponse from '../../../utils/errorResponse';
 import { returnRespondToTheClientWithErr } from '../../../utils/sendResponse';
 
 export default function errorHandler(err, req, res, next)
-{
-
-    console.log(err);
+{    
     
+    let error = { ...err };
+    console.log(error);
+    
+    error.message = err.message;
+
+    // Mongoose bad ObjectId
+    if (err.name === 'CastError') {
+        const message = `Resource not found`;
+        error = new ErrorResponse(message, 404);
+    }
+
+    // Mongoose duplicate key
+    if (err.code === 11000) {
+        const message = 'Duplicate field value entered';
+        error = new ErrorResponse(message, 400);
+    }
+
+    // Mongoose validation error
     if(err.code === 11000 || err.name === "ValidationError")
     {
         err.statusCode = 400;

@@ -3,7 +3,7 @@ export async function get(req, res, next) {
     
 	const now = new Date();
 	const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-	await axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${nextWeek}`);
+	axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${nextWeek}`);
 	const response = await axios.get(`http://localhost:4000/api/v1/pass?sort=-startTime&limit=${req.query.limit}&page=${req.query.page || 1}`)
     const passes = response.data.data;
     const success = response.data.success;

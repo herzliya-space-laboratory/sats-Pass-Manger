@@ -9,6 +9,10 @@
 
 
 <tr class="flex w-full mb-4">
+    <td class="w-1/7 text-xl px-6 py-4 text-center whitespace-no-wrap">
+        {pass.status}        
+    </td>
+
     <td class="w-1/7 px-6 py-4 whitespace-no-wrap">
         <div class="flex items-center">
             <div class="ml-4">

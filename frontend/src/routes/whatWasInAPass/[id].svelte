@@ -11,6 +11,8 @@
 </script>
 
 <script>
+    import { goto, stores } from "@sapper/app";
+    const { session } = stores();
     import { createForm } from "svelte-forms-lib";
     import { onMount } from 'svelte';
 
@@ -32,7 +34,13 @@
       },
       onSubmit: values => {
           
-        axios.put(`http://localhost:4000/api/v1/pass/updateWhatWasExequte/${pass._id}`, values)
+        let config = {
+            headers: {
+                authorization: "Bearer " +  $session.token,
+            }
+        }
+        
+        axios.put(`http://localhost:4000/api/v1/pass/updateWhatWasExequte/${pass._id}`, values, config)
             .catch(e => alert(e.response.data.error));
       }
     });
@@ -146,8 +154,12 @@
                     pass status
                 </dt>
 
-                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
-                    <input class="w-3/4" placeholder="pass status" name = "status" bind:value={$form.status}/>
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+                        <input class="w-3/4 text-black" placeholder="pass status" name = "status" bind:value={$form.status}/>
+                    {:else}
+                        {pass.status}
+                    {/if}
                 </dd>
             </div>
 
@@ -156,12 +168,16 @@
                     pass summary
                 </dt>
 
-                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
-                    <textarea 
-                        class="w-3/4" 
-                        placeholder="pass summary" 
-                        name = "whatWasExecute" 
-                        bind:value={$form.whatWasExecute} />
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+                        <textarea 
+                            class="w-3/4 text-black" 
+                            placeholder="pass summary" 
+                            name = "whatWasExecute" 
+                            bind:value={$form.whatWasExecute} />
+                    {:else}
+                        {pass.whatWasExecute}
+                    {/if}
                 </dd>
             </div>
 
@@ -170,12 +186,16 @@
                    manual errors
                 </dt>
 
-                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
-                    <textarea 
-                        class="w-3/4" 
-                        placeholder="Errors summary" 
-                        name = "Errors" 
-                        bind:value={$form.manualErrors}/>
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+                        <textarea 
+                            class="w-3/4 text-black" 
+                            placeholder="Errors summary" 
+                            name = "Errors" 
+                            bind:value={$form.manualErrors}/>
+                    {:else}
+                        {pass.manualErrors}
+                    {/if}
                 </dd>
             </div>
             
@@ -185,12 +205,16 @@
                    system errors
                 </dt>
 
-                <dd class="mt-1 text-xl leading-5 text-black sm:mt-0 sm:col-span-2">
-                    <textarea 
-                        class="w-3/4" 
-                        placeholder="Errors summary" 
-                        name = "Errors" 
-                        bind:value={$form.systemErrors}/>
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+                        <textarea 
+                            class="w-3/4 text-black" 
+                            placeholder="Errors summary" 
+                            name = "Errors" 
+                            bind:value={$form.systemErrors}/>
+                    {:else}
+                        {pass.systemErrors}
+                    {/if}
                 </dd>
             </div>
             

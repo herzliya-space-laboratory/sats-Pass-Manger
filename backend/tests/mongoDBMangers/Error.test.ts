@@ -219,8 +219,6 @@ describe("error db test", () => {
         
         const res = await db.getAllErrors(qury, params);
 
-        console.log(res);
-        
         for(let i = 0; i < res.length; i++)
         {
             expect(Object.keys(res[i].toObject())).toEqual(['_id', 'isTheSimptomRepeat', 'whoSpotedTheSymptom', 'WasSolved']);

@@ -1,7 +1,11 @@
 <script>
+    import { goto, stores } from "@sapper/app";
+    const { session } = stores();
     import { createEventDispatcher } from 'svelte';
 
     export let satellite;
+    export let deleteSat;
+
     let width;
 </script>
 
@@ -22,6 +26,22 @@
             
             passes
         </a>
+        {#if $session.token}
+            <button class = "DeleteBtn" on:click={deleteSat(satellite._id)}>X</button>
+        {/if}
     </td>
+    
 </tr>
 
+
+<style>
+	.DeleteBtn{
+		background-color: red;
+		color: white; 
+		border: 1px #000 solid;
+		border-radius: 50%;
+		padding: 3px 7px;
+		cursor: pointer;
+		float: right;
+	}
+</style>

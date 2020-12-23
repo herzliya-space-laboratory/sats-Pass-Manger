@@ -50,14 +50,40 @@ export default class satelliteLogic extends BaseComponent
         returnSuccessRespondToTheClientWithPage(res, 200, resSatellites, pagination);
     }
 
-    createSatellite =  async (req, res) => {
+    createSatellite =  async (req, res, next?) => {
         const satellitesToCreate = req.body;
-        
-        const CreatedSatellites = await this.db.createSatellite(satellitesToCreate);
+        try {
+            const CreatedSatellites = await this.db.createSatellite(satellitesToCreate);
 
-        returnSuccessRespondToTheClient(res, 200, CreatedSatellites)
+            returnSuccessRespondToTheClient(res, 200, CreatedSatellites)  
+        } catch (error) {
+            next(error);
+        }
     }
 
+
+    updatSingleSatellite = async (req, res, next) => {
+        const id = req.params.id;
+        const dataToUpdate = req.body;
+        try {
+            const CreatedSatellites = await this.db.changeSatelliteData(id, dataToUpdate);
+
+            returnSuccessRespondToTheClient(res, 200, CreatedSatellites)
+            
+        } catch (error) {
+            next(error);
+        }
+    }
+
+
+    deleteSingleSatellite = async (req, res) => {
+        const id = req.params.id;
+
+        await this.db.deleteSingleSatellite(id);
+
+        returnSuccessRespondToTheClient(res, 200, {})
+        
+    }
 
     getSatellitePassesAndSaveThem =  async (req, res) => {
         const id = req.params.id;

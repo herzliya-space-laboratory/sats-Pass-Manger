@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">88.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>8/9</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">88.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>8/9</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -83,27 +83,21 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,27 +106,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import jspredict from 'jspredict'
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >findSatellitePasses(</span>tle, startTime, endTime, satDbID)
+export default function findSatellitePasses(tle, startTime, endTime, satDbID)
 {
-    const qth = <span class="cstat-no" title="statement not covered" >[32.27, 34.88, 0];</span>
+    const qth = [32.27, 34.88, 0];
     let passes;
     
-<span class="cstat-no" title="statement not covered" >    passes = jspredict.transits(tle, qth, startTime, endTime);</span>
-<span class="cstat-no" title="statement not covered" >    console.log(tle, passes, endTime, startTime);</span>
+    passes = jspredict.transits(tle, qth, startTime, endTime);
     
-<span class="cstat-no" title="statement not covered" >    passes = formatPasses(passes, satDbID);</span>
-<span class="cstat-no" title="statement not covered" >    console.log(passes);</span>
-    
-<span class="cstat-no" title="statement not covered" >    return passes;</span>
+    passes = formatPasses(passes, satDbID);
+    return passes;
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >formatPasses(</span>passes: any, satDbID) {
-<span class="cstat-no" title="statement not covered" >    passes = passes.map(<span class="fstat-no" title="function not covered" >pass </span>=&gt; {</span>
+function formatPasses(passes: any, satDbID) {
+    passes = passes.map(<span class="fstat-no" title="function not covered" >pass </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >        return {</span>
             startTime: new Date(pass.start),
             endTime: new Date(pass.end),
@@ -141,7 +132,7 @@ function <span class="fstat-no" title="function not covered" >formatPasses(</spa
             Satellite: satDbID
         };
     });
-<span class="cstat-no" title="statement not covered" >    return passes;</span>
+    return passes;
 }
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
@@ -151,7 +142,7 @@ function <span class="fstat-no" title="function not covered" >formatPasses(</spa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 16 2020 04:19:15 GMT+0200 (Israel Standard Time)
+                at Sun Dec 20 2020 22:22:57 GMT+0200 (Israel Standard Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

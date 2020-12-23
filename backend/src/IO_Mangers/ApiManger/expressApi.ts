@@ -18,13 +18,14 @@ export default class expressApi implements IAPIManager
     {
         this.app = express();
 
-        this.initMiddleware();
+        
 
         const server = this.app.listen(
             port,
             () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`)
         );
 
+        this.initMiddlewareBefore();
 
         this.server = server;
     }
@@ -33,14 +34,19 @@ export default class expressApi implements IAPIManager
         return this.app;
     }
 
-    private initMiddleware(): void
+    private initMiddlewareBefore(): void
     {
         this.app.use(express.json());
 
         if(process.env.NODE_ENV === 'development') this.app.use(logger);
         
-        this.app.use(errorHandler);
         this.app.use(cors());
+        
+    }
+
+    public initMiddleware(): void
+    {
+        this.app.use(errorHandler);
         
     }
 

@@ -1,15 +1,13 @@
-import jspredict from 'jspredict'
+import jspredict from 'jspredict' // for it to work need to mul max_iterations by 10
 
 export default function findSatellitePasses(tle, startTime, endTime, satDbID)
 {
-    const qth = [32.27, 34.88, 0];
+    const qth = [ 32.27, 34.88, 0];
     let passes;
     
     passes = jspredict.transits(tle, qth, startTime, endTime);
-    console.log(tle, passes, endTime, startTime);
     
     passes = formatPasses(passes, satDbID);
-    console.log(passes);
     
     return passes;
 }

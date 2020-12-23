@@ -1,4 +1,7 @@
 <script>
+    import { goto, stores } from "@sapper/app";
+	const { session } = stores();
+	
 	export let segment;
 
 	let pages = [
@@ -16,11 +19,13 @@
 			title: "satellites list",
 			path: "satellitesList",
 			seg: "satellitesList"
-		},{
+		},
+		{
 			title: "passes list",
 			path: 'passes',
 			seg: 'passes'
 		}
+		
 		
 	];
 
@@ -81,5 +86,20 @@
 				</a>
 			</li>
 		{/each}
+
+		{#if !$session.token}
+			<li class='float-right mr-8'>
+				<a aria-current = "{segment === 'login' ? 'page' : undefined}" href='/login'>
+					login
+				</a>
+			</li>
+		{:else}
+			<li class='float-right mr-8'>
+				<a aria-current = "{segment === 'logout' ? 'page' : undefined}" href='/logout'>
+					logout
+				</a>
+			</li>
+		{/if}
+
 	</ul>
 </nav> 

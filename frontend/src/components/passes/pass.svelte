@@ -23,7 +23,7 @@
 
     <td class="w-1/8 px-6 pt-4 whitespace-no-wrap">
         <div class="flex items-center">
-            <div class="ml-4">
+            <div class="justify-betwee ml-4">
                 <div class="text-xl text-center leading-5 text-white-900">
                     {pass.goal || "there is no goal"}
                 </div>
