@@ -45,7 +45,7 @@ export default class AuthDBManger extends mangoDBManger implements IAuthDBManger
         return user;
     }  
 
-    getSatellitesAmount() 
+    getUserAmount() 
     {
         User.countDocuments({}, (err, count) => {
             this.userAmount = count;

@@ -9,3 +9,5 @@
 /frontend/yarn-error.log
 /frontend/cypress/screenshots
 /frontend/__sapper__/
+/frontend/config
+

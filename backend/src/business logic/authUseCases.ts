@@ -29,23 +29,22 @@ export default class authLogic
     }
 
 
-    updatSingleUser = async (req, res) => {
+    updatSingleUser = async (req, res, next) => {
         const id = req.params.id;
         const dataToUpdate = req.body;
 
         const user = await this.db.updateUser(id, dataToUpdate);
 
         if(!user)
-            returnRespondToTheClientWithErr(res, 404, user,
-                 `user with id: ${id} wasnt found`)
+            next(new ErrorResponse(`user with id: ${id} wasnt found`, 404));
         else
-            returnSuccessRespondToTheClient(res, 200, user)
+            returnSuccessRespondToTheClient(res, 200, user);
     }
 
     getAllUsers = async (req , res) => {
         const query = req.query || {};
 
-        const userTotalAmount = this.db.getSatellitesAmount()
+        const userTotalAmount = this.db.getUserAmount()
         let {formatQuery, params} = formatQueryForMoongose(query);
 
         const resuser = await this.db.getAllUsers(formatQuery, params);
@@ -121,8 +120,6 @@ export default class authLogic
     
             next();
         } catch (error) {
-            console.log(error);
-
             return next(new ErrorResponse('not authorize to acccess this route', 401));
         }
     }

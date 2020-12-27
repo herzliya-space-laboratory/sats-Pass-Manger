@@ -11,6 +11,8 @@ import {
 
 import BaseComponent from "../Mediator/BaseComponent";
 
+import passValidetor from '../validetors/passValidetor'
+
 export default class passLogic extends BaseComponent
 {
        
@@ -50,14 +52,9 @@ export default class passLogic extends BaseComponent
 
     UpdatePassPlan = async (req, res) => {
         const id = req.params.id;
-        const PassPlan:{
-            goal: String,
-            PassPlanner: String,
-            PassExecuter: String,
-            status: string
-        } = req.body;
+        const PassPlan = req.body;
 
-        if(!this.checkUpdatePassPlanIsValid(PassPlan))
+        if(!passValidetor.validatePrePassUpdate(PassPlan))
         {
             returnRespondToTheClientWithErr(res, 400, null, 'please fill all the data');
             return;
@@ -69,14 +66,9 @@ export default class passLogic extends BaseComponent
 
     UpdateWhatWasInAPass = async (req, res, next) => {
         const id = req.params.id;
-        const whatWasExecuted:{
-            whatWasExecute: string,
-            manualErrors: string,
-            systemErrors: string,
-            status: string
-        } = req.body;
+        const whatWasExecuted = req.body;
         
-        if(!this.checkUpdatePassExqtedIsValid(whatWasExecuted))
+        if(!passValidetor.validatePostPassUpdate(whatWasExecuted))
         {
             next(new ErrorResponse('please fill all the data', 400))
             return;
@@ -101,18 +93,5 @@ export default class passLogic extends BaseComponent
     {
         const pass = (await this.db.getNewist(req.params.id)) || {startTime: new Date()};
         return pass;
-    }
-
-    private checkUpdatePassPlanIsValid(PassPlan)
-    {
-        if(PassPlan.goal == undefined || PassPlan.goal == '') return false;
-        if(PassPlan.PassPlanner == undefined || PassPlan.PassPlanner == '') return false;
-        if(PassPlan.PassExecuter == undefined || PassPlan.PassExecuter == '') return false;
-        return true;
-    }
-
-    private checkUpdatePassExqtedIsValid(whatWasExecuted) {
-        if(whatWasExecuted.whatWasExecute == undefined || whatWasExecuted.whatWasExecute == '') return false;
-        return true;
     }
 }
