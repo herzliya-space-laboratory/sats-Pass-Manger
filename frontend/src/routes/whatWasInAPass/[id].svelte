@@ -132,7 +132,7 @@
                     </dt>
 
                     <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
-                        {pass.PassPlanner}
+                        {pass.PassPlanner.name}
                     </dd>
                 </div>
                 
@@ -142,7 +142,7 @@
                     </dt>
 
                     <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
-                        {pass.PassExecuter}
+                        {pass.PassExecuter.name}
                     </dd>
                 </div>
                 

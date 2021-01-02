@@ -1,13 +1,18 @@
 import mangoDBManger from './mangoDBManger'
-import IErrorsDBManger from "../intrface/IErrorsDBManger";
 
 import Error from "../models/Error";
 
-export default class ErrorsDBManger extends mangoDBManger implements IErrorsDBManger
+export default class ErrorsDBManger extends mangoDBManger 
 {
+    findOne(query: any, params?: any) {
+        throw new Error('Method not implemented.');
+    }
+    getAmount() {
+        throw new Error('Method not implemented.');
+    }
 
    
-    async getAllErrors(query: any = {}, params:any = {}) {
+    async getAll(query: any = {}, params:any = {}) {
         let dbRequst = Error.find(query);
         
         this.formatTheDBRequst(dbRequst, params, 'solveProcess');
@@ -15,28 +20,28 @@ export default class ErrorsDBManger extends mangoDBManger implements IErrorsDBMa
         return await dbRequst;
     }
 
-    async getSingleErrors(id) {
+    async getSingleById(id) {
         const resError = await Error.findById(id);
         
 
         return resError;
     }
 
-    async createError(ErrorToCreate) 
+    async create(ErrorToCreate) 
     {
         const newError = await Error.create(ErrorToCreate);
 
         return newError;
     }
 
-    async updateError(id, dataToUpdate) 
+    async update(id, dataToUpdate) 
     {
         const updatedError = await Error.findByIdAndUpdate(id, dataToUpdate);
 
         return updatedError;
     }
 
-    async deleteError(id) {
+    async delete(id) {
         const deleted = await Error.findByIdAndDelete(id);
 
         return deleted;

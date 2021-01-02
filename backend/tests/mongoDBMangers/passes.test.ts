@@ -1,6 +1,6 @@
 require('../../src/utils/dotenvInit');
 
-import IPassesDBManger from '../../src/IO_Mangers/DBManger/intrface/IPassesDBManger';
+import IDBManger from '../../src/IO_Mangers/DBManger/intrface/IDBManger';
 import PassesDBManger from '../../src/IO_Mangers/DBManger/mongoDB/PassesDBManger';
 
 import Pass from '../../src/IO_Mangers/DBManger/models/Pass';
@@ -10,7 +10,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 
 
-let db:IPassesDBManger;
+let db:IDBManger;
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {
@@ -29,7 +29,7 @@ afterEach(() => {
 describe("pass db test", () => {
 
     test("get all pass from empty db shold be empty array", async () => {
-        const res = await db.getAllPasses();
+        const res = await db.getAll();
 
         expect(res).toEqual([]);
     })
@@ -63,7 +63,7 @@ describe("pass db test", () => {
 
         await Pass.create(toCreate);
 
-        const res = (await db.getAllPasses())
+        const res = (await db.getAll())
             .sort((a, b) => parseInt(a.goal) - parseInt(b.goal));
 
         for(let i = 0; i < toCreate.length; i++)
@@ -105,7 +105,7 @@ describe("pass db test", () => {
         await Pass.create(toCreate);
 
         const query = { startTime: { $lt: new Date(1000)}};
-        const res = await db.getAllPasses(query);
+        const res = await db.getAll(query);
         for(let i = 0; i < res.length; i++)
             expect(res[i].startTime.getSeconds()).toBeLessThan(1000);
         
@@ -139,7 +139,7 @@ describe("pass db test", () => {
         await Pass.create(toCreate);
 
         const query = { startTime: { $lt: 1000}};
-        const res = await db.getAllPasses(query, {select: 'startTime'});
+        const res = await db.getAll(query, {select: 'startTime'});
 
         for(let i = 0; i < res.length; i++)
         {
@@ -161,7 +161,7 @@ describe("pass db test", () => {
 
         const output = await Pass.create(passToCreate);
 
-        const res = await db.getSinglePass(id);
+        const res = await db.getSingleById(id);
 
         expect(res.toObject()).toEqual(output.toObject());
 
@@ -177,9 +177,9 @@ describe("pass db test", () => {
             endTime: new Date()
         }
 
-        const res = await db.createPass(passToCreate);
+        const res = await db.create(passToCreate);
 
-        const check = await db.getSinglePass(id);
+        const check = await db.getSingleById(id);
 
         expect(res).toBeTruthy();
         expect(check).toBeTruthy();
@@ -199,18 +199,16 @@ describe("pass db test", () => {
 
         const dataToUpdate = {
             maxElevation: 11,
-            PassPlanner: "itai",
             whatWasExecute: "all"
         }
 
-        const res = await db.createPass(passToCreate);
+        const res = await db.create(passToCreate);
 
 
-        const updated = await db.updatePass(id, dataToUpdate);
+        const updated = await db.update(id, dataToUpdate);
 
         expect(updated).toBeTruthy();
         expect(updated.maxElevation).toBe(11);
-        expect(updated.PassPlanner).toBe("itai");
         expect(updated.whatWasExecute).toBe("all");
     })
 

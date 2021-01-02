@@ -94,6 +94,11 @@
 				</a>
 			</li>
 		{:else}
+			<li class='mr-8'>
+				<a aria-current = "{segment === 'users' ? 'page' : undefined}" href='/users'>
+					users
+				</a>
+			</li>
 			<li class='float-right mr-8'>
 				<a aria-current = "{segment === 'logout' ? 'page' : undefined}" href='/logout'>
 					logout

@@ -8,21 +8,8 @@
 <thead class="bg-black flex text-white w-full">
     <tr class="flex w-full">
         <th class="w-1/8 px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            <button on:click = {() => {sort = sort == "status" ? sort = "-status": sort = "status"}}>
-                status
-            </button>
-        </th>
-
-        <th class="w-1/8 px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            
             <button on:click = {() => {sort = sort == "Satellite.name" ? sort = "-Satellite.name": sort = "Satellite.name"}}>
                 Satellite name
-            </button>
-        </th>
-
-        <th class="w-1/8 px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            <button on:click = {() => {sort = sort == "goal" ? sort = "-goal": sort = "goal"}}>
-                goal
             </button>
         </th>
 
@@ -49,6 +36,23 @@
             duration [min]
             </button>
         </th>
+
+
+        <th class="w-1/8 px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <button on:click = {() => {sort = sort == "status" ? sort = "-status": sort = "status"}}>
+                status
+            </button>
+        </th>
+
+
+        <th class="w-1/8 px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            <button on:click = {() => {sort = sort == "goal" ? sort = "-goal": sort = "goal"}}>
+                goal
+            </button>
+        </th>
+
+
+
 
         <th class="w-1/8 px-6 pt-4 bg-gray-50"> 
             <button on:click={reloadPass}

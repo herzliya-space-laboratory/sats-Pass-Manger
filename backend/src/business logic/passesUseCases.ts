@@ -1,7 +1,5 @@
 import ErrorResponse from "../utils/errorResponse";
 
-import IPassesDBManger from "../IO_Mangers/DBManger/intrface/IPassesDBManger";
-import { formatQueryForMoongose, formatPagination } from "../utils/queryFormater";
 
 import {
     returnSuccessRespondToTheClient,
@@ -12,86 +10,64 @@ import {
 import BaseComponent from "../Mediator/BaseComponent";
 
 import passValidetor from '../validetors/passValidetor'
+import findSatellitePasses from "../utils/getSatellitePasses";
+import getSatelliteTle from "../utils/getSatelliteTle";
 
 export default class passLogic extends BaseComponent
 {
-       
-    private db:IPassesDBManger;
-
-    constructor(db:IPassesDBManger)
+    constructor()
     {
         super();
-        this.db = db;
     }
 
-    getSinglePass = async (req, res) => {
+    getSatellitePasses =  async (req, res, next) => {
         const id = req.params.id;
 
-        const pass = await this.db.getSinglePass(id);
-
-        if(!pass)
-            returnRespondToTheClientWithErr(res, 404, pass,
-                 `pass with id: ${id} wasnt found`)
-        else
-            returnSuccessRespondToTheClient(res, 200, pass)
+        const satellite = await this.mediator.notify(id, 'getSatellite');
         
-    }
-
-    getAllPasses =  async (req, res) => {
-        const query = req.query || {};
-
-        const passTotalAmount = this.db.getPassAmount()
-        let {formatQuery, params} = formatQueryForMoongose(query);
-
-        const resPass = await this.db.getAllPasses(formatQuery, params);
-
-        let pagination = formatPagination(query, passTotalAmount);
-
-        returnSuccessRespondToTheClientWithPage(res, 200, resPass, pagination);
-    }
-
-    UpdatePassPlan = async (req, res) => {
-        const id = req.params.id;
-        const PassPlan = req.body;
-
-        if(!passValidetor.validatePrePassUpdate(PassPlan))
-        {
-            returnRespondToTheClientWithErr(res, 400, null, 'please fill all the data');
-            return;
-        }
-
-        const updatedPass = await this.db.updatePass(id, PassPlan);
-        returnSuccessRespondToTheClient(res, 200, updatedPass);
-    }
-
-    UpdateWhatWasInAPass = async (req, res, next) => {
-        const id = req.params.id;
-        const whatWasExecuted = req.body;
-        
-        if(!passValidetor.validatePostPassUpdate(whatWasExecuted))
-        {
-            next(new ErrorResponse('please fill all the data', 400))
-            return;
-        }
-
         try {
-            const updatedPass = await this.db.updatePass(id, whatWasExecuted);
-            returnSuccessRespondToTheClient(res, 200, updatedPass);            
+            const passes = await this.findSatellitePass(satellite, req)
+            
+            returnSuccessRespondToTheClient(res, 200, passes);
+            
         } catch (error) {
             next(error);
         }
     }
 
-    async createPasses(passes: any) 
-    {
-        await this.db.createPass(passes);
-        let newPasses = this.db.getAllPasses({}, {sort:'startTime'})
-        return newPasses;
+    getAllPasses = async (req, res, next) => {
+        let satellites;
+        try {
+            satellites = await this.mediator.notify({}, 'getAllSatellites');
+        } catch (error) {
+            return next(error);
+        }
+
+        let passes = [];
+
+        for(let sat of satellites)
+        {   
+            try {
+                passes.push(await this.findSatellitePass(sat, req));
+            } catch (error) {
+                return next(error);
+            }
+        }
+        
+        returnSuccessRespondToTheClient(res, 200, passes)
     }
 
-    async getNewistPass(req?:any , res?:any)
-    {
-        const pass = (await this.db.getNewist(req.params.id)) || {startTime: new Date()};
-        return pass;
+    private async findSatellitePass(sat: any, req: any) {
+        let startTime = await this.mediator.notify(sat._id, 'getNewistPassTime');
+
+        let endTime = new Date(req.query.endTime);
+
+        const TLE = await getSatelliteTle(sat.satId);
+
+        const newPasses = await findSatellitePasses(TLE, startTime, endTime, sat._id);
+
+        await this.mediator.notify(newPasses, 'newPassWasFount');
+        
     }
+
 }

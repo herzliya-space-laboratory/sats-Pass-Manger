@@ -1,32 +1,42 @@
 import mangoDBManger from './mangoDBManger'
-import IPassesDBManger from "../intrface/IPassesDBManger";
 
 import Pass from "../models/Pass";
 
-export default class PassesDBManger extends mangoDBManger implements IPassesDBManger
+export default class PassesDBManger extends mangoDBManger 
 {
-    async getAllPasses(query: any = {}, params:any = {}) 
+    async findOne(query: any, params?: any) {
+        const pass = await Pass.findOne(query, {}, params);
+        return pass;
+    }
+
+    delete(id: any) {
+        throw new Error('Method not implemented.');
+    }
+    
+    async getAll(query: any = {}, params:any = {}) 
     {
         let dbRequst = Pass.find(query);
         
-        this.formatTheDBRequst(dbRequst, params, 'Satellite');
+        this.formatTheDBRequst(dbRequst, params, 'Satellite PassPlanner PassExecuter');
 
         return await dbRequst;
     }
 
-    async getSinglePass(id) {
-        const resPass = await Pass.findById(id).populate('Satellite');
+    async getSingleById(id) {
+        const resPass = await Pass.findById(id).populate('Satellite PassPlanner PassExecuter');
+        console.log(resPass.PassPlanner);
+        
         return resPass;
     }
 
-    async createPass(passToCreate) 
+    async create(passToCreate) 
     {
         const cratedPass = await Pass.create(passToCreate);
         this.passAmount++;
         return cratedPass;
     }
 
-    async updatePass(id, dataToUpdate)
+    async update(id, dataToUpdate)
     {
         const updated = await Pass.findByIdAndUpdate(id, dataToUpdate, {
             new: true
@@ -40,7 +50,7 @@ export default class PassesDBManger extends mangoDBManger implements IPassesDBMa
         return await Pass.findOne({'Satellite': id}, {}, { sort: { 'startTime' : -1 } });
     }
 
-    getPassAmount() 
+    getAmount() 
     {
         Pass.countDocuments({}, (err, count) => {
             this.passAmount = count;

@@ -1,5 +1,7 @@
 require('../../src/utils/dotenvInit');
 
+import IDBManger from '../../src/IO_Mangers/DBManger/intrface/IDBManger';
+
 import ErrorsDBManger from '../../src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger';
 
 import Error from '../../src/IO_Mangers/DBManger/models/Error';
@@ -9,7 +11,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 
 
-let db:ErrorsDBManger;
+let db:IDBManger;
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {
@@ -28,7 +30,7 @@ afterEach(() => {
 describe("error db test", () => {
 
     test("get all errors from empty db shold be empty array", async () => {
-        const res = await db.getAllErrors();
+        const res = await db.getAll();
 
         expect(res).toEqual([]);
     })
@@ -68,7 +70,7 @@ describe("error db test", () => {
         }];
 
         await Error.create(testErrors);
-        const res = (await db.getAllErrors()).sort((a, b) => a.howLongWillItTakeToSolve - b.howLongWillItTakeToSolve);
+        const res = (await db.getAll()).sort((a, b) => a.howLongWillItTakeToSolve - b.howLongWillItTakeToSolve);
 
         expect(res.length).toEqual(testErrors.length);
 
@@ -141,7 +143,7 @@ describe("error db test", () => {
         await Error.create(testErrors);
 
         
-        const res = await db.getAllErrors(qury);
+        const res = await db.getAll(qury);
 
 
         for(let i = 0; i < res.length; i++)
@@ -217,7 +219,7 @@ describe("error db test", () => {
         await Error.create(testErrors);
 
         
-        const res = await db.getAllErrors(qury, params);
+        const res = await db.getAll(qury, params);
 
         for(let i = 0; i < res.length; i++)
         {
@@ -246,7 +248,7 @@ describe("error db test", () => {
         };
 
         await Error.create(testError);
-        const res = await db.getSingleErrors(_id);
+        const res = await db.getSingleById(_id);
 
         Object.keys(testError).forEach(key => {
             expect(res[key]).toEqual(testError[key]);
@@ -282,8 +284,8 @@ describe("error db test", () => {
 
         await Error.create(testError);
         
-        await db.updateError(_id, ToUpdate);
-        const res = await db.getSingleErrors(_id);
+        await db.update(_id, ToUpdate);
+        const res = await db.getSingleById(_id);
 
         Object.keys(ToUpdate).forEach(key => {
             expect(res[key]).toEqual(ToUpdate[key]);
@@ -306,8 +308,8 @@ describe("error db test", () => {
             howWasItSolved: "we stop teling him to"
         };
 
-        await db.createError(testError);
-        const res = await db.getSingleErrors(_id);
+        await db.create(testError);
+        const res = await db.getSingleById(_id);
 
         Object.keys(testError).forEach(key => {
             expect(res[key]).toEqual(testError[key]);
@@ -329,10 +331,10 @@ describe("error db test", () => {
             howWasItSolved: "we stop teling him to"
         };
 
-        await db.createError(testError);
+        await db.create(testError);
         
-        await db.deleteError(_id);
-        const res = await db.getSingleErrors(_id);
+        await db.delete(_id);
+        const res = await db.getSingleById(_id);
 
         expect(res).toBeFalsy();
         

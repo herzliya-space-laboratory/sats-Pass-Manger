@@ -83,7 +83,6 @@
 				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
 					<li><a href="../interfaces/idbmanager.html" class="tsd-signature-type">IDBManager</a></li>
-					<li><a href="../interfaces/ierrorsdbmanger.html" class="tsd-signature-type">IErrorsDBManger</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -95,6 +94,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="errorsdbmanger.html#passamount" class="tsd-kind-icon">pass<wbr>Amount</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="errorsdbmanger.html#satelliteamount" class="tsd-kind-icon">satellite<wbr>Amount</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="errorsdbmanger.html#testsamount" class="tsd-kind-icon">tests<wbr>Amount</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="errorsdbmanger.html#useramount" class="tsd-kind-icon">user<wbr>Amount</a></li>
 							</ul>
 						</section>
@@ -102,12 +102,14 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="errorsdbmanger.html#connect" class="tsd-kind-icon">connect</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="errorsdbmanger.html#createerror" class="tsd-kind-icon">create<wbr>Error</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="errorsdbmanger.html#deleteerror" class="tsd-kind-icon">delete<wbr>Error</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="errorsdbmanger.html#create" class="tsd-kind-icon">create</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="errorsdbmanger.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="errorsdbmanger.html#findone" class="tsd-kind-icon">find<wbr>One</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="errorsdbmanger.html#formatthedbrequst" class="tsd-kind-icon">format<wbr>TheDBRequst</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="errorsdbmanger.html#getallerrors" class="tsd-kind-icon">get<wbr>All<wbr>Errors</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="errorsdbmanger.html#getsingleerrors" class="tsd-kind-icon">get<wbr>Single<wbr>Errors</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="errorsdbmanger.html#updateerror" class="tsd-kind-icon">update<wbr>Error</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="errorsdbmanger.html#getall" class="tsd-kind-icon">get<wbr>All</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="errorsdbmanger.html#getamount" class="tsd-kind-icon">get<wbr>Amount</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="errorsdbmanger.html#getsinglebyid" class="tsd-kind-icon">get<wbr>Single<wbr>ById</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="errorsdbmanger.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,7 +124,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#passamount">passAmount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L12">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L15">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -133,7 +135,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#satelliteamount">satelliteAmount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L11">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L14">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="testsamount" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> tests<wbr>Amount</h3>
+					<div class="tsd-signature tsd-kind-icon">tests<wbr>Amount<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#testsamount">testsAmount</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L17">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -144,7 +157,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#useramount">userAmount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L13">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L16">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -163,7 +176,7 @@
 								<p>Implementation of <a href="../interfaces/idbmanager.html">IDBManager</a>.<a href="../interfaces/idbmanager.html#connect">connect</a></p>
 								<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#connect">connect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L15">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L18">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -176,18 +189,19 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="createerror" class="tsd-anchor"></a>
-					<h3>create<wbr>Error</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Error<span class="tsd-signature-symbol">(</span>ErrorToCreate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="create" class="tsd-anchor"></a>
+					<h3>create</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>ErrorToCreate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/ierrorsdbmanger.html">IErrorsDBManger</a>.<a href="../interfaces/ierrorsdbmanger.html#createerror">createError</a></p>
+								<p>Implementation of <a href="../interfaces/idbmanager.html">IDBManager</a>.<a href="../interfaces/idbmanager.html#create">create</a></p>
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#create">create</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L25">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L30">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -200,18 +214,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="deleteerror" class="tsd-anchor"></a>
-					<h3>delete<wbr>Error</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">delete<wbr>Error<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/ierrorsdbmanger.html">IErrorsDBManger</a>.<a href="../interfaces/ierrorsdbmanger.html#deleteerror">deleteError</a></p>
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#delete">delete</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L39">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L44">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -221,6 +235,34 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="findone" class="tsd-anchor"></a>
+					<h3>find<wbr>One</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>One<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/idbmanager.html">IDBManager</a>.<a href="../interfaces/idbmanager.html#findone">findOne</a></p>
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#findone">findOne</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L7">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:7</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>query: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> params: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -235,7 +277,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#formatthedbrequst">formatTheDBRequst</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L31">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L35">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -254,18 +296,19 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getallerrors" class="tsd-anchor"></a>
-					<h3>get<wbr>All<wbr>Errors</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Errors<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="getall" class="tsd-anchor"></a>
+					<h3>get<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>All<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/ierrorsdbmanger.html">IErrorsDBManger</a>.<a href="../interfaces/ierrorsdbmanger.html#getallerrors">getAllErrors</a></p>
+								<p>Implementation of <a href="../interfaces/idbmanager.html">IDBManager</a>.<a href="../interfaces/idbmanager.html#getall">getAll</a></p>
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#getall">getAll</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L10">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L15">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -281,18 +324,37 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getsingleerrors" class="tsd-anchor"></a>
-					<h3>get<wbr>Single<wbr>Errors</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Single<wbr>Errors<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="getamount" class="tsd-anchor"></a>
+					<h3>get<wbr>Amount</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Amount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/ierrorsdbmanger.html">IErrorsDBManger</a>.<a href="../interfaces/ierrorsdbmanger.html#getsingleerrors">getSingleErrors</a></p>
+								<p>Implementation of <a href="../interfaces/idbmanager.html">IDBManager</a>.<a href="../interfaces/idbmanager.html#getamount">getAmount</a></p>
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#getamount">getAmount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L18">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L10">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:10</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="getsinglebyid" class="tsd-anchor"></a>
+					<h3>get<wbr>Single<wbr>ById</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Single<wbr>ById<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#getsinglebyid">getSingleById</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L23">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -305,18 +367,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="updateerror" class="tsd-anchor"></a>
-					<h3>update<wbr>Error</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>Error<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, dataToUpdate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, dataToUpdate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/ierrorsdbmanger.html">IErrorsDBManger</a>.<a href="../interfaces/ierrorsdbmanger.html#updateerror">updateError</a></p>
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#update">update</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L32">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts#L37">src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -356,28 +418,37 @@
 								<a href="errorsdbmanger.html#satelliteamount" class="tsd-kind-icon">satellite<wbr>Amount</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="errorsdbmanger.html#testsamount" class="tsd-kind-icon">tests<wbr>Amount</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="errorsdbmanger.html#useramount" class="tsd-kind-icon">user<wbr>Amount</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="errorsdbmanger.html#connect" class="tsd-kind-icon">connect</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="errorsdbmanger.html#createerror" class="tsd-kind-icon">create<wbr>Error</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="errorsdbmanger.html#create" class="tsd-kind-icon">create</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="errorsdbmanger.html#deleteerror" class="tsd-kind-icon">delete<wbr>Error</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="errorsdbmanger.html#delete" class="tsd-kind-icon">delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="errorsdbmanger.html#findone" class="tsd-kind-icon">find<wbr>One</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="errorsdbmanger.html#formatthedbrequst" class="tsd-kind-icon">format<wbr>TheDBRequst</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="errorsdbmanger.html#getallerrors" class="tsd-kind-icon">get<wbr>All<wbr>Errors</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="errorsdbmanger.html#getall" class="tsd-kind-icon">get<wbr>All</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="errorsdbmanger.html#getsingleerrors" class="tsd-kind-icon">get<wbr>Single<wbr>Errors</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="errorsdbmanger.html#getamount" class="tsd-kind-icon">get<wbr>Amount</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="errorsdbmanger.html#updateerror" class="tsd-kind-icon">update<wbr>Error</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="errorsdbmanger.html#getsinglebyid" class="tsd-kind-icon">get<wbr>Single<wbr>ById</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="errorsdbmanger.html#update" class="tsd-kind-icon">update</a>
 							</li>
 						</ul>
 					</li>
@@ -409,10 +480,11 @@
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 		</div>
 	</div>

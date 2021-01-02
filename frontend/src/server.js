@@ -36,7 +36,8 @@ app.use(
 		sapper.middleware({
 			session: (req, res) => {
 			  return ({
-				token: req.session.token
+				token: req.session.token,
+				decodedToken: req.session.decodedToken
 			  })}
 			})
 	);

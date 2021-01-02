@@ -83,7 +83,6 @@
 				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
 					<li><a href="../interfaces/idbmanager.html" class="tsd-signature-type">IDBManager</a></li>
-					<li><a href="../interfaces/isatellitesdbmanger.html" class="tsd-signature-type">ISatellitesDBManger</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -95,20 +94,22 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="satellitesdbmanger.html#passamount" class="tsd-kind-icon">pass<wbr>Amount</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="satellitesdbmanger.html#satelliteamount" class="tsd-kind-icon">satellite<wbr>Amount</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="satellitesdbmanger.html#testsamount" class="tsd-kind-icon">tests<wbr>Amount</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="satellitesdbmanger.html#useramount" class="tsd-kind-icon">user<wbr>Amount</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitesdbmanger.html#changesatellitedata" class="tsd-kind-icon">change<wbr>Satellite<wbr>Data</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="satellitesdbmanger.html#connect" class="tsd-kind-icon">connect</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitesdbmanger.html#createsatellite" class="tsd-kind-icon">create<wbr>Satellite</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitesdbmanger.html#deletesinglesatellite" class="tsd-kind-icon">delete<wbr>Single<wbr>Satellite</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="satellitesdbmanger.html#create" class="tsd-kind-icon">create</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="satellitesdbmanger.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="satellitesdbmanger.html#findone" class="tsd-kind-icon">find<wbr>One</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="satellitesdbmanger.html#formatthedbrequst" class="tsd-kind-icon">format<wbr>TheDBRequst</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitesdbmanger.html#getallsatellites" class="tsd-kind-icon">get<wbr>All<wbr>Satellites</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitesdbmanger.html#getsatellitesamount" class="tsd-kind-icon">get<wbr>Satellites<wbr>Amount</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="satellitesdbmanger.html#getsinglesatellite" class="tsd-kind-icon">get<wbr>Single<wbr>Satellite</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="satellitesdbmanger.html#getall" class="tsd-kind-icon">get<wbr>All</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="satellitesdbmanger.html#getamount" class="tsd-kind-icon">get<wbr>Amount</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="satellitesdbmanger.html#getsinglebyid" class="tsd-kind-icon">get<wbr>Single<wbr>ById</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="satellitesdbmanger.html#update" class="tsd-kind-icon">update</a></li>
 							</ul>
 						</section>
 					</div>
@@ -123,7 +124,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#passamount">passAmount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L12">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L15">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -134,7 +135,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#satelliteamount">satelliteAmount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L11">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L14">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="testsamount" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> tests<wbr>Amount</h3>
+					<div class="tsd-signature tsd-kind-icon">tests<wbr>Amount<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#testsamount">testsAmount</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L17">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -145,39 +157,13 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#useramount">userAmount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L13">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L16">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="changesatellitedata" class="tsd-anchor"></a>
-					<h3>change<wbr>Satellite<wbr>Data</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">change<wbr>Satellite<wbr>Data<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, dataToChange<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L35">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:35</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>id: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5>dataToChange: <span class="tsd-signature-type">Object</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="connect" class="tsd-anchor"></a>
 					<h3>connect</h3>
@@ -187,10 +173,10 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/isatellitesdbmanger.html">ISatellitesDBManger</a>.<a href="../interfaces/isatellitesdbmanger.html#connect">connect</a></p>
+								<p>Implementation of <a href="../interfaces/idbmanager.html">IDBManager</a>.<a href="../interfaces/idbmanager.html#connect">connect</a></p>
 								<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#connect">connect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L15">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L18">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -203,17 +189,19 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="createsatellite" class="tsd-anchor"></a>
-					<h3>create<wbr>Satellite</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Satellite<span class="tsd-signature-symbol">(</span>satelliteToCreate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="create" class="tsd-anchor"></a>
+					<h3>create</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>satelliteToCreate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/idbmanager.html">IDBManager</a>.<a href="../interfaces/idbmanager.html#create">create</a></p>
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#create">create</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L28">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L32">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -226,17 +214,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="deletesinglesatellite" class="tsd-anchor"></a>
-					<h3>delete<wbr>Single<wbr>Satellite</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">delete<wbr>Single<wbr>Satellite<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#delete">delete</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L41">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L45">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -246,6 +235,34 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="findone" class="tsd-anchor"></a>
+					<h3>find<wbr>One</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>One<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/idbmanager.html">IDBManager</a>.<a href="../interfaces/idbmanager.html#findone">findOne</a></p>
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#findone">findOne</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L8">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:8</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>query: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> params: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -260,7 +277,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#formatthedbrequst">formatTheDBRequst</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L31">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts#L35">src/IO_Mangers/DBManger/mongoDB/mangoDBManger.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -279,17 +296,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getallsatellites" class="tsd-anchor"></a>
-					<h3>get<wbr>All<wbr>Satellites</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Satellites<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{}</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="getall" class="tsd-anchor"></a>
+					<h3>get<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>All<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{}</span>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#getall">getAll</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L9">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L13">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -307,41 +325,70 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getsatellitesamount" class="tsd-anchor"></a>
-					<h3>get<wbr>Satellites<wbr>Amount</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Satellites<wbr>Amount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="getamount" class="tsd-anchor"></a>
+					<h3>get<wbr>Amount</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Amount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/isatellitesdbmanger.html">ISatellitesDBManger</a>.<a href="../interfaces/isatellitesdbmanger.html#getsatellitesamount">getSatellitesAmount</a></p>
+								<p>Implementation of <a href="../interfaces/idbmanager.html">IDBManager</a>.<a href="../interfaces/idbmanager.html#getamount">getAmount</a></p>
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#getamount">getAmount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L46">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L50">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getsinglesatellite" class="tsd-anchor"></a>
-					<h3>get<wbr>Single<wbr>Satellite</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Single<wbr>Satellite<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="getsinglebyid" class="tsd-anchor"></a>
+					<h3>get<wbr>Single<wbr>ById</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Single<wbr>ById<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#getsinglebyid">getSingleById</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/94f7483/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L18">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L22">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>id: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, dataToChange<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="mangodbmanger.html">mangoDBManger</a>.<a href="mangodbmanger.html#update">update</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/herzliya-space-laboratory/sats-Pass-Manger/blob/7a64ae0/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts#L39">src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts:39</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>dataToChange: <span class="tsd-signature-type">Object</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -372,31 +419,37 @@
 								<a href="satellitesdbmanger.html#satelliteamount" class="tsd-kind-icon">satellite<wbr>Amount</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="satellitesdbmanger.html#useramount" class="tsd-kind-icon">user<wbr>Amount</a>
+								<a href="satellitesdbmanger.html#testsamount" class="tsd-kind-icon">tests<wbr>Amount</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="satellitesdbmanger.html#changesatellitedata" class="tsd-kind-icon">change<wbr>Satellite<wbr>Data</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="satellitesdbmanger.html#useramount" class="tsd-kind-icon">user<wbr>Amount</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="satellitesdbmanger.html#connect" class="tsd-kind-icon">connect</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="satellitesdbmanger.html#createsatellite" class="tsd-kind-icon">create<wbr>Satellite</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="satellitesdbmanger.html#create" class="tsd-kind-icon">create</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="satellitesdbmanger.html#deletesinglesatellite" class="tsd-kind-icon">delete<wbr>Single<wbr>Satellite</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="satellitesdbmanger.html#delete" class="tsd-kind-icon">delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="satellitesdbmanger.html#findone" class="tsd-kind-icon">find<wbr>One</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="satellitesdbmanger.html#formatthedbrequst" class="tsd-kind-icon">format<wbr>TheDBRequst</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="satellitesdbmanger.html#getallsatellites" class="tsd-kind-icon">get<wbr>All<wbr>Satellites</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="satellitesdbmanger.html#getall" class="tsd-kind-icon">get<wbr>All</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="satellitesdbmanger.html#getsatellitesamount" class="tsd-kind-icon">get<wbr>Satellites<wbr>Amount</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="satellitesdbmanger.html#getamount" class="tsd-kind-icon">get<wbr>Amount</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="satellitesdbmanger.html#getsinglesatellite" class="tsd-kind-icon">get<wbr>Single<wbr>Satellite</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="satellitesdbmanger.html#getsinglebyid" class="tsd-kind-icon">get<wbr>Single<wbr>ById</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="satellitesdbmanger.html#update" class="tsd-kind-icon">update</a>
 							</li>
 						</ul>
 					</li>
@@ -428,10 +481,11 @@
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 		</div>
 	</div>

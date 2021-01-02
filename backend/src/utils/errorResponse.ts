@@ -1,7 +1,7 @@
 export default class ErrorResponse extends Error 
 {
     private statusCode;
-    constructor(msg, statusCode)
+    constructor(statusCode, msg)
     {
         super(msg);
 

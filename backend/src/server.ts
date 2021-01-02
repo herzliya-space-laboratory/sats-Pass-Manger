@@ -5,48 +5,41 @@ import IAPIManagers from "./IO_Mangers/ApiManger/IAPIManager";
 import IDBManger from './IO_Mangers/DBManger/intrface/IDBManger';
 import { createDBManger, createAPIManger } from "./utils/MangersInit";
 
-import satelliteLogic from "./business logic/satelliteUseCases";
-import passLogic from "./business logic/passesUseCases";
+import CRUDLogic from "./business logic/CRUDUseCases";
 import authLogic from "./business logic/authUseCases";
-import testsLogic from "./business logic/testsUseCases";
-
-
-import IPassesDBManger from "IO_Mangers/DBManger/intrface//IPassesDBManger";
-import ISatellitesDBManger from "IO_Mangers/DBManger/intrface/ISatellitesDBManger";
-import IAuthDBManger from "IO_Mangers/DBManger/intrface/IAuthDBManger";
-import ITestsDBManger from "IO_Mangers/DBManger/intrface/ITestsDBManger";
-
 
 import SatellitesDBManger from "./IO_Mangers/DBManger/mongoDB/SatellitesDBManger";
 import PassesDBManger from "./IO_Mangers/DBManger/mongoDB/PassesDBManger";
 import AuthDBManger from "./IO_Mangers/DBManger/mongoDB/AuthDBManger";
 import TestsDBManger from "./IO_Mangers/DBManger/mongoDB/TestsDBManger";
 
+import passValidetor from './validetors/passValidetor'
+
 import ConcreteMediators from "./Mediator/ConcreteMediators";
+import IValidetor from "./validetors/IValidetor";
+import passLogic from "./business logic/passesUseCases";
 
 
-let DBManger:IDBManger = createDBManger();
-DBManger.connect(process.env.MONGO_URI);
 
 const PORT: number = parseInt(process.env.PORT  || '4000');
 const APIManger: IAPIManagers = createAPIManger(PORT);
 
-let satDBManger:ISatellitesDBManger = new SatellitesDBManger();
-const satelliteManger:satelliteLogic = new satelliteLogic(satDBManger);
-
-
-const passDBManger:IPassesDBManger = new PassesDBManger();
-const passesManger:passLogic = new passLogic(passDBManger);
-
-const authDBManger:IAuthDBManger = new AuthDBManger();
-const authManger:authLogic = new authLogic(authDBManger);
-
-const testDBManger:ITestsDBManger = new TestsDBManger();
-const testsManger:testsLogic = new testsLogic(testDBManger);
+const tempValid:IValidetor = new passValidetor();
+const {satDBManger, passDBManger, usersDBManger, testDBManger} = createDBManger();
 
 
 
-const mediator = new ConcreteMediators(passesManger, satelliteManger);
+satDBManger.connect(process.env.MONGO_URI);
+
+const satelliteManger:CRUDLogic = new CRUDLogic(satDBManger, tempValid);
+const passesManger:CRUDLogic = new CRUDLogic(passDBManger, tempValid);
+const testsManger:CRUDLogic = new CRUDLogic(testDBManger, tempValid);
+const usersManger:CRUDLogic = new CRUDLogic(usersDBManger, tempValid);
+
+const authManger:authLogic = new authLogic(usersDBManger);
+const passesFinder:passLogic = new passLogic();
+
+new ConcreteMediators(passesManger, satelliteManger, passesFinder);
 
 initIOInputRoutes();
 
@@ -65,37 +58,37 @@ function initIOInputRoutes()
         {
             method: 'get',
             path: '/api/v1/satellite/',
-            callback: satelliteManger.getAllSatellites
+            callback: satelliteManger.getAll
         },
         {
             method: 'get',
             path: '/api/v1/satellite/:id',
-            callback: satelliteManger.getSingleSatellite
+            callback: satelliteManger.getSingleById
         },
         {
             method: 'delete',
             path: '/api/v1/satellite/:id',
-            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), satelliteManger.deleteSingleSatellite]
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), satelliteManger.deleteSingle]
         },
         {
             method: 'put',
             path: '/api/v1/satellite/:id',
-            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), satelliteManger.updatSingleSatellite]
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), satelliteManger.Update]
         },
         {
             method: 'post',
             path: '/api/v1/satellite/',
-            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), satelliteManger.createSatellite]
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), satelliteManger.create]
         },
         {
             method: 'get',
             path: '/api/v1/satellite/passes/:id',
-            callback: satelliteManger.getSatellitePassesAndSaveThem
+            callback: passesFinder.getSatellitePasses
         },
         {
             method: 'get',
             path: '/api/v1/satellites/passes/',
-            callback: satelliteManger.getAllSatellitesPassesAndSaveThem
+            callback: passesFinder.getAllPasses
         }
     ];
 
@@ -103,22 +96,22 @@ function initIOInputRoutes()
         {
             method: 'get',
             path: '/api/v1/pass/',
-            callback: passesManger.getAllPasses
+            callback: passesManger.getAll
         },
         {
             method: 'get',
             path: '/api/v1/pass/:id',
-            callback: passesManger.getSinglePass
+            callback: passesManger.getSingleById
         },
         {
             method: 'put',
             path: '/api/v1/pass/updatePlan/:id',
-            callback: [authManger.protect, passesManger.UpdatePassPlan]
+            callback: [authManger.protect, passesManger.Update]
         },
         {
             method: 'put',
             path: '/api/v1/pass/updateWhatWasExequte/:id',
-            callback: [authManger.protect, passesManger.UpdateWhatWasInAPass]
+            callback: [authManger.protect, passesManger.Update]
         }
         
     ];
@@ -127,12 +120,12 @@ function initIOInputRoutes()
         {
             method: 'get',
             path: '/api/v1/user/',
-            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.getAllUsers]
+            callback: [authManger.protect, usersManger.getAll]
         },
         {
             method: 'get',
             path: '/api/v1/user/:id',
-            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.getSingleUser]
+            callback: [authManger.protect, usersManger.getSingleById]
         },
         {
             method: 'post',
@@ -142,17 +135,17 @@ function initIOInputRoutes()
         {
             method: 'post',
             path: '/api/v1/register/',
-            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.register]
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), usersManger.create]
         },
         {
             method: 'delete',
-            path: '/api/v1/user/',
-            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.deleteSingleUser]
+            path: '/api/v1/user/:id',
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), usersManger.deleteSingle]
         },
         {
             method: 'put',
-            path: '/api/v1/user/',
-            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), authManger.updatSingleUser]
+            path: '/api/v1/user/:id',
+            callback: [authManger.protect, authManger.authorize('admin', 'instructions'), usersManger.Update]
         }
     ];
 
@@ -160,27 +153,27 @@ function initIOInputRoutes()
         {
             method: 'get',
             path: '/api/v1/test/',
-            callback: testsManger.getAllTests
+            callback: testsManger.getAll
         },
         {
             method: 'get',
             path: '/api/v1/test/:id',
-            callback: testsManger.getSingleTest
+            callback: testsManger.getSingleById
         },
         {
             method: 'put',
             path: '/api/v1/test/:id',
-            callback: [authManger.protect, testsManger.updatSingleTest]
+            callback: [authManger.protect, testsManger.Update]
         },
         {
             method: 'post',
             path: '/api/v1/test/:id',
-            callback: [authManger.protect, testsManger.createTest]
+            callback: [authManger.protect, testsManger.create]
         },
         {
             method: 'delete',
             path: '/api/v1/test/:id',
-            callback: [authManger.protect, testsManger.deleteSingleTest]
+            callback: [authManger.protect, testsManger.deleteSingle]
         }
         
     ];

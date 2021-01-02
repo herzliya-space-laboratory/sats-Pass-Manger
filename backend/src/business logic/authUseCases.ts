@@ -1,7 +1,7 @@
 import ErrorResponse from "../utils/errorResponse";
 import jwt from 'jsonwebtoken';
 
-import IAuthDBManger from "../IO_Mangers/DBManger/intrface/IAuthDBManger";
+import IDBManger from "../IO_Mangers/DBManger/intrface/IDBManger";
 import { formatQueryForMoongose, formatPagination } from "../utils/queryFormater";
 
 import {
@@ -13,73 +13,11 @@ import {
 
 export default class authLogic
 {
-    private db:IAuthDBManger;
+    private db:IDBManger;
 
     constructor(db)
     {
         this.db = db;
-    }
-
-    deleteSingleUser = async (req, res) => {
-        const id = req.params.id;
-
-        const user = await this.db.deleteUser(id);
-
-        returnSuccessRespondToTheClient(res, 200, user)
-    }
-
-
-    updatSingleUser = async (req, res, next) => {
-        const id = req.params.id;
-        const dataToUpdate = req.body;
-
-        const user = await this.db.updateUser(id, dataToUpdate);
-
-        if(!user)
-            next(new ErrorResponse(`user with id: ${id} wasnt found`, 404));
-        else
-            returnSuccessRespondToTheClient(res, 200, user);
-    }
-
-    getAllUsers = async (req , res) => {
-        const query = req.query || {};
-
-        const userTotalAmount = this.db.getUserAmount()
-        let {formatQuery, params} = formatQueryForMoongose(query);
-
-        const resuser = await this.db.getAllUsers(formatQuery, params);
-
-        let pagination = formatPagination(query, userTotalAmount);
-
-        returnSuccessRespondToTheClientWithPage(res, 200, resuser, pagination);
-    }
-
-    getSingleUser = async (req, res) => {
-        const id = req.params.id;
-
-        const user = await this.db.getSingleUser(id);
-
-        if(!user)
-            returnRespondToTheClientWithErr(res, 404, user,
-                 `user with id: ${id} wasnt found`)
-        else
-            returnSuccessRespondToTheClient(res, 200, user)
-    }
-
-
-    register = async (req, res, next) => {
-        const { name, email, password, role } = req.body;
-
-        const user = await this.db.createUser({ 
-                name,
-                email, 
-                password, 
-                role 
-            });
-
-        const token = user.getSignedJwtToken();
-
-        returnSuccessRespondToTheClient(res, 200, token);
     }
 
     login = async (req, res, next) => {
@@ -88,7 +26,7 @@ export default class authLogic
         if(!email || !password)
             return next(new ErrorResponse('please provide an email and a password', 400));
 
-        const user = await this.db.findUser({email}, true);
+        const user = await this.db.findOne({email}, {select: '+password'});
         
         if(!user)
             return next(new ErrorResponse(`invalid credentials`, 401));
@@ -116,7 +54,7 @@ export default class authLogic
         try {
             
             const decode = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = await this.db.getSingleUser(decode.id);
+            req.user = await this.db.getSingleById(decode.id);
     
             next();
         } catch (error) {

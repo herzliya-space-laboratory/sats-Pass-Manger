@@ -1,5 +1,6 @@
 require('../../src/utils/dotenvInit');
 
+import IDBManger from '../../src/IO_Mangers/DBManger/intrface/IDBManger';
 import AuthDBManger from '../../src/IO_Mangers/DBManger/mongoDB/AuthDBManger';
 
 import User from '../../src/IO_Mangers/DBManger/models/User';
@@ -9,7 +10,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 
 
-let db:AuthDBManger;
+let db:IDBManger;
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {
@@ -27,7 +28,7 @@ afterEach(() => {
 
 describe("auth db test", () => {
     test("get all users from empty db shold be empty array", async () => {
-        const res = await db.getAllUsers();
+        const res = await db.getAll();
 
         expect(res).toEqual([]);
     })
@@ -54,7 +55,7 @@ describe("auth db test", () => {
         }];
 
         await User.create(testUsers);
-        const res = (await db.getAllUsers())
+        const res = (await db.getAll())
             .sort((a, b) => parseInt(a.name)- parseInt(b.name));
 
         expect(res.length).toEqual(testUsers.length);
@@ -81,7 +82,7 @@ describe("auth db test", () => {
         };
 
         await User.create(testUser);
-        const res = await db.getSingleUser(_id);
+        const res = await db.getSingleById(_id);
 
         Object.keys(testUser).forEach(key => {
             if(key !== "password")
@@ -108,8 +109,8 @@ describe("auth db test", () => {
 
         await User.create(testUser);
         
-        await db.updateUser(_id, ToUpdate);
-        const res = await db.getSingleUser(_id);
+        await db.update(_id, ToUpdate);
+        const res = await db.getSingleById(_id);
 
         Object.keys(ToUpdate).forEach(key => {
             expect(res[key]).toEqual(ToUpdate[key]);
@@ -128,8 +129,8 @@ describe("auth db test", () => {
             password: "123456"
         };
 
-        await db.createUser(testUser);
-        const res = await db.getSingleUser(_id);
+        await db.create(testUser);
+        const res = await db.getSingleById(_id);
 
         Object.keys(testUser).forEach(key => {
             if(key !== "password")
@@ -148,10 +149,10 @@ describe("auth db test", () => {
             password: "123456"
         };
 
-        await db.createUser(testUser);
+        await db.create(testUser);
         
-        await db.deleteUser(_id);
-        const res = await db.getSingleUser(_id);
+        await db.delete(_id);
+        const res = await db.getSingleById(_id);
 
         expect(res).toBeFalsy();
     })
@@ -169,7 +170,7 @@ describe("auth db test", () => {
         };
 
         await User.create(testUser);
-        const res = await db.findUser({ email }, true);
+        const res = await db.findOne({ email }, {select: "+password"});
 
         expect(await res.matchPassword(password)).toEqual(true);
         Object.keys(testUser).forEach(key => {

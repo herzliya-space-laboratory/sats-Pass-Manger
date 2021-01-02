@@ -10,16 +10,11 @@ const headers = {
 
 export async  function post(req, res) {
     const { email, password } = req.body;
-    await axios.post(`http://localhost:4000/api/v1/login/`, { email, password })
+    await axios.post(`${process.env.API_URI}/api/v1/login/`, { email, password })
         .then((result) => { 
             req.session.token = result.data.data;
-
-            try {
-              req.session.decodedToken = jwt.verify(req.session.token , process.env.JWT_SECRET);
-              res.end(JSON.stringify({ token: result.data.data }));
-            } catch (error) {
-              res.end(JSON.stringify({ error }))
-            }
+            req.session.decodedToken = jwt.verify(req.session.token , process.env.JWT_SECRET);
+            res.end(JSON.stringify({ token: result.data.data }));
         })
         .catch(e =>  res.end(JSON.stringify({ error: e.response.data.error })));
 }

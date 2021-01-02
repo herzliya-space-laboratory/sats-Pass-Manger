@@ -30,7 +30,7 @@
         const parsed = await response.json();
         
         if (parsed.error)
-            alert(parsed.error);
+            alert(JSON.stringify( parsed.error));
         else
         {
             $session.token = parsed.token;

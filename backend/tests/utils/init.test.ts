@@ -3,7 +3,10 @@ require("../../src/utils/dotenvInit");
 import {createAPIManger, createDBManger} from "../../src/utils/MangersInit";
 
 import expressApi from "../../src/IO_Mangers/ApiManger/expressApi";
-import mangoDBManger from "../../src/IO_Mangers/DBManger/mongoDB/mangoDBManger";
+import SatellitesDBManger from "../../src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger";
+import PassesDBManger from "../../src/IO_Mangers/DBManger/mongoDB/PassesDBManger";
+import AuthDBManger from "../../src/IO_Mangers/DBManger/mongoDB/AuthDBManger";
+import TestsDBManger from "../../src/IO_Mangers/DBManger/mongoDB/TestsDBManger";
 
 
 test("api init", () => {
@@ -15,7 +18,11 @@ test("api init", () => {
 
 
 test("db init", () => {
-    const output = createDBManger();
+    const {satDBManger, passDBManger, usersDBManger, testDBManger} = createDBManger();
 
-    expect(output instanceof mangoDBManger).toBe(true);
+    expect(satDBManger instanceof SatellitesDBManger).toBe(true);
+    expect(passDBManger instanceof PassesDBManger).toBe(true);
+    expect(usersDBManger instanceof AuthDBManger).toBe(true);
+    expect(testDBManger instanceof TestsDBManger).toBe(true);
+
 })

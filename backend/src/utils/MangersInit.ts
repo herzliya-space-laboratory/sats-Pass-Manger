@@ -1,5 +1,10 @@
 import expressApi from "../IO_Mangers/ApiManger/expressApi";
-import mangoDBManger from '../IO_Mangers/DBManger/mongoDB/mangoDBManger'
+
+import SatellitesDBManger from "../IO_Mangers/DBManger/mongoDB/SatellitesDBManger";
+import PassesDBManger from "../IO_Mangers/DBManger/mongoDB/PassesDBManger";
+import AuthDBManger from "../IO_Mangers/DBManger/mongoDB/AuthDBManger";
+import TestsDBManger from "../IO_Mangers/DBManger/mongoDB/TestsDBManger";
+
 
 
 export function createAPIManger(PORT) {
@@ -14,7 +19,11 @@ export function createAPIManger(PORT) {
 export function createDBManger() {
     switch (process.env.DB_MANGER_TYPE) {
         case ("mongodb"):
-            return new mangoDBManger();
+            return {
+                satDBManger: new SatellitesDBManger(),
+                passDBManger: new PassesDBManger(), 
+                usersDBManger: new AuthDBManger(), 
+                testDBManger: new TestsDBManger()};
         default:
             throw new Error("no db manger specified");
     }

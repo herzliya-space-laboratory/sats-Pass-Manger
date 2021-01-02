@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+import { ObjectId } from 'mongoose';
+
 import IDBManager from "../intrface/IDBManger";
 
 import Satellite from '../models/Satellite';
@@ -7,7 +9,7 @@ import Pass from "../models/Pass";
 import User from "../models/User";
 import Test from "../models/Test";
 
-export default class mangoDBManger implements IDBManager
+export default abstract class mangoDBManger implements IDBManager
 {
     protected satelliteAmount: number;
     protected passAmount: number;
@@ -28,7 +30,6 @@ export default class mangoDBManger implements IDBManager
         User.countDocuments().then(count => this.userAmount = count);
         Pass.countDocuments().then(count => this.passAmount = count);
         Test.countDocuments().then(count => this.testsAmount = count);
-
     }   
 
     protected formatTheDBRequst(dbRequst: any, params: any, populate:any = '') {
@@ -51,4 +52,14 @@ export default class mangoDBManger implements IDBManager
         return params.select == "" ||
             (params.select.includes(populate) && !params.select.includes(`-${populate}`));
     }
+
+
+    abstract getAll(query?, params?);
+    abstract getSingleById(id:ObjectId, params?);
+    abstract findOne(query, params?);
+    abstract create(UserToCreate);
+    abstract update(id:ObjectId, dataToUpdate);
+	abstract delete(id:ObjectId);
+	
+    abstract getAmount();
 }

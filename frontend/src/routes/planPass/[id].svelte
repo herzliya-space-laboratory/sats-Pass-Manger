@@ -6,9 +6,23 @@
 		const res = await this.fetch(`passes/${id}.json`);
 		const data = await res.json();
 
+        let config = {
+                headers: {
+                    authorization: "Bearer " +  session.token,
+                }
+            }
+        let users;
+        if(session.token){
+            try {
+                users = (await axios.get(`http://localhost:4000/api/v1/user/`, config)).data.data;
+            } catch (error) {
+                console.log(JSON.stringify(error));
+            }
+        }
+
 		if (res.status === 200) 
 		{
-			return { pass: data };
+			return { pass: data, users };
 		}
 		else
 		{
@@ -22,7 +36,8 @@
     const { session } = stores();
     import { createForm } from "svelte-forms-lib";
 	import axios from 'axios'
-	export let pass;
+    export let pass;
+    export let users;
 
 	const {
       form,
@@ -34,8 +49,8 @@
     } = createForm({
       initialValues: {
 		goal: pass.goal || "",
-		PassPlanner: pass.PassPlanner || "",
-        PassExecuter: pass.PassExecuter || "",
+		PassPlanner: pass.PassPlanner,
+        PassExecuter: pass.PassExecuter || {},
         status: pass.status || ""
       },
       onSubmit: values => {
@@ -46,12 +61,14 @@
                 authorization: "Bearer " +  $session.token,
             }
         }
+        values.PassPlanner = $session.decodedToken.id;
+        console.log(values);
         
         axios.put(`http://localhost:4000/api/v1/pass/updatePlan/${pass._id}`, values, config)
             .catch(e => alert( e.response.data.error));
       }
     });
-    
+
 </script>
 
 
@@ -123,6 +140,18 @@
                 </dd>
             </div>
 
+            {#if pass.PassPlanner}
+                <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-xl leading-5 font-medium text-white">
+                    pass planner
+                    </dt>
+
+                    <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                            {pass.PassPlanner.name}
+                    </dd>
+                </div>
+            {/if}
+
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
                     pass status
@@ -152,30 +181,30 @@
                 </dd>
             </div>
 
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt class="text-xl leading-5 font-medium text-white">
-                   pass planner
-                </dt>
+            
 
-                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
-                    {#if $session.token}
-					    <input class="w-3/4 text-black" placeholder="pass planner" name = "PassPlanner" bind:value={$form.PassPlanner}/> 
-                    {:else}
-                        {pass.PassPlanner}
-                    {/if}
-                </dd>
-            </div>
-
-            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-gray-5 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
                     pass executer
                 </dt>
 
                 <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
                     {#if $session.token}
-					    <input class="w-3/4 text-black" placeholder="pass executer" name = "PassExecuter" bind:value={$form.PassExecuter}/>
+                     <select class="w-3/4 text-black" name = "PassExecuter" placeholder="pass executer" bind:value={$form.PassExecuter}>
+                            {#if $form.PassExecuter != undefined && $form.PassExecuter.name != undefined}
+                                <option value={$form.PassExecuter}> {$form.PassExecuter.name} </option>
+                            {:else}
+                                <option>chose pass executer</option>
+                            {/if}
+
+                            {#each users.filter(user => user._id != $form.PassExecuter._id) as user}
+                                <option value={user}>
+                                    {user.name}
+                                </option>
+                            {/each}
+                        </select>
                     {:else}
-                        {pass.PassPlanner}
+                        {pass.PassExecuter.name}
                     {/if}
                 </dd>
             </div>

@@ -2,70 +2,71 @@ require("../src/utils/dotenvInit");
 
 import jwt from 'jsonwebtoken';
 
+import IValidetor from 'validetors/IValidetor';
 import IDBManger from '../src/IO_Mangers/DBManger/intrface/IDBManger';
-import mangoDBManger from '../src/IO_Mangers/DBManger/mongoDB/mangoDBManger';
 
 import mongoose = require('mongoose');
 import { MongoMemoryServer } from "mongodb-memory-server";
 
-import satelliteLogic from '../src/business logic/satelliteUseCases';
+import PassValidetor from 'validetors/passValidetor';
+import SatelliteValidetor from 'validetors/satelliteValidetor';
+import UserValidetor from 'validetors/userValidetor';
+
+
 import SatellitesDBManger from 'IO_Mangers/DBManger/mongoDB/SatellitesDBManger';
-
 import PassesDBManger from 'IO_Mangers/DBManger/mongoDB/PassesDBManger';
-import passLogic from 'business logic/passesUseCases';
-
 import AuthDBManger from 'IO_Mangers/DBManger/mongoDB/AuthDBManger';
+
+import passLogic from 'business logic/passesUseCases';
 import authLogic from 'business logic/authUseCases';
-
-import testsLogic from '../src/business logic/testsUseCases';
-import testsDBManger from 'IO_Mangers/DBManger/mongoDB/TestsDBManger';
-
-
-import ISatellitesDBManger from 'IO_Mangers/DBManger/intrface/ISatellitesDBManger';
-import IPassesDBManger from 'IO_Mangers/DBManger/intrface/IPassesDBManger';
-import IAuthDBManger from 'IO_Mangers/DBManger/intrface/IAuthDBManger';
-import ITestsDBManger from 'IO_Mangers/DBManger/intrface/ITestsDBManger';
-
+import CRUDLogic from 'business logic/CRUDUseCases';
 
 import ConcreteMediators from 'Mediator/ConcreteMediators';
 import ErrorResponse from 'utils/errorResponse';
 
 
-let satelliteManger:satelliteLogic;
-let passManger:passLogic;
-let usersManger:authLogic;
-let testManger:testsLogic;
+
+let satelliteManger:CRUDLogic;
+let passManger:CRUDLogic;
+let userManger:CRUDLogic;
+let passFinder:passLogic;
+let authManger:authLogic;
 
 
-let db:IDBManger;
-let passDB:IPassesDBManger;
-let satDB:ISatellitesDBManger;
-let userDB:IAuthDBManger;
-let testDB:ITestsDBManger;
+
+let passDB:IDBManger;
+let satDB:IDBManger;
+let userDB:IDBManger;
+
+let passValidetor:IValidetor;
+let satelliteValidetor:IValidetor;
+let userValidetor:IValidetor;
 
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {
 	mongoServer = new MongoMemoryServer();
-    db = new mangoDBManger();
 
     
 	const mongoUri = await mongoServer.getUri();
-    await db.connect(mongoUri);
+
+    passValidetor = new PassValidetor();
+    satelliteValidetor = new SatelliteValidetor();
+    userValidetor = new UserValidetor();
 
     satDB = new SatellitesDBManger();
-    satelliteManger = new satelliteLogic(satDB);
-
     passDB = new PassesDBManger();
-    passManger = new passLogic(passDB);
-
     userDB = new AuthDBManger();
-    usersManger = new authLogic(userDB);
 
-    testDB = new testsDBManger();
-    testManger = new testsLogic(testDB);
+    await satDB.connect(mongoUri);
+
+    satelliteManger = new CRUDLogic(satDB, satelliteValidetor);
+    passManger = new CRUDLogic(passDB, passValidetor);
+    userManger = new CRUDLogic(userDB, userValidetor);
+    passFinder = new passLogic();
+    authManger = new authLogic(userDB);
     
-    let meditor = new ConcreteMediators(passManger, satelliteManger); 
+    let meditor = new ConcreteMediators(passManger, satelliteManger, passFinder); 
     satelliteManger.setMediator(meditor);
     passManger.setMediator(meditor);
 });
@@ -75,26 +76,20 @@ afterEach(() => {
     return mongoose.disconnect();
 })
 
-describe('satellite business logic', () => {
+describe('test the CRUD Bussiness logic on a satllites data base', () => {
 
     test("get satellite from empty db return 404 no found err", () => {
-        expect.assertions(3);
+        expect.assertions(2);
 
         const id = new mongoose.Types.ObjectId()
-        
-        const res = {
-            status: function(status){
-                expect(status).toBe(404)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.data).toBeNull();
-                expect(obj.error).toBe(`Satellite with id: ${id} wasnt found`)
-            }
+
+        const next = (error) => {
+            expect(error.message).toBe(`data with id: ${id} wasnt found`)
+            expect(error.statusCode).toBe(404)
+
         }
 
-
-        return satelliteManger.getSingleSatellite({params: {id}}, res);
+        return satelliteManger.getSingleById({params: {id}}, {}, next);
     })
 
     test("get satellite return the satellite", async () => {
@@ -108,7 +103,7 @@ describe('satellite business logic', () => {
             satId: 1
         }
 
-        const output = await satDB.createSatellite(satelliteToCreate);
+        const output = await satDB.create(satelliteToCreate);
 
         const res = {
             status: function(status){
@@ -122,7 +117,7 @@ describe('satellite business logic', () => {
         }
 
 
-        return satelliteManger.getSingleSatellite({params: {id}}, res);
+        return satelliteManger.getSingleById({params: {id}}, res, null);
     })
 
     test("get all satellites with satId < 3 and sort by satId and select of satId", async () => {
@@ -150,7 +145,7 @@ describe('satellite business logic', () => {
         ];
         
         for (const satellite of satellitesToCreate) 
-            await satDB.createSatellite(satellite);
+            await satDB.create(satellite);
         
         const res = {
             status: function(status){
@@ -177,7 +172,7 @@ describe('satellite business logic', () => {
                 }
             }
 
-        return satelliteManger.getAllSatellites(req, res);
+        return satelliteManger.getAll(req, res, null);
     }, 20000)
 
     test("create satellite", async () => {
@@ -204,68 +199,9 @@ describe('satellite business logic', () => {
         }
 
 
-        await satelliteManger.createSatellite({body: satelliteToCreate}, res);
-        await satelliteManger.getSingleSatellite({params: {id}}, res);
+        await satelliteManger.create({body: satelliteToCreate}, res);
+        await satelliteManger.getSingleById({params: {id}}, res, null);
     })
-
-    test('get and save satllite passes', async () => {
-        expect.assertions(3);
-
-        const id = new mongoose.Types.ObjectId();
-        
-        const satelliteToCreate = {
-            _id: id,
-            name: 'test 1',
-            satId:  44854 
-        }
-
-        await satDB.createSatellite(satelliteToCreate);
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(200);
-                return this;
-            },
-            json: (obj) => {
-                expect(obj).toBeTruthy();
-            }
-        }
-
-        await satelliteManger.getSatellitePassesAndSaveThem({query: {endTime: new Date(Date.now() + 1000000)}, params: {id}}, res);
-
-        let output = await satDB.getSingleSatellite(id);
-        expect(output).not.toEqual([]);
-    });
-
-    test('get and save all satllites passes', async () => {
-        expect.assertions(3);
-
-        const id = new mongoose.Types.ObjectId();
-        
-        const satelliteToCreate = {
-            _id: id,
-            name: 'test 1',
-            satId:  44854 
-        }
-
-        await satDB.createSatellite(satelliteToCreate);
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(200);
-                return this;
-            },
-            json: (obj) => {
-                expect(obj).toBeTruthy();
-            }
-        }
-
-        await satelliteManger.getAllSatellitesPassesAndSaveThem({query: {endTime: new Date(Date.now() + 1000000)}}, res);
-
-        let output = await satDB.getSingleSatellite(id);
-        expect(output).not.toEqual([]);
-    });
-
 
     test("update satllite", async () => {
         expect.assertions(2);
@@ -278,7 +214,7 @@ describe('satellite business logic', () => {
             satId: 1
         }
 
-        await satDB.createSatellite(satlliteToCreate);
+        await satDB.create(satlliteToCreate);
 
         const res = {
             status: function(status){
@@ -291,7 +227,7 @@ describe('satellite business logic', () => {
         }
 
 
-        return satelliteManger.updatSingleSatellite({params: {id}, body: {name: "test2"}}, res, null);
+        return satelliteManger.Update({params: {id}, body: {name: "test2"}}, res, null);
     })
 
     
@@ -306,7 +242,7 @@ describe('satellite business logic', () => {
             satId: 1
         }
 
-         await satDB.createSatellite(satlliteToCreate);
+         await satDB.create(satlliteToCreate);
 
 
         const res1 = {
@@ -316,211 +252,33 @@ describe('satellite business logic', () => {
             json: (obj) => {
             }
         }
-        const res2 = {
-            status: function(status){
-                expect(status).toBe(404)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.error).toBe(`Satellite with id: ${id} wasnt found`);
-            }
+        const next = (error) => {
+                expect(error.message).toBe(`data with id: ${id} wasnt found`);
+                expect(error.statusCode).toBe(404)            
         }
 
 
-        await satelliteManger.deleteSingleSatellite({params: {id}}, res1);
-        return satelliteManger.getSingleSatellite({params: {id}}, res2);
+        await satelliteManger.deleteSingle({params: {id}}, res1, (e) => {throw new Error(e);});
+        return satelliteManger.getSingleById({params: {id}}, {}, next);
 
     })
 
 })
 
-describe('passes business logic', () => {
-    test("get pass from empty db return 404 no found err", () => {
+describe('test the pass finder', () => {
+    
+    test('get and save satllite passes', async () => {
         expect.assertions(3);
 
-        const id = new mongoose.Types.ObjectId()
-        
-        const res = {
-            status: function(status){
-                expect(status).toBe(404)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.data).toBeNull();
-                expect(obj.error).toBe(`pass with id: ${id} wasnt found`)
-            }
-        }
-
-
-        return passManger.getSinglePass({params: {id}}, res);
-    })
-
-    test("get pass return the pass", async () => {
-        expect.assertions(2);
-
         const id = new mongoose.Types.ObjectId();
         
-        const passToCreate = {
+        const satelliteToCreate = {
             _id: id,
-            title: 'test 1',
-            startTime: new Date(),
-            endTime: new Date()
+            name: 'test 1',
+            satId:  44854 
         }
 
-        const output = await passDB.createPass(passToCreate);
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.data.toObject()).toEqual(output.toObject());
-            }
-        }
-
-
-        return passManger.getSinglePass({params: {id}}, res);
-    })
-
-    test("get all pass", async () => {
-        expect.assertions(1 + 4*4);
-        
-        let PassToCreate = 
-        [
-            {
-                goal: 'test 1',
-                startTime: new Date(90),
-                endTime: new Date(),
-                maxElevation: 10
-            },
-            {
-                goal: 'test 2',
-                startTime: new Date(900),
-                endTime: new Date(),
-                maxElevation: 20
-            },
-            {
-                goal: 'test 3',
-                startTime: new Date(1),
-                endTime: new Date(),
-                maxElevation: 30
-            },
-            {
-                goal: 'test 4',
-                startTime: new Date(),
-                endTime: new Date(),
-                maxElevation: 40
-            }
-        ];
-        
-        
-        await passDB.createPass(PassToCreate);
-        
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                PassToCreate = PassToCreate.sort((a, b) => a.maxElevation - b.maxElevation);
-                obj.data = obj.data.sort((a, b) => a.maxElevation - b.maxElevation);
-                for(let i = 0; i < obj.data.length; i++)
-                {
-                    Object.keys(PassToCreate).forEach(key => expect(obj.data[i][key]).toBe(PassToCreate[i][key]))
-                }
-            }
-        }
-
-        await passManger.getAllPasses({}, res);
-    })
-
-    test("get all pass with startTime < 1000 and sort by elevation and select of elevation and startTime", async () => {
-        expect.assertions(10);
-        
-        let PassToCreate = 
-        [
-            {
-                goal: 'test 1',
-                startTime: new Date(90),
-                endTime: new Date(),
-                maxElevation: 10
-            },
-            {
-                goal: 'test 2',
-                startTime: new Date(900),
-                endTime: new Date(),
-                maxElevation: 20
-            },
-            {
-                goal: 'test 3',
-                startTime: new Date(1),
-                endTime: new Date(),
-                maxElevation: 30
-            },
-            {
-                goal: 'test 4',
-                startTime: new Date(),
-                endTime: new Date(),
-                maxElevation: 40
-            }
-        ];
-        
-        
-        await passDB.createPass(PassToCreate);
-        
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                PassToCreate = PassToCreate.sort((a, b) => a.maxElevation - b.maxElevation);
-                for(let i = 0; i < obj.data.length; i++)
-                {
-                    expect(obj.data[i].maxElevation).toEqual(PassToCreate[i].maxElevation);
-                    expect(obj.data[i].maxElevation).toBeLessThanOrEqual(1000);
-                    expect(Object.keys(obj.data[i].toObject())).toEqual(['_id', 'startTime', 'maxElevation']);
-                }
-            }
-        }
-        
-        const req = {
-                query: {
-                    startTime: {lt: 1000},
-                    sort: 'maxElevation',
-                    select: 'maxElevation startTime'
-
-                }
-            }
-
-        await passManger.getAllPasses(req, res);
-    })
-
-    test("add pass plan to a pass", async () => {
-        expect.assertions(9);
-
-        const id = new mongoose.Types.ObjectId();
-        const now = new Date();
-
-        const passToCreate = {
-            _id: id,
-            startTime: now,
-            endTime: new Date(now.getSeconds() + 14*60000),
-            maxElevation: 40,
-            duration: 14
-        }
-
-
-        await passDB.createPass(passToCreate);
-
-        const passPlan = {
-            goal: 'test pass',
-            PassPlanner: 'itai lupo',
-            PassExecuter: 'itai lupo'
-        }
-
-        const req = {body: passPlan, params: {id}}
+        await satDB.create(satelliteToCreate);
 
         const res = {
             status: function(status){
@@ -528,74 +286,28 @@ describe('passes business logic', () => {
                 return this;
             },
             json: (obj) => {
-                
-                Object.keys(passToCreate).forEach(key => expect(obj.data[key]).toStrictEqual(passToCreate[key]));
-                Object.keys(passPlan).forEach(key => expect(obj.data.toObject()[key]).toEqual(passPlan[key]));
+                expect(obj).toBeTruthy();
             }
         }
 
-        await passManger.UpdatePassPlan(req, res);
-    })
+        await passFinder.getSatellitePasses({query: {endTime: new Date(Date.now() + 1000000)}, params: {id}}, res, null);
 
-    test('add pass plan with wrong parmeter return 404, please fill all the data', async () =>{
+        let output = await satDB.getSingleById(id);
+        expect(output).not.toEqual([]);
+    });
+
+    test('get and save all satllites passes', async () => {
         expect.assertions(3);
 
         const id = new mongoose.Types.ObjectId();
-        const now = new Date();
-
-        const passToCreate = {
+        
+        const satelliteToCreate = {
             _id: id,
-            startTime: now,
-            endTime: new Date(now.getSeconds() + 14*60000),
-            maxElevation: 40,
-            duration: 14
+            name: 'test 1',
+            satId:  44854 
         }
 
-
-        await passDB.createPass(passToCreate);
-
-        const passPlan = {}
-
-        const req = {body: passPlan, params: {id}}
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(400);
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.success).toBe(false);
-                expect(obj.error).toBe('please fill all the data');
-            }
-        }
-
-        await passManger.UpdatePassPlan(req, res);
-
-
-    })
-
-    test("add post pass to pass to a pass", async () => {
-        expect.assertions(7);
-
-        const id = new mongoose.Types.ObjectId();
-        const now = new Date();
-
-        const passToCreate = {
-            _id: id,
-            startTime: now,
-            endTime: new Date(now.getSeconds() + 14*60000),
-            maxElevation: 40,
-            duration: 14
-        }
-
-
-        await passDB.createPass(passToCreate);
-
-        const whatWasExecute = {
-            whatWasExecute: 'all'
-        }
-
-        const req = {body: whatWasExecute, params: {id}}
+        await satDB.create(satelliteToCreate);
 
         const res = {
             status: function(status){
@@ -603,110 +315,18 @@ describe('passes business logic', () => {
                 return this;
             },
             json: (obj) => {
-                Object.keys(passToCreate).forEach(key => expect(obj.data[key]).toStrictEqual(passToCreate[key]));
-                Object.keys(whatWasExecute).forEach(key => expect(obj.data.toObject()[key]).toEqual(whatWasExecute[key]));
+                expect(obj).toBeTruthy();
             }
         }
 
-        await passManger.UpdateWhatWasInAPass(req, res, null);
-    })
+        await passFinder.getAllPasses({query: {endTime: new Date(Date.now() + 1000000)}}, res, null);
 
-    test('add what was in pass to pass with wrong parmeter return 404, please fill all the data', async () => {
-        expect.assertions(2);
-
-        const id = new mongoose.Types.ObjectId();
-        const now = new Date();
-
-        const passToCreate = {
-            _id: id,
-            startTime: now,
-            endTime: new Date(now.getSeconds() + 14*60000),
-            maxElevation: 40,
-            duration: 14
-        }
-
-
-        await passDB.createPass(passToCreate);
-
-        const whatWasExecute = {
-        }
-
-        const req = {body: whatWasExecute, params: {id}}
-
-        const res = {
-            status: function(status){
-                return this;
-            },
-            json: (obj) => {
-            }
-        }
-        const next = (err) => {
-            expect(err.statusCode).toBe(400);
-            expect(err.message).toBe("please fill all the data");
-
-        }
-
-        await passManger.UpdateWhatWasInAPass(req, res, next);
-
-
-    })
+        let output = await satDB.getSingleById(id);
+        expect(output).not.toEqual([]);
+    });
 })
 
-describe('auth business logic', () => {
-    test("regester a user return valid user token", async () => {
-        expect.assertions(2);
-
-        const testUser = {
-            name: "1",
-            email: "1@gmail.com",
-            role: "student",
-            password: "123456"
-        };
-        const req = { body: testUser};
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                const token = obj.data;
-                const decode = jwt.verify(token, process.env.JWT_SECRET);
-                expect(decode.id).toBeTruthy();
-            }
-        }
-
-
-        await usersManger.register(req, res, () => {});
-    })
-
-    test("regester a user saves it in the db", async () => {
-        expect.assertions(4);
-
-        const testUser = {
-            name: "1",
-            email: "1@gmail.com",
-            role: "student",
-            password: "123456"
-        };
-
-        const req = { body: testUser};
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {}
-        }
-
-
-        await usersManger.register(req, res, () => {});
-
-        const savedUser = await userDB.findUser({ email: testUser.email });
-        Object.keys(testUser).forEach(key => {
-            if(key !== "password")
-                expect(savedUser[key]).toEqual(testUser[key]);
-        });
-    })
+describe('test the auth logic', () => {
 
     test("regester a user encript password and match it", async () => {
         expect.assertions(3);
@@ -728,9 +348,9 @@ describe('auth business logic', () => {
         }
 
 
-        await usersManger.register(req, res, () => {});
+        await userManger.create(req, res, () => {});
 
-        const savedUser = await userDB.findUser({ email: testUser.email }, true);
+        const savedUser = await userDB.findOne({ email: testUser.email }, {select: '+password'});
         
         expect(savedUser.password).not.toBe(testUser.password);
 
@@ -739,7 +359,7 @@ describe('auth business logic', () => {
     })
 
     test("regestered user can login", async () => {
-        expect.assertions(4);
+        expect.assertions(3);
 
         const testUser = {
             name: "1",
@@ -749,7 +369,15 @@ describe('auth business logic', () => {
         };
 
         const req = { body: testUser};
-        const res = {
+        const res1 = {
+            status: function(status){
+                expect(status).toBe(200)
+                return this;
+            },
+            json: (obj) => {
+            }
+        }
+        const res2 = {
             status: function(status){
                 expect(status).toBe(200)
                 return this;
@@ -762,8 +390,8 @@ describe('auth business logic', () => {
         }
 
 
-        await usersManger.register(req, res, () => {});
-        await usersManger.login(req, res, () => {});
+        await userManger.create(req, res1, () => {});
+        await authManger.login(req, res2, () => {});
     })
 
     test("empty user cannt login", async () => {
@@ -789,8 +417,8 @@ describe('auth business logic', () => {
                 return this;
             }
 
-        await usersManger.register(req, res, () => {});
-        await usersManger.login({body: {}}, res, next);
+        await userManger.create(req, res, () => {});
+        await authManger.login({body: {}}, res, next);
     })
 
     test("not register user cannt login", async () => {
@@ -816,7 +444,7 @@ describe('auth business logic', () => {
             }
 
 
-        await usersManger.login(req, res, next);
+        await authManger.login(req, res, next);
     })
 
     test("user with wrong password cannt login", async () => {
@@ -842,13 +470,13 @@ describe('auth business logic', () => {
                 return this;
             }
 
-        await usersManger.register(req, res, () => {});
+        await userManger.create(req, res, () => {});
         req.body.password = "123457";
-        await usersManger.login(req, res, next);
+        await authManger.login(req, res, next);
     })
 
     test("login user can accses protect routes", async () => {
-        expect.assertions(2);
+        expect.assertions(4);
 
         const testUser = {
             name: "1",
@@ -858,12 +486,13 @@ describe('auth business logic', () => {
         };
         const req:any = { body: testUser,
             headers: {}};
-
+ 
         const res = {
             status: function(status){
+                expect(status).toBe(200)
                 return this;
             },
-            json: (obj) => {
+            json: (obj) => {                
                 req.headers.authorization = 'Bearer ' + obj.data;
             }
         }
@@ -874,8 +503,9 @@ describe('auth business logic', () => {
             expect(req.user).toBeTruthy();
         }
 
-        await usersManger.register(req, res, () => {});
-        await usersManger.protect(req, {}, next)
+        await userManger.create(req, res, () => {});
+        await authManger.login(req, res, () => {});
+        await authManger.protect(req, {}, next)
     })
 
     test("not login user cant accses protect routes", async () => {
@@ -904,8 +534,8 @@ describe('auth business logic', () => {
             expect(req.user).toBeFalsy();
         }
 
-        await usersManger.register(req, res, () => {});
-        await usersManger.protect(req, {}, next)
+        await userManger.create(req, res, () => {});
+        await authManger.protect(req, {}, next)
     })
 
     test("not existing user cant accses protect routes", async () => {
@@ -935,13 +565,14 @@ describe('auth business logic', () => {
             expect(req.user).toBeFalsy();
         }
 
-        await usersManger.register(req, res, () => {});
+        await userManger.create(req, res, () => {});
+        await authManger.login(req, res, () => {});
 
         const token = req.headers.authorization.split(' ')[1];
         const decode = jwt.verify(token, process.env.JWT_SECRET);
-        await userDB.deleteUser(decode.id);
+        await userDB.delete(decode.id);
 
-        await usersManger.protect(req, {}, next)
+        await authManger.protect(req, {}, next)
     })
 
     test("users with the right roles are authorize to the right routes", async () => {
@@ -967,9 +598,9 @@ describe('auth business logic', () => {
             expect(err).toBeFalsy();
         }
 
-        await usersManger.register(req, res, () => {});
+        await userManger.create(req, res, () => {});
 
-        usersManger.authorize("student", "admin")(req, {}, next);
+        authManger.authorize("student", "admin")(req, {}, next);
     })
 
     test("users with out the right roles are authorize to the right routes", async () => {
@@ -995,382 +626,10 @@ describe('auth business logic', () => {
             expect(err).toEqual(new ErrorResponse(`User role is not authorized to access this route `, 403));
         }
 
-        await usersManger.register(req, res, () => {});
+        await userManger.create(req, res, () => {});
 
-        usersManger.authorize("instructions", "admin")(req, {}, next);
+        authManger.authorize("instructions", "admin")(req, {}, next);
     })
 
-    test('get all users', async () => {
-        expect.assertions(1 + 4*4);
-        
-        let UsersToCreate = 
-        [
-            {
-                name: "1",
-                email: "1@gmail.com",
-                role: "student",
-                password: "123456"
-            },
-            {
-                name: "2",
-                email: "2@gmail.com",
-                role: "student",
-                password: "123456"
-            },
-            {
-                name: "3",
-                email: "2@gmail.com",
-                role: "student",
-                password: "123456"
-            },
-            {
-                name: "4",
-                email: "2@gmail.com",
-                role: "student",
-                password: "123456"
-            }
-        ];
-        
-        
-        await userDB.createUser(UsersToCreate);
-        
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                UsersToCreate = UsersToCreate.sort((a, b) => parseInt(a.name) - parseInt(b.name));
-                obj.data = obj.data.sort((a, b) => parseInt(a.name) - parseInt(b.name));
-
-                for(let i = 0; i < obj.data.length; i++)
-                {
-                    Object.keys(UsersToCreate).forEach(key => expect(obj.data[i][key]).toBe(UsersToCreate[i][key]))
-                }
-            }
-        }
-
-        await usersManger.getAllUsers({}, res);
-    })
-
-
-    test("get user from empty db return 404 no found err", () => {
-        expect.assertions(3);
-
-        const id = new mongoose.Types.ObjectId()
-        
-        const res = {
-            status: function(status){
-                expect(status).toBe(404)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.data).toBeNull();
-                expect(obj.error).toBe(`user with id: ${id} wasnt found`)
-            }
-        }
-
-
-        return usersManger.getSingleUser({params: {id}}, res);
-    })
-
-    test("get user return the user", async () => {
-        expect.assertions(2);
-
-        const id = new mongoose.Types.ObjectId();
-        
-        const passToCreate = {
-            _id: id, 
-            name: "1",
-            email: "1@gmail.com",
-            role: "student",
-            password: "123456"
-        }
-
-        const output = await userDB.createUser(passToCreate);
-        output.password = undefined;
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.data.toObject()).toEqual(output.toObject());
-            }
-        }
-
-
-        return usersManger.getSingleUser({params: {id}}, res);
-    })
-
-    test("update user", async () => {
-        expect.assertions(2);
-
-        const id = new mongoose.Types.ObjectId();
-        
-        const passToCreate = {
-            _id: id, 
-            name: "1",
-            email: "1@gmail.com",
-            role: "student",
-            password: "123456"
-        }
-
-        const output = await userDB.createUser(passToCreate);
-        output.password = undefined;
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.data.email).toBe("2@gmail.com");
-            }
-        }
-
-
-        return usersManger.updatSingleUser({params: {id}, body: {email: "2@gmail.com"}}, res);
-    })
-
-    
-    test("delete user", async () => {
-        expect.assertions(2);
-
-        const id = new mongoose.Types.ObjectId();
-        
-        const passToCreate = {
-            _id: id, 
-            name: "1",
-            email: "1@gmail.com",
-            role: "student",
-            password: "123456"
-        }
-
-        const output = await userDB.createUser(passToCreate);
-
-        const res1 = {
-            status: function(status){
-                return this;
-            },
-            json: (obj) => {
-            }
-        }
-        const res2 = {
-            status: function(status){
-                expect(status).toBe(404)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.error).toBe(`user with id: ${id} wasnt found`);
-            }
-        }
-
-
-        await usersManger.deleteSingleUser({params: {id}}, res1);
-        return usersManger.getSingleUser({params: {id}}, res2);
-
-    })
-
-})
-
-
-describe('tests use cases', () => {
-    test("get test from empty db return 404 no found err", () => {
-        expect.assertions(3);
-
-        const id = new mongoose.Types.ObjectId()
-        
-        const res = {
-            status: function(status){
-                expect(status).toBe(404)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.data).toBeNull();
-                expect(obj.error).toBe(`test with id: ${id} wasnt found`)
-            }
-        }
-
-
-        return testManger.getSingleTest({params: {id}}, res);
-    })
-
-    test("get test return the pass", async () => {
-        expect.assertions(2);
-
-        const id = new mongoose.Types.ObjectId();
-        
-        const testToCreate = {
-            _id: id,
-            goal: "aaaa"
-        }
-
-        const output = await testDB.createTest(testToCreate);
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.data.toObject()).toEqual(output.toObject());
-            }
-        }
-
-
-        return testManger.getSingleTest({params: {id}}, res);
-    })
-
-    test("get all tests with Length < 3 and sort by Length and select of Length & Planner", async () => {
-        expect.assertions(10);
-        
-        let testsToCreate = 
-        [
-            {
-                Planner: 'test 2',
-                Length: 2
-            },
-            {
-                Planner: 'test 1',
-                Length: 1
-            },
-            
-            {
-                Planner: 'test 3',
-                Length: 3
-            },
-            {
-                Planner: 'test 4',
-                Length: 4
-            }
-        ];
-        
-        
-        await testDB.createTest(testsToCreate);
-        
-        testsToCreate = testsToCreate.sort((a, b) => a.Length - b.Length);
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                for(let i = 0; i < obj.data.length; i++)
-                {
-                    expect(testsToCreate[i].Length).toEqual(obj.data[i].Length);
-                    expect(obj.data[i].Length).toBeLessThanOrEqual(3);
-                    expect(Object.keys(obj.data[i].toObject())).toEqual(['_id', 'Planner', 'Length']);
-                }
-            }
-        }
-        
-        const req = {
-                query: {
-                    Length: {lte: 3},
-                    sort: 'Length',
-                    select: 'Length Planner'
-
-                }
-            }
-
-        return testManger.getAllTests(req, res);
-    }, 20000)
-
-    test("create test", async () => {
-        expect.assertions(8);
-
-        const id = new mongoose.Types.ObjectId();
-        
-        const testToCreate = {
-            _id: id,
-            Planner: 'test 2',
-            Length: 2
-        }
-
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                Object.keys(testToCreate).forEach(key =>
-                     expect(obj.data[key]).toEqual(testToCreate[key]));
-            }
-        }
-
-
-        await testManger.createTest({body: testToCreate}, res);
-        await testManger.getSingleTest({params: {id}}, res);
-    })
-
-    test("update test", async () => {
-        expect.assertions(2);
-
-        const id = new mongoose.Types.ObjectId();
-        
-        const testToCreate = {
-            _id: id,
-            Planner: 'test 2',
-            Length: 2
-        }
-
-        await testDB.createTest(testToCreate);
-
-        const res = {
-            status: function(status){
-                expect(status).toBe(200)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.data.Planner).toBe("test3");
-            }
-        }
-
-
-        return testManger.updatSingleTest({params: {id}, body: {Planner: "test3"}}, res);
-         
-    })
-
-    
-    test("delete test", async () => {
-        expect.assertions(2);
-
-        const id = new mongoose.Types.ObjectId();
-        
-        const passToCreate = {
-            _id: id,
-            Planner: 'test 2',
-            Length: 2
-        }
-
-        await testDB.createTest(passToCreate);
-
-
-        const res1 = {
-            status: function(status){
-                return this;
-            },
-            json: (obj) => {
-            }
-        }
-        const res2 = {
-            status: function(status){
-                expect(status).toBe(404)
-                return this;
-            },
-            json: (obj) => {
-                expect(obj.error).toBe(`test with id: ${id} wasnt found`);
-            }
-        }
-
-
-        await testManger.deleteSingleTest({params: {id}}, res1);
-        return testManger.getSingleTest({params: {id}}, res2);
-
-    })
 
 })

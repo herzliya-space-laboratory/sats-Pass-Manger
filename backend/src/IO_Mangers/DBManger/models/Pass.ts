@@ -17,16 +17,22 @@ const Pass = new mongoose.Schema({
     systemsItRelateTo: [String],
     goal: String,
     description: String,
-    PassPlanner: String,
-    PassExecuter: String,
+    PassPlanner: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    },
+    PassExecuter: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    },
     PassPlaylestInHoopenest: String,
     stations: {
         type: [{
                     type: String,
                     enum: [ 'RX only', 'TX Only', 'RX & TX', 'Off line'],
-                    default: "TX Only" 
+                    default: "RX only" 
                 }],
-                default: ['TX Only', 'TX Only', 'TX Only', 'TX Only', 'TX Only']
+                default: ['RX only', 'RX only', 'RX only', 'RX only', 'RX only']
     },
     whatWasExecute: String,
     manualErrors: {

@@ -1,6 +1,6 @@
 require('../../src/utils/dotenvInit');
 
-import ITestsDBManger from '../../src/IO_Mangers/DBManger/intrface/ITestsDBManger';
+import IDBManger from '../../src/IO_Mangers/DBManger/intrface/IDBManger';
 import TestsDBManger from '../../src/IO_Mangers/DBManger/mongoDB/TestsDBManger';
 
 import Test from '../../src/IO_Mangers/DBManger/models/Test';
@@ -10,7 +10,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 
 
-let db:ITestsDBManger;
+let db:IDBManger;
 let mongoServer: MongoMemoryServer;
 
 beforeEach(async () => {
@@ -29,7 +29,7 @@ afterEach(() => {
 describe("test db tests", () => {
 
     test("get all tests from empty db shold be empty array", async () => {
-        const res = await db.getAllTests();
+        const res = await db.getAll();
 
         expect(res).toEqual([]);
     })
@@ -49,7 +49,7 @@ describe("test db tests", () => {
         }];
 
         await Test.create(output);
-        const res = (await db.getAllTests()).sort((a, b) => a.Length - b.Length);
+        const res = (await db.getAll()).sort((a, b) => a.Length - b.Length);
 
         expect(res.length).toBe(output.length);
         for(let i = 0; i < output.length; i++)
@@ -83,7 +83,7 @@ describe("test db tests", () => {
 
 
         await Test.create(output);
-        const res = await db.getAllTests(inputQuery, inputParams);
+        const res = await db.getAll(inputQuery, inputParams);
 
 
         expect(res.length).toBe(3);
@@ -106,7 +106,7 @@ describe("test db tests", () => {
         };
 
         await Test.create(testError);
-        const res = await db.getSingleTest(_id);
+        const res = await db.getSingleById(_id);
 
         Object.keys(testError).forEach(key => {
             expect(res[key]).toEqual(testError[key]);
@@ -122,9 +122,9 @@ describe("test db tests", () => {
             Planner: "somebody"
         }
 
-        await db.createTest(testToCreate);
+        await db.create(testToCreate);
 
-        const res = await db.getSingleTest(_id);
+        const res = await db.getSingleById(_id);
 
         Object.keys(testToCreate).forEach(key => {
             expect(res[key]).toEqual(testToCreate[key]);
@@ -147,10 +147,10 @@ describe("test db tests", () => {
             executor: 'somebody'
         }
 
-        await db.createTest(testToCreate);
-        await db.updateTest(_id, dataToUpdate);
+        await db.create(testToCreate);
+        await db.update(_id, dataToUpdate);
 
-        const res = await db.getSingleTest(_id);
+        const res = await db.getSingleById(_id);
         Object.keys(dataToUpdate).forEach(key => {
             expect(res[key]).toEqual(dataToUpdate[key]);
         })
@@ -165,9 +165,9 @@ describe("test db tests", () => {
             Planner: "somebody"
         }
 
-        await db.createTest(testToCreate);
-        await db.deleteTest(_id);
-        const res = await db.getSingleTest(_id);
+        await db.create(testToCreate);
+        await db.delete(_id);
+        const res = await db.getSingleById(_id);
         expect(res).toBeFalsy();
     })
 })

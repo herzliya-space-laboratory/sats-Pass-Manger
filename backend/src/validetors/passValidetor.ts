@@ -1,10 +1,10 @@
-export default class passValidetor
+import IValidetor from './IValidetor';
+
+export default class passValidetor implements IValidetor
 {
-    public static validatePrePassUpdate(PassToValidate)
+    public validateUpdate(dataToValidate)
     {
-        if(PassToValidate.goal == undefined || PassToValidate.goal == '') return false;
-        if(PassToValidate.PassPlanner == undefined || PassToValidate.PassPlanner == '') return false;
-        if(PassToValidate.PassExecuter == undefined || PassToValidate.PassExecuter == '') return false;
+        if(dataToValidate.goal == undefined || dataToValidate.goal == '') return false;
         return true;
     }
 
@@ -12,5 +12,5 @@ export default class passValidetor
     {
         if(PassToValidate.whatWasExecute == undefined || PassToValidate.whatWasExecute == '') return false;
         return true;
-    }:
+    }
 }
