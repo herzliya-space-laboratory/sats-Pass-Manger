@@ -37,10 +37,7 @@ export default class CRUDLogic extends BaseComponent
         } catch (error) {
             next(new ErrorResponse(404,  error.message));
             
-        }
-
-        
-        
+        }        
     }
 
     findOne = async (req, res, next)  => {
@@ -50,13 +47,12 @@ export default class CRUDLogic extends BaseComponent
             let {formatQuery, params} = formatQueryForMoongose(query);
 
             const data = await this.db.findOne(formatQuery, params);
-            if(!data) throw new Error(`data with ${JSON.stringify(data)} was'nt found`);
+            if(!data) throw new Error(`data with ${JSON.stringify(data)} wasn't found`);
 
             returnSuccessRespondToTheClient(res, 200, data);
         } catch (error) {
             next(error);   
-        }
-        
+        } 
     }
 
     getAll =  async (req, res, next) => {
@@ -74,15 +70,11 @@ export default class CRUDLogic extends BaseComponent
         } catch (error) {
             next(error);   
         }
-        
     }
 
     Update = async (req, res, next) => {
-        const id = req.params.id;
-        const dataToUpdate = { ...req.body };
-
         try {
-            this.Validetor.validateUpdate(dataToUpdate);
+            const { id, dataToUpdate } = this.Validetor.validateUpdate(req);
 
             const updatedData = await this.db.update(id, dataToUpdate);
             if(!updatedData) throw new Error(`data with id: ${id} wasnt found`);

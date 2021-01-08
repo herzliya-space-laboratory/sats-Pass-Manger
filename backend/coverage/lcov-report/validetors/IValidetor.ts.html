@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for utils/getSatellitePasses.ts</title>
+    <title>Code coverage report for validetors/IValidetor.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">utils</a> getSatellitePasses.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">validetors</a> IValidetor.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -78,71 +78,56 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import jspredict from 'jspredict' // for it to work need to mul max_iterations by 10
-&nbsp;
-export default function findSatellitePasses(tle, startTime, endTime, satDbID)
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span></td><td class="text"><pre class="prettyprint lang-js">export default abstract class IValidetor
 {
-    const qth = [ 32.27, 34.88, 0];
-    let passes;
-    
-    passes = jspredict.transits(tle, qth, startTime, endTime);
-    passes = formatPasses(passes, satDbID);
-    
-    return passes;
-}
+    validateUpdate(dataToValidate){
+        return { id: dataToValidate.params.id, dataToUpdate: dataToValidate.body};
+    }
 &nbsp;
-function formatPasses(passes: any, satDbID) {
-    passes = passes.map(<span class="fstat-no" title="function not covered" >pass </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >        return {</span>
-            startTime: new Date(pass.start),
-            endTime: new Date(pass.end),
-            duration: new Date(pass.end - pass.start).getMinutes(),
-            maxElevation: pass.maxElevation,
-            Satellite: satDbID
-        };
-    });
-    return passes;
-}
-&nbsp;
-&nbsp;</pre></td></tr></table></pre>
+    validateCreate(dataToValidate: any) {        
+        return dataToValidate.body;
+    }
+    validateDelete(dataToValidate: any) {
+        return dataToValidate.params.id;
+    }
+    validateGetAll(dataToValidate: any) {
+        return dataToValidate.query;
+    }
+    validateGetById(dataToValidate: any) {
+        return dataToValidate.params.id;
+    }
+    validateFindOne(dataToValidate: any) {
+        return dataToValidate.query;
+    }
+}</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jan 08 2021 23:02:35 GMT+0200 (Israel Standard Time)
+                at Fri Jan 08 2021 23:04:19 GMT+0200 (Israel Standard Time)
             </div>
         </div>
         <script src="../prettify.js"></script>
