@@ -16,10 +16,10 @@
             try {
                 users = (await axios.get(`http://localhost:4000/api/v1/user/`, config)).data.data;
             } catch (error) {
-                console.log(JSON.stringify(error));
+                this.error(JSON.stringify(error));
             }
         }
-
+        console.log(data);
 		if (res.status === 200) 
 		{
 			return { pass: data, users };
@@ -38,6 +38,7 @@
 	import axios from 'axios'
     export let pass;
     export let users;
+    const stationsNames = ['', '', '', '', ''];
 
 	const {
       form,
@@ -50,8 +51,9 @@
       initialValues: {
 		goal: pass.goal || "",
 		PassPlanner: pass.PassPlanner,
-        PassExecuter: pass.PassExecuter || {},
-        status: pass.status || ""
+        PassOperator: pass.PassOperator || {},
+        status: pass.status || "",
+        stations: pass.stations
       },
       onSubmit: values => {
         alert(JSON.stringify(values));
@@ -62,7 +64,6 @@
             }
         }
         values.PassPlanner = $session.decodedToken.id;
-        console.log(values);
         
         axios.put(`http://localhost:4000/api/v1/pass/updatePlan/${pass._id}`, values, config)
             .catch(e => alert( e.response.data.error));
@@ -77,7 +78,7 @@
 </svelte:head>
 
 
-<div class="shadow-white overflow-hidden sm:rounded-lg">
+<div class="container m-auto shadow-white overflow-hidden sm:rounded-lg">
     <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-white">
             plan pass
@@ -140,19 +141,7 @@
                 </dd>
             </div>
 
-            {#if pass.PassPlanner}
-                <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-xl leading-5 font-medium text-white">
-                    pass planner
-                    </dt>
-
-                    <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
-                            {pass.PassPlanner.name}
-                    </dd>
-                </div>
-            {/if}
-
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
                     pass status
                 </dt>
@@ -166,7 +155,7 @@
                 </dd>
             </div>
 
-            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
                     pass goal
                 </dt>
@@ -175,7 +164,7 @@
                     {#if $session.token}
                         <input class="w-3/4 text-black" placeholder="pass goal" name = "goal" bind:value={$form.goal}/>
                     {:else}
-                        {pass.goal}
+                        {pass.goal || "no goal"}
                     {/if}
 					
                 </dd>
@@ -183,54 +172,128 @@
 
             
 
-            <div class="bg-gray-5 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
-                    pass executer
+                    pass operator
                 </dt>
 
                 <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
                     {#if $session.token}
-                     <select class="w-3/4 text-black" name = "PassExecuter" placeholder="pass executer" bind:value={$form.PassExecuter}>
-                            {#if $form.PassExecuter != undefined && $form.PassExecuter.name != undefined}
-                                <option value={$form.PassExecuter}> {$form.PassExecuter.name} </option>
+                        <select class="w-3/4 text-black" name = "PassOperator" placeholder="pass executer" bind:value={$form.PassOperator}>
+                            {#if $form.PassOperator != undefined}
+                                <option value={$form.PassOperator}> {$form.PassOperator.name} </option>
                             {:else}
                                 <option>chose pass executer</option>
                             {/if}
 
-                            {#each users.filter(user => user._id != $form.PassExecuter._id) as user}
+                            {#each users.filter(user => user._id != $form.PassOperator._id) as user}
                                 <option value={user}>
                                     {user.name}
                                 </option>
                             {/each}
                         </select>
+                    {:else if pass.PassOperator != undefined}
+                        {pass.PassOperator.name}
                     {:else}
-                        {pass.PassExecuter.name}
+                        no pass operator
                     {/if}
                 </dd>
             </div>
+
+            {#each $form.stations as stationState, i}
+                <div class={"px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 " + (i % 2 == 1 ? "bg-black": "bg-gray-50")}>
+                    <dt class="text-xl leading-5 font-medium text-white">
+                        {stationsNames[i]} state
+                    </dt>
+
+                    <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                        {#if $session.token}
+                            <select class="w-3/4 text-black" name = "stations" bind:value={$form.stations[i]}>
+                                <option selected={$form.stations[i] == 'RX only'} value='RX only'> RX only </option>
+                                <option selected={$form.stations[i] == 'TX Only'} value='TX Only'> TX Only </option>
+                                <option selected={$form.stations[i] == 'RX & TX'} value='RX & TX'> RX & TX </option>
+                                <option selected={$form.stations[i] == 'Off line'} value='Off line'> Off line </option>
+                            </select>
+                        {:else}
+                            {stationState}
+                        {/if}
+                    </dd>
+                </div>
+            {/each}
+            {#if pass.PassPlanner}
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-xl leading-5 font-medium text-white">
+                    pass planner
+                    </dt>
+
+                    <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                        {pass.PassPlanner.name}
+                    </dd>
+                </div>
+            {/if}
         </dl>
     </div>
 		
-    {#if $session.token}
-        <div class="flex">
-            <button 
-                type="button" 
-                on:click={handleSubmit}
-                class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 hover:bg-gray-200 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
-                >
-                    submit
-                </button>
 
-            <button 
-                type="button"
-                on:click={handleReset}
-                class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
-                >
-                    reset
-                </button>
-        </div>
-    {/if}
+    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-xl leading-5 font-medium text-white">
+            playlist
+        </dt>
 
+        <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+            {#if $session.token}
+                <input class="w-3/4 text-black" placeholder="pass playlist link" name = "playlist" bind:value={$form.playlist}/>
+            {:else}
+                {pass.commend || "no playlist"}
+            {/if}
+        </dd>
+    </div>
+
+
+    <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-xl leading-5 font-medium text-white">
+            notes
+        </dt>
+
+        <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+            {#if $session.token}
+                <input class="w-3/4 text-black" placeholder="pass description and notes" name = "description" bind:value={$form.description}/>
+            {:else}
+                {pass.description || "no description"}
+            {/if}
+        </dd>
+    </div>
+
+
+
+
+
+
+
+
+<!----------------------------------------------submit------------------------------------------------------------------------------------>
+    <div>
+        {#if $session.token}
+            <div class="flex">
+                <button 
+                    type="button" 
+                    on:click={handleSubmit}
+                    class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 hover:bg-gray-200 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
+                    >
+                        submit
+                    </button>
+
+                <button 
+                    type="button"
+                    on:click={handleReset}
+                    class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
+                    >
+                        reset
+                    </button>
+            </div>
+        {/if}
+    
+    </div>
 </div>
 
 

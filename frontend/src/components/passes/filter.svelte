@@ -12,7 +12,7 @@
         status: '',
         goal: '',
         PassPlanner: '',
-        PassExecuter: '',
+        PassOperator: '',
         whatWasExecute: '',
         manualErrors: '',
         systemErrors: '',
@@ -97,7 +97,7 @@
                         <input placeholder="status" bind:value={form.status}/> <br>
                         <input placeholder="goal" bind:value={form.goal}/> <br>
                         <input placeholder="PassPlanner" bind:value={form.PassPlanner}/> <br>
-                        <input placeholder="PassExecuter" bind:value={form.PassExecuter}/> <br>
+                        <input placeholder="PassOperator" bind:value={form.PassOperator}/> <br>
                         <input placeholder="whatWasExecute" bind:value={form.whatWasExecute}/> <br>
                         <input placeholder="manualErrors" bind:value={form.manualErrors}/> <br>
                         <input placeholder="systemErrors" bind:value={form.systemErrors}/> <br>                   

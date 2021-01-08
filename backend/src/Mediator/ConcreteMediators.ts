@@ -31,7 +31,7 @@ export default class ConcreteMediators implements IMediator
 
     private async newPassWasFount(passes)
     {
-        const req = {body: {passes}};
+        const req = {body: passes};
         const res = {
             status: function() {
                 return this;

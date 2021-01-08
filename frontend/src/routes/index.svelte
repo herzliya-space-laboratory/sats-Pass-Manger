@@ -42,9 +42,6 @@
 		let res = await axios.get(`http://localhost:4000/api/v1/pass/?sort=startTime&limit=${limit}&startTime[gte]=${new Date()}`);
 		passes =  res.data.data;
 	}
-
-
-
 </script>
 
 
@@ -53,9 +50,9 @@
 </svelte:head>
 
 
-<div class='container m-auto'>
+<div class='container m-auto w-full max-w-full'>
 	<div class="flex flex-col">
-		<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+		<div class="-my-2 overflow-x-auto w-full sm:-mx-6 lg:-mx-8">
 			<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 				<div class="shadow-white overflow-hidden border-b border-gray-800 sm:rounded-lg">
 					<table class="min-w-full divide-y divide-gray-200 ">

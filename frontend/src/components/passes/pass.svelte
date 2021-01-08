@@ -9,52 +9,61 @@
         passPageUrl = `/${didThePassHappen ? 'whatWasInAPass' : 'planPass'}/${pass._id}`;
     }
 
+    const fieldWidthClass = ' w-1/12';
+
 </script>
 
 
 <tr class="flex w-full mb-4">
-    <td class="w-1/8 px-6 pt-6 whitespace-no-wrap">
-        <div class="text-xl text-center leading-5 text-white-900">{pass.status} </div>
-    </td>
-
-    <td class="w-1/8 px-6 pt-6 whitespace-no-wrap">
+    <td class={"px-6 pt-6 whitespace-no-wrap" + fieldWidthClass}>
         <div class="text-xl text-center leading-5 text-white-900">{pass.Satellite.name} </div>
     </td>
+    
 
-    <td class="w-1/8 px-6 pt-4 whitespace-no-wrap">
+    <td class={"px-6 pt-4 text-center text-xl whitespace-no-wrap" + fieldWidthClass}>
+        {@html new Date(pass.startTime).toLocaleString('he-IL').replace(',', '<br>')}
+    </td>
+
+    <td class={"px-6 text-center pt-4 text-xl whitespace-no-wrap" + fieldWidthClass}>
+        {@html new Date(pass.endTime).toLocaleString('he-IL').replace(',', '<br>')}
+    </td>
+
+    <td class={"px-6 text-center pt-6 text-xl whitespace-no-wrap leading-5 text-gray-500" + fieldWidthClass}>
+        {pass.maxElevation.toFixed(2)}
+    </td>
+
+    <td class={"px-6 text-center pt-6 text-xl whitespace-no-wrap leading-5 text-gray-500" + fieldWidthClass}>
+        {pass.duration} 
+    </td>
+
+    {#each pass.stations as station}
+        <td class={"px-6 pt-6 whitespace-no-wrap" + fieldWidthClass}>
+            <div class="text-xl text-center leading-5 text-white-900">{station} </div>
+        </td>
+    {/each}
+
+    <td class={"px-6 pt-4 whitespace-no-wrap" + fieldWidthClass}>
         <div class="flex items-center">
             <div class="justify-betwee ml-4">
-                <div class="text-xl text-center leading-5 text-white-900">
-                    {pass.goal || "there is no goal"}
+                <div class="text-l text-center leading-5 text-white-500">
+                    {pass.PassPlanner? pass.PassPlanner.name: "pass wasnt plan yet"}
                 </div>
-                <div class="text-xl text-center leading-5 text-white-500">
-                    {pass.PassPlanner? pass.PassPlanner.name: ""}
-                </div>
-                <div class="text-xl text-center leading-5 text-white-500">
-                    {pass.PassExecuter? pass.PassExecuter.name: ""}
+                <div class="text-l text-center leading-5 text-white-500">
+                    {pass.PassOperator? pass.PassOperator.name: "not pass operator"}
                 </div>
             </div>
         </div>
     </td>
 
-    <td class="w-1/8 px-6 pt-4 text-center text-xl whitespace-no-wrap">
-        {@html new Date(pass.startTime).toLocaleString('he-IL').replace(',', '<br>')}
+    <td class={"px-6 pt-6 whitespace-no-wrap" + fieldWidthClass}>
+        <div class="text-xl text-center leading-5 text-white-900">{pass.performance} </div>
     </td>
 
-    <td class="w-1/8 px-6 text-center pt-4 text-xl whitespace-no-wrap">
-        {@html new Date(pass.endTime).toLocaleString('he-IL').replace(',', '<br>')}
+    <td class={"px-6 pt-6 whitespace-no-wrap" + fieldWidthClass}>
+        <div class="text-xl text-center leading-5 text-white-900">{pass.status} </div>
     </td>
 
-    <td class="w-1/8 px-6 text-center pt-6 text-xl whitespace-no-wrap leading-5 text-gray-500">
-        {pass.maxElevation.toFixed(2)}
-    </td>
-
-
-    <td class="w-1/8 px-6 text-center pt-6 text-xl whitespace-no-wrap leading-5 text-gray-500">
-        {pass.duration} 
-    </td>
-
-    <td class="w-1/8 px-6 pt-6 whitespace-no-wrap text-xl text-center leading-5 font-medium">
+    <td class={"px-6 pt-6 whitespace-no-wrap text-xl text-center leading-5 font-medium" + fieldWidthClass}>
 
         <a href={passPageUrl} type="button"
          class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out">
@@ -63,5 +72,5 @@
             </svg>
             more
         </a>
-    </td>
+    </td>    
 </tr>

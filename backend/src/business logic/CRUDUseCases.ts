@@ -50,14 +50,14 @@ export default class CRUDLogic extends BaseComponent
     getAll =  async (req, res, next) => {
         const query = req.query || {};
 
-        const passTotalAmount = this.db.getAmount()
+        const totalAmount = this.db.getAmount()
         let {formatQuery, params} = formatQueryForMoongose(query);
 
-        const resPass = await this.db.getAll(formatQuery, params);
+        const resData = await this.db.getAll(formatQuery, params);
 
-        let pagination = formatPagination(query, passTotalAmount);
-
-        returnSuccessRespondToTheClientWithPage(res, 200, resPass, pagination);
+        let pagination = formatPagination(query, totalAmount);
+        
+        returnSuccessRespondToTheClientWithPage(res, 200, resData, pagination);
     }
 
     Update = async (req, res, next) => {
@@ -80,12 +80,14 @@ export default class CRUDLogic extends BaseComponent
 
     create =  async (req, res, next?) => {
         const dataToCreate = req.body;
+        
         try {
             const CreatedData = await this.db.create(dataToCreate);
 
             returnSuccessRespondToTheClient(res, 200, CreatedData);  
         } catch (error) {
-            next(error);
+            console.log(error);
+            
         }
     }
 

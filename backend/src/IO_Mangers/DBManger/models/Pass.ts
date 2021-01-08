@@ -21,18 +21,19 @@ const Pass = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User'
     },
-    PassExecuter: {
+    PassOperator: {
         type: mongoose.Schema.ObjectId,
         ref: 'User'
     },
     PassPlaylestInHoopenest: String,
+    performance: String,
     stations: {
         type: [{
                     type: String,
                     enum: [ 'RX only', 'TX Only', 'RX & TX', 'Off line'],
                     default: "RX only" 
                 }],
-                default: ['RX only', 'RX only', 'RX only', 'RX only', 'RX only']
+                default: ['RX only', 'RX only', 'RX only', 'RX only']
     },
     whatWasExecute: String,
     manualErrors: {
@@ -44,7 +45,7 @@ const Pass = new mongoose.Schema({
         ref: 'Error'
     },
     tlm: [Object],
-
+    playlist: String,
     createdAt: {
         type: Date,
         default: Date.now

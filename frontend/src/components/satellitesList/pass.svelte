@@ -23,7 +23,7 @@
                     {pass.PassPlanner || ""}
                 </div>
                 <div class="text-xl text-center leading-5 text-white-500">
-                    {pass.PassExecuter || ""}
+                    {pass.PassOperator || ""}
                 </div>
             </div>
         </div>

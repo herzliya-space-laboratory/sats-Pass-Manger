@@ -14,7 +14,7 @@
 <style>
 	main {
 		position: relative;
-		max-width: 90%;
+		max-width: 100%;
 		padding: 10px;
 		margin: 0 auto;
 		box-sizing: border-box;

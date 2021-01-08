@@ -15,6 +15,8 @@
 			this.error(res.status, data.message);
 		}
 	}
+
+
 </script> 
 
 <script>
@@ -22,8 +24,10 @@
 	import PassListTitle from '../../components/satellitesList/passListTitle';
 
 	export let satellite;
+	let sort;
+	
 	async function reloadPass() {
-		fetch(`satellitesList/${satellite._id}.json`, {
+		fetch(`satellitesList/${satellite._id}.json?sort=${sort}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -38,11 +42,16 @@
 			alert(e)
 		});
 	}
-
+	
 
     
     const reloadPassEvery = 86400;
     setInterval(reloadPass, reloadPassEvery);
+
+	$:{
+		sort = sort;
+		reloadPass();
+	}
 </script>
 
 
@@ -50,14 +59,9 @@
 	<title> {satellite.name} </title>
 </svelte:head>
 
-<div class='container content-start'>
+<div class='m-auto'>
 	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> satellite name: {satellite.name} </h2>
 	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> noard id: {satellite.satId} </h2>
-
-	<button on:click = {reloadPass}
-	 class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mx-12 mt-5 mb-5 rounded-full">
-		reload pass 
-	</button>
 
 
 	<div class="flex flex-col">
@@ -65,7 +69,7 @@
 			<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 				<div class="shadow-white overflow-hidden border-b border-gray-800 sm:rounded-lg">
 					<table class="min-w-full divide-y divide-gray-200 ">
-						<PassListTitle />
+						<PassListTitle {reloadPass} bind:sort={sort}/>
 						<div class="h-3/4 overflow-y-auto">
 							<tbody class="bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
 								{#each satellite.pass as pass}

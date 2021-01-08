@@ -69,7 +69,7 @@
 </svelte:head>
 
 
-<div class='container m-auto'>
+<div class='container m-auto w-full max-w-full'>
 	<Filter bind:query = {query} {reloadPass}/>
 	<div class="flex flex-col">
 		<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

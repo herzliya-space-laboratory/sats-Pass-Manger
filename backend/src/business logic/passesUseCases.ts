@@ -59,7 +59,7 @@ export default class passLogic extends BaseComponent
 
     private async findSatellitePass(sat: any, req: any) {
         let startTime = await this.mediator.notify(sat._id, 'getNewistPassTime');
-
+        startTime.setHours(startTime.getHours() + 1);
         let endTime = new Date(req.query.endTime);
 
         const TLE = await getSatelliteTle(sat.satId);

@@ -17,15 +17,13 @@ export default class PassesDBManger extends mangoDBManger
     {
         let dbRequst = Pass.find(query);
         
-        this.formatTheDBRequst(dbRequst, params, 'Satellite PassPlanner PassExecuter');
+        this.formatTheDBRequst(dbRequst, params, 'Satellite PassPlanner PassOperator');
 
         return await dbRequst;
     }
 
     async getSingleById(id) {
-        const resPass = await Pass.findById(id).populate('Satellite PassPlanner PassExecuter');
-        console.log(resPass.PassPlanner);
-        
+        const resPass = await Pass.findById(id).populate('Satellite PassPlanner PassOperator');
         return resPass;
     }
 

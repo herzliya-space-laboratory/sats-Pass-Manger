@@ -172,13 +172,13 @@ export default class PassesDBManger extends mangoDBManger implements IPassesDBMa
     {
         let dbRequst = Pass.find(query);
         
-        this.formatTheDBRequst(dbRequst, params, 'Satellite PassPlanner PassExecuter');
+        this.formatTheDBRequst(dbRequst, params, 'Satellite PassPlanner PassOperator');
 &nbsp;
         return await dbRequst;
     }
 &nbsp;
     async getSinglePass(id) {
-        const resPass = await Pass.findById(id).populate('Satellite PassPlanner PassExecuter');
+        const resPass = await Pass.findById(id).populate('Satellite PassPlanner PassOperator');
         console.log(resPass);
         
         return resPass;

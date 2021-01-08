@@ -6,7 +6,6 @@ export default function findSatellitePasses(tle, startTime, endTime, satDbID)
     let passes;
     
     passes = jspredict.transits(tle, qth, startTime, endTime);
-    
     passes = formatPasses(passes, satDbID);
     
     return passes;
