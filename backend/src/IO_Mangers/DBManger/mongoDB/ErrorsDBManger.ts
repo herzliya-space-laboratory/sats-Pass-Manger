@@ -4,14 +4,6 @@ import Error from "../models/Error";
 
 export default class ErrorsDBManger extends mangoDBManger 
 {
-    findOne(query: any, params?: any) {
-        throw new Error('Method not implemented.');
-    }
-    getAmount() {
-        throw new Error('Method not implemented.');
-    }
-
-   
     async getAll(query: any = {}, params:any = {}) {
         let dbRequst = Error.find(query);
         
@@ -21,11 +13,17 @@ export default class ErrorsDBManger extends mangoDBManger
     }
 
     async getSingleById(id) {
-        const resError = await Error.findById(id);
-        
+        const resError = await Error.findById(id);   
 
         return resError;
     }
+
+    async findOne(query: any, params?: any) {
+        const error = await Error.findOne(query, {}, params)
+
+        return error;
+    }
+   
 
     async create(ErrorToCreate) 
     {
@@ -47,4 +45,13 @@ export default class ErrorsDBManger extends mangoDBManger
         return deleted;
     }
     
+    
+    getAmount() {
+        Error.countDocuments({}, (err, count) => {
+            this.errorAmount = count;
+        })
+
+        return this.errorAmount;
+    }
+
 }

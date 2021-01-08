@@ -42,13 +42,6 @@ export default class AuthDBManger extends mangoDBManger
         return deleted;
     }
     
-    async findUser(findBy: any, query = false) {
-        const dbRequst = User.findOne(findBy);
-        if(query) dbRequst.select('+password');
-        const user = await dbRequst;
-        return user;
-    }  
-
     getAmount() 
     {
         User.countDocuments({}, (err, count) => {

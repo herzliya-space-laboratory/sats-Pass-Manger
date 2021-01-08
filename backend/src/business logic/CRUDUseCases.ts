@@ -27,51 +27,66 @@ export default class CRUDLogic extends BaseComponent
     }
 
     getSingleById = async (req, res, next) => {
-        const id = req.params.id;
+        try {
+            const id = this.Validetor.validateGetById(req);
+            const pass = await this.db.getSingleById(id);
 
-        const pass = await this.db.getSingleById(id);
+            if(!pass) throw new Error(`data with id: ${id} wasnt found`);
+            
+            returnSuccessRespondToTheClient(res, 200, pass)            
+        } catch (error) {
+            next(new ErrorResponse(404,  error.message));
+            
+        }
+
         
-        if(!pass)
-            next(new ErrorResponse(404,  `data with id: ${id} wasnt found`));
-        else
-            returnSuccessRespondToTheClient(res, 200, pass)
         
     }
 
     findOne = async (req, res, next)  => {
-        const query = req.query || {};
-        let {formatQuery, params} = formatQueryForMoongose(query);
+        try {
+            const query = this.Validetor.validateFindOne(req);
 
-        const data = await this.db.findOne(formatQuery, params);
+            let {formatQuery, params} = formatQueryForMoongose(query);
 
-        returnSuccessRespondToTheClient(res, 200, data);
+            const data = await this.db.findOne(formatQuery, params);
+            if(!data) throw new Error(`data with ${JSON.stringify(data)} was'nt found`);
+
+            returnSuccessRespondToTheClient(res, 200, data);
+        } catch (error) {
+            next(error);   
+        }
+        
     }
 
     getAll =  async (req, res, next) => {
-        const query = req.query || {};
+        try {
+            const query = this.Validetor.validateGetAll(req);
 
-        const totalAmount = this.db.getAmount()
-        let {formatQuery, params} = formatQueryForMoongose(query);
+            const totalAmount = this.db.getAmount()
+            let {formatQuery, params} = formatQueryForMoongose(query);
 
-        const resData = await this.db.getAll(formatQuery, params);
+            const resData = await this.db.getAll(formatQuery, params);
 
-        let pagination = formatPagination(query, totalAmount);
+            let pagination = formatPagination(query, totalAmount);
+            
+            returnSuccessRespondToTheClientWithPage(res, 200, resData, pagination);
+        } catch (error) {
+            next(error);   
+        }
         
-        returnSuccessRespondToTheClientWithPage(res, 200, resData, pagination);
     }
 
     Update = async (req, res, next) => {
         const id = req.params.id;
         const dataToUpdate = { ...req.body };
-        
-        if(!this.Validetor.validateUpdate(dataToUpdate))
-        {
-            returnRespondToTheClientWithErr(res, 400, null, 'please fill all the data');
-            return;
-        }
 
         try {
+            this.Validetor.validateUpdate(dataToUpdate);
+
             const updatedData = await this.db.update(id, dataToUpdate);
+            if(!updatedData) throw new Error(`data with id: ${id} wasnt found`);
+
             returnSuccessRespondToTheClient(res, 200, updatedData);
         } catch (error) {
             next(error)
@@ -79,15 +94,13 @@ export default class CRUDLogic extends BaseComponent
     }
 
     create =  async (req, res, next?) => {
-        const dataToCreate = req.body;
-        
         try {
+            const dataToCreate = this.Validetor.validateCreate(req);
             const CreatedData = await this.db.create(dataToCreate);
 
             returnSuccessRespondToTheClient(res, 200, CreatedData);  
         } catch (error) {
-            console.log(error);
-            
+            next(error)            
         }
     }
 
@@ -96,11 +109,12 @@ export default class CRUDLogic extends BaseComponent
     deleteSingle = async (req, res, next) => {        
         try 
         {
-            const id = req.params.id;
+            const id =  this.Validetor.validateDelete(req);
     
             const deleted = await this.db.delete(id);
-            
-            returnSuccessRespondToTheClient(res, 200, deleted)
+            if(!deleted) throw new Error(`data with id: ${id} wasnt found`);
+
+            returnSuccessRespondToTheClient(res, 200, deleted);
         } catch (error) {
             next(error);
         }

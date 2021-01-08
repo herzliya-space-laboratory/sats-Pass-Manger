@@ -1,6 +1,6 @@
 import IValidetor from './IValidetor';
 
-export default class passValidetor implements IValidetor
+export default class testValidetor implements IValidetor
 {
     validateCreate(dataToValidate: any) {
         throw new Error('Method not implemented.');
@@ -21,5 +21,4 @@ export default class passValidetor implements IValidetor
     {
         throw new Error('Method not implemented.');
     }
-
 }

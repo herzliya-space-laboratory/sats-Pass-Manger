@@ -4,7 +4,13 @@ import SatellitesDBManger from "../IO_Mangers/DBManger/mongoDB/SatellitesDBMange
 import PassesDBManger from "../IO_Mangers/DBManger/mongoDB/PassesDBManger";
 import AuthDBManger from "../IO_Mangers/DBManger/mongoDB/AuthDBManger";
 import TestsDBManger from "../IO_Mangers/DBManger/mongoDB/TestsDBManger";
+import ErrorsDBManger from "../IO_Mangers/DBManger/mongoDB/ErrorsDBManger";
 
+import errorValidetor from "../validetors/errorValidetor"
+import passValidetor from "../validetors/passValidetor"
+import satelliteValidetor from "../validetors/satelliteValidetor"
+import testValidetor from "../validetors/testValidetor"
+import userValidetor from "../validetors/userValidetor"
 
 
 export function createAPIManger(PORT) {
@@ -23,8 +29,20 @@ export function createDBManger() {
                 satDBManger: new SatellitesDBManger(),
                 passDBManger: new PassesDBManger(), 
                 usersDBManger: new AuthDBManger(), 
-                testDBManger: new TestsDBManger()};
+                testDBManger: new TestsDBManger(),
+                errorsDBManger: new ErrorsDBManger()
+            };
         default:
             throw new Error("no db manger specified");
     }
+}
+
+export function createValidetors(){
+    return {
+        satelliteValidetor: new satelliteValidetor(), 
+        passValidetor: new passValidetor(), 
+        userValidetor: new userValidetor(),
+        testValidetor: new testValidetor(),
+        errorValidetor: new errorValidetor()
+    };
 }

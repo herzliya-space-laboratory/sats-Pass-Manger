@@ -290,7 +290,7 @@ describe('test the pass finder', () => {
             }
         }
 
-        await passFinder.getSatellitePasses({query: {endTime: new Date(Date.now() + 1000000)}, params: {id}}, res, null);
+        await passFinder.getSatellitePasses({query: {endTime: new Date(Date.now() + 1000000)}, params: {id}}, res, (e) => {throw new Error(e)});
 
         let output = await satDB.getSingleById(id);
         expect(output).not.toEqual([]);

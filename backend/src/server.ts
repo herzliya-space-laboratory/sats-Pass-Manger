@@ -2,18 +2,10 @@ require("./utils/dotenvInit");
 
 import IAPIManagers from "./IO_Mangers/ApiManger/IAPIManager";
 
-import IDBManger from './IO_Mangers/DBManger/intrface/IDBManger';
-import { createDBManger, createAPIManger } from "./utils/MangersInit";
+import { createDBManger, createAPIManger, createValidetors } from "./utils/MangersInit";
 
 import CRUDLogic from "./business logic/CRUDUseCases";
 import authLogic from "./business logic/authUseCases";
-
-import SatellitesDBManger from "./IO_Mangers/DBManger/mongoDB/SatellitesDBManger";
-import PassesDBManger from "./IO_Mangers/DBManger/mongoDB/PassesDBManger";
-import AuthDBManger from "./IO_Mangers/DBManger/mongoDB/AuthDBManger";
-import TestsDBManger from "./IO_Mangers/DBManger/mongoDB/TestsDBManger";
-
-import passValidetor from './validetors/passValidetor'
 
 import ConcreteMediators from "./Mediator/ConcreteMediators";
 import IValidetor from "./validetors/IValidetor";
@@ -24,17 +16,20 @@ import passLogic from "./business logic/passesUseCases";
 const PORT: number = parseInt(process.env.PORT  || '4000');
 const APIManger: IAPIManagers = createAPIManger(PORT);
 
-const tempValid:IValidetor = new passValidetor();
-const {satDBManger, passDBManger, usersDBManger, testDBManger} = createDBManger();
+const {satDBManger, passDBManger, usersDBManger, testDBManger, errorsDBManger} = createDBManger();
 
+const { satelliteValidetor, passValidetor, userValidetor, testValidetor, errorValidetor} = createValidetors();
+ 
 
 
 satDBManger.connect(process.env.MONGO_URI);
 
-const satelliteManger:CRUDLogic = new CRUDLogic(satDBManger, tempValid);
-const passesManger:CRUDLogic = new CRUDLogic(passDBManger, tempValid);
-const testsManger:CRUDLogic = new CRUDLogic(testDBManger, tempValid);
-const usersManger:CRUDLogic = new CRUDLogic(usersDBManger, tempValid);
+const satelliteManger:CRUDLogic = new CRUDLogic(satDBManger, satelliteValidetor);
+const passesManger:CRUDLogic = new CRUDLogic(passDBManger, passValidetor);
+const testsManger:CRUDLogic = new CRUDLogic(testDBManger, testValidetor);
+const usersManger:CRUDLogic = new CRUDLogic(usersDBManger, userValidetor);
+const errorsManger:CRUDLogic = new CRUDLogic(errorsDBManger, errorValidetor);
+
 
 const authManger:authLogic = new authLogic(usersDBManger);
 const passesFinder:passLogic = new passLogic();
@@ -174,15 +169,43 @@ function initIOInputRoutes()
             method: 'delete',
             path: '/api/v1/test/:id',
             callback: [authManger.protect, testsManger.deleteSingle]
-        }
-        
+        }  
+    ];
+
+    const errorsRoutes = [
+        {
+            method: 'get',
+            path: '/api/v1/error/',
+            callback: errorsManger.getAll
+        },
+        {
+            method: 'get',
+            path: '/api/v1/error/:id',
+            callback: errorsManger.getSingleById
+        },
+        {
+            method: 'put',
+            path: '/api/v1/error/:id',
+            callback: [authManger.protect, errorsManger.Update]
+        },
+        {
+            method: 'post',
+            path: '/api/v1/error/:id',
+            callback: [authManger.protect, errorsManger.create]
+        },
+        {
+            method: 'delete',
+            path: '/api/v1/error/:id',
+            callback: [authManger.protect, errorsManger.deleteSingle]
+        }  
     ];
 
     const routes = [
         ...satellitesRoutes,
         ...passesRoutes,
         ...userRoutes,
-        ...testsRoutes
+        ...testsRoutes,
+        ...errorsRoutes
         ];
 
     routes.forEach(route => {
