@@ -47,7 +47,7 @@ export default class CRUDLogic extends BaseComponent
             let {formatQuery, params} = formatQueryForMoongose(query);
 
             const data = await this.db.findOne(formatQuery, params);
-            if(!data) throw new Error(`data with ${JSON.stringify(data)} wasn't found`);
+            if(!data) throw new Error(`data with ${JSON.stringify(formatQuery)} and ${JSON.stringify(params)} wasn't found`);
 
             returnSuccessRespondToTheClient(res, 200, data);
         } catch (error) {

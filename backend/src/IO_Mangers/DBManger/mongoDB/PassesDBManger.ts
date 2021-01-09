@@ -6,6 +6,7 @@ export default class PassesDBManger extends mangoDBManger
 {
     async findOne(query: any, params?: any) {
         const pass = await Pass.findOne(query, {}, params);
+        // throw new Error(JSON.stringify({params, query, pass}))
         return pass;
     }
 

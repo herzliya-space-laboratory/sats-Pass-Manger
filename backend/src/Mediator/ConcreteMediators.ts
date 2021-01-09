@@ -48,7 +48,7 @@ export default class ConcreteMediators implements IMediator
 
     private async getNewistPassTime(satId)
     {
-        const req = {query: {'Satellite': satId, sort: '-startTime'}};
+        const req = {query: {'Satellite': satId, sort: { 'startTime' : -1 }}};
         const res = {
             status: function() {
                 return this;
@@ -57,14 +57,16 @@ export default class ConcreteMediators implements IMediator
                 if(data.data)
                     this.newistPass = data.data;
             },
-            newistPass: { startTime: new Date()}
+            newistPass: { startTime: undefined}
         };
-        await this.passesCRUDManger.findOne(req, res, () => {});
+        await this.passesCRUDManger.findOne(req, res, (e) => {throw new Error(e)});
         return res.newistPass.startTime;
     }
 
     private async getSatellite(satId)
     {
+        if(!satId) throw new Error("please give a satellite id");
+
         const req = {params: {id: satId}};
         const res = {
             status: function() {
@@ -82,9 +84,9 @@ export default class ConcreteMediators implements IMediator
         return res.satellite;
     }
 
-    private async getAllSatellites(satId)
+    private async getAllSatellites(sendor)
     {
-        const req = {};
+        const req = { query: {}};
         const res = {
             status: function() {
                 return this;
@@ -96,7 +98,7 @@ export default class ConcreteMediators implements IMediator
             satellite: []
         };
 
-        await this.satellitesCRUDManger.getAll(req, res, () => {});
+        await this.satellitesCRUDManger.getAll(req, res, (e) => {throw new Error(e);});
         return res.satellite;
     }
 

@@ -11,12 +11,12 @@ export default abstract class IValidetor
         return dataToValidate.params.id;
     }
     validateGetAll(dataToValidate: any) {
-        return dataToValidate.query;
+        return dataToValidate.query || {};
     }
     validateGetById(dataToValidate: any) {
         return dataToValidate.params.id;
     }
     validateFindOne(dataToValidate: any) {
-        return dataToValidate.query;
+        return dataToValidate.query || {};
     }
 }
