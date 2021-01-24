@@ -19,7 +19,7 @@
                 this.error(JSON.stringify(error));
             }
         }
-        console.log(data);
+
 		if (res.status === 200) 
 		{
 			return { pass: data, users };
@@ -32,13 +32,14 @@
 </script> 
 
 <script>
+    import SystemItRelateTo from "../../components/passes/systemItRelateTo";
     import { goto, stores } from "@sapper/app";
     const { session } = stores();
     import { createForm } from "svelte-forms-lib";
 	import axios from 'axios'
     export let pass;
     export let users;
-    const stationsNames = ['', '', '', '', ''];
+    const stationsNames = ['HSL', 'TAU', 'SHAAR', 'yeruham'];
 
 	const {
       form,
@@ -53,10 +54,12 @@
 		PassPlanner: pass.PassPlanner,
         PassOperator: pass.PassOperator || {},
         status: pass.status || "",
-        stations: pass.stations
+        stations: pass.stations,
+        systemsItRelateTo: pass.systemsItRelateTo || []
       },
       onSubmit: values => {
         alert(JSON.stringify(values));
+        console.log(values.systemsItRelateTo);
         
         let config = {
             headers: {
@@ -69,7 +72,6 @@
             .catch(e => alert( e.response.data.error));
       }
     });
-
 </script>
 
 
@@ -203,7 +205,7 @@
             {#each $form.stations as stationState, i}
                 <div class={"px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 " + (i % 2 == 1 ? "bg-black": "bg-gray-50")}>
                     <dt class="text-xl leading-5 font-medium text-white">
-                        {stationsNames[i]} state
+                        state of {stationsNames[i]} station
                     </dt>
 
                     <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
@@ -266,6 +268,16 @@
 
 
 
+
+    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 text-white">
+        <dt class="text-xl leading-5 font-medium">
+            system it relate to
+        </dt>
+
+        <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+            <SystemItRelateTo class="w-3/4" inputMode = {$session.token} bind:systemItRelateTo = {$form.systemsItRelateTo}/>
+        </dd>
+    </div>
 
 
 

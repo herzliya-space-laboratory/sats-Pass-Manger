@@ -1,5 +1,6 @@
 <script>
 	import Nav from '../components/Nav.svelte';
+	import Alert from '../components/alert.svelte';
 	import { stores } from '@sapper/app';
 	import { derived } from 'svelte/store';
 
@@ -43,6 +44,8 @@
 {/if}
 
 <Nav {segment}/>
+
+<Alert />
 
 <main>
 	<slot></slot>

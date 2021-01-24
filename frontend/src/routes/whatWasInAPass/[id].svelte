@@ -1,23 +1,50 @@
-
 <script context="module">
     import axios from "axios";
     let id;
-    export async function preload({ params, query }) {
-        id = params.id
-        let res = await axios.get(`http://localhost:4000/api/v1/pass/${id}`);
-        const data = res.data.data;
-        return { pass: data };
+    export async function preload({ params, query }, session) {
+        id = params.id;
+
+		const res = await this.fetch(`passes/${id}.json`);
+		const pass = await res.json();
+
+
+        let config = {
+                headers: {
+                    authorization: "Bearer " +  session.token,
+                }
+            }
+        let users;
+        if(session.token){
+            try {
+                users = (await axios.get(`http://localhost:4000/api/v1/user/`, config)).data.data;
+            } catch (error) {
+                this.error(JSON.stringify(error));
+            }
+        }
+
+		if (res.status === 200) 
+		{
+			return { pass, users };
+		}
+		else
+		{
+			this.error(res.status, data.message);
+		}
 	}
 </script>
 
 <script>
+    import ErrorList from "../../components/passes/ErrorList";
+    import { setAlert } from '../../alert'
+
     import { goto, stores } from "@sapper/app";
     const { session } = stores();
     import { createForm } from "svelte-forms-lib";
     import { onMount } from 'svelte';
 
     export let pass;
-    
+    export let users;
+
 	const {
       form,
       errors,
@@ -28,12 +55,18 @@
     } = createForm({
       initialValues: {
 		whatWasExecute: pass.whatWasExecute || "",
-        manualErrors: pass.manualErrors || "none",
-        systemErrors: pass.systemErrors || "none",
+        manualErrors: pass.manualErrors|| "none",
+        systemErrors: pass.systemErrors|| "none",
         status: pass.status || ''
       },
       onSubmit: values => {
-          
+        values = {...values};
+        setAlert(`pass data:\n${JSON.stringify(values, null, 2)}`);
+
+        values.manualErrors = values.manualErrors.map(({_id}) => _id || '');
+        values.systemErrors = values.systemErrors.map(({_id}) => _id || '');
+
+
         let config = {
             headers: {
                 authorization: "Bearer " +  $session.token,
@@ -41,9 +74,11 @@
         }
         
         axios.put(`http://localhost:4000/api/v1/pass/updateWhatWasExequte/${pass._id}`, values, config)
-            .catch(e => alert(e.response.data.error));
+            .then(res => console.log(res.data))
+            .catch(e => setAlert(`faild to save pass:\n${e.response.data.error}`));
       }
     });
+
 </script>
 
 
@@ -187,15 +222,7 @@
                 </dt>
 
                 <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
-                    {#if $session.token}
-                        <textarea 
-                            class="w-3/4 text-black" 
-                            placeholder="Errors summary" 
-                            name = "Errors" 
-                            bind:value={$form.manualErrors}/>
-                    {:else}
-                        {pass.manualErrors}
-                    {/if}
+                    <ErrorList submitError={handleSubmit} {users} bind:formErrors={$form.manualErrors} componentId='manual'/>
                 </dd>
             </div>
             
@@ -206,19 +233,10 @@
                 </dt>
 
                 <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
-                    {#if $session.token}
-                        <textarea 
-                            class="w-3/4 text-black" 
-                            placeholder="Errors summary" 
-                            name = "Errors" 
-                            bind:value={$form.systemErrors}/>
-                    {:else}
-                        {pass.systemErrors}
-                    {/if}
+                    <ErrorList submitError={handleSubmit} {users} bind:formErrors={$form.systemErrors} componentId='system'/>
+
                 </dd>
             </div>
-            
-             
         </dl>
     </div>
 		
@@ -237,7 +255,7 @@
             class="m-5 inline-flex items-center px-4 py-2 border border-gray-300 text-xl leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
             >
                 reset
-            </button>
+        </button>
     </div>
 
 </div>

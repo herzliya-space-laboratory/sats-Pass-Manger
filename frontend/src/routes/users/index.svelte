@@ -1,4 +1,5 @@
 <script context="module">
+	import { setAlert } from '../../alert';
 	export async function preload(page, session) {
 
         if(!session.token)
@@ -7,13 +8,13 @@
         try {
             const res = await this.fetch(`users/users`);
             if(res.error);
-                alert(res.error);
+                setAlert(res.error);
 
             const users = await res.json();
 
             return {users: users};
         } catch (error) {
-            alert(error);
+            setAlert(error);
         }
     }
 </script>
@@ -41,7 +42,7 @@
 
         const data = await res.json();
         if(data.error)
-            alert(data.error);
+            setAlert(data.error);
         else
             users = [ data, ...users];
     }
@@ -59,11 +60,11 @@
             });
             
             const data = await res.text();
-            if(data.error) alert(data.error);
+            if(data.error) setAlert(data.error);
             
             else users = users.filter(user => user._id != data);
         } catch (error) {
-            alert(error);   
+            setAlert(error);   
         }
         
            

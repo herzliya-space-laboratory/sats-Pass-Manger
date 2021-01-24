@@ -23,6 +23,8 @@
     const { session } = stores();
     import { createForm } from "svelte-forms-lib";
 	import axios from 'axios'
+	import { setAlert } from '../../alert';
+
     export let user;
 
 
@@ -40,7 +42,7 @@
 		role: user.role
 		},
       onSubmit: values => {
-        alert(JSON.stringify(values));
+        setAlert(JSON.stringify(values));
         
         let config = {
             headers: {
@@ -49,7 +51,7 @@
         }
         
         axios.put(`http://localhost:4000/api/v1/user/${user._id}`, values, config)
-            .catch(e => alert( e.response.data.error));
+            .catch(e => setAlert( e.response.data.error));
       }
     });
 

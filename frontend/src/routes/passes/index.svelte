@@ -26,6 +26,8 @@
 	import PassListTitle from '../../components/passes/passListTitle';
 	import PageSelect from '../../components/passes/pageSelect';
 	import Filter from '../../components/passes/filter';
+	import { setAlert } from '../../alert';
+	
 	export let passes;
 	export let pageData;
 	let query = "";
@@ -49,7 +51,7 @@
 		catch(e)
 		{
 			console.log(e);
-			alert(e);
+			setAlert(e);
 		}
 	}
 

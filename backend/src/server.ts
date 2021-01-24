@@ -190,7 +190,7 @@ function initIOInputRoutes()
         },
         {
             method: 'post',
-            path: '/api/v1/error/:id',
+            path: '/api/v1/error/',
             callback: [authManger.protect, errorsManger.create]
         },
         {

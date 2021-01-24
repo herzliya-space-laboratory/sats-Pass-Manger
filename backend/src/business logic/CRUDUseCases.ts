@@ -78,7 +78,8 @@ export default class CRUDLogic extends BaseComponent
 
             const updatedData = await this.db.update(id, dataToUpdate);
             if(!updatedData) throw new Error(`data with id: ${id} wasnt found`);
-
+            console.log(updatedData);
+            
             returnSuccessRespondToTheClient(res, 200, updatedData);
         } catch (error) {
             next(error)

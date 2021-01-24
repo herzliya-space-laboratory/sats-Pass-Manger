@@ -22,6 +22,7 @@
 <script>
 	import Pass from '../../components/satellitesList/pass';
 	import PassListTitle from '../../components/satellitesList/passListTitle';
+	import { setAlert } from '../../alert';
 
 	export let satellite;
 	let sort;
@@ -39,7 +40,7 @@
 				satellite = data;	
 			})
 		}).catch(e => {
-			alert(e)
+			setAlert(e)
 		});
 	}
 	

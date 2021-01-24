@@ -36,14 +36,8 @@ const Pass = new mongoose.Schema({
                 default: ['RX only', 'RX only', 'RX only', 'RX only']
     },
     whatWasExecute: String,
-    manualErrors: {
-        type: [mongoose.Schema.ObjectId],
-        ref: 'Error'
-    },
-    systemErrors: {
-        type: [mongoose.Schema.ObjectId],
-        ref: 'Error'
-    },
+    manualErrors:[{ type: mongoose.Schema.ObjectId, ref: 'Error'}],
+    systemErrors: [{ type: mongoose.Schema.ObjectId, ref: 'Error'}],
     tlm: [Object],
     playlist: String,
     createdAt: {

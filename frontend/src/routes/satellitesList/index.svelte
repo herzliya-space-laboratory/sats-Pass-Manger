@@ -15,6 +15,7 @@
     import Satellite from '../../components/satellitesList/Satellite.svelte';
     import AddSatellite from '../../components/satellitesList/addSatellite.svelte';
     import Title from '../../components/satellitesList/title.svelte';
+	import { setAlert } from '../../alert';
     
     export let data;
     
@@ -30,7 +31,7 @@
         
         await axios.post("http://localhost:4000/api/v1/satellite/", {name, satId}, config)
             .then(res => data = [ res.data.data, ...data])
-            .catch(e => alert( e.response.data.error));
+            .catch(e => setAlert( e.response.data.error));
             
         
     }
@@ -44,7 +45,7 @@
         
         await axios.delete(`http://localhost:4000/api/v1/satellite/${id}`, config)
             .then((res) => data = data.filter(sat => sat._id != id))
-            .catch(e => alert( e.response.data.error));
+            .catch(e => setAlert( e.response.data.error));
             
         
     }

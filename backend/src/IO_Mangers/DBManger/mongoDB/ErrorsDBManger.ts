@@ -26,7 +26,7 @@ export default class ErrorsDBManger extends mangoDBManger
    
 
     async create(ErrorToCreate) 
-    {
+    {        
         const newError = await Error.create(ErrorToCreate);
 
         return newError;
