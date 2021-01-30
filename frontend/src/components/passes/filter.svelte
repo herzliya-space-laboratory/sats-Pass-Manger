@@ -20,7 +20,7 @@
 
     $:{
         query = Object.keys(form).reduce((qur, key, i) => {
-            if(i == 1)
+            if(key == 'startTime')
             {
                 qur = '';
                 if(form['startTime'].lte)

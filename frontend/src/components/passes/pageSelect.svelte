@@ -3,7 +3,7 @@
     export let changePage;
 </script>
 
-<div class="bg-black px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+<div class="bg-black px-4 py-3 flex items-center  rounded-b-md justify-between border-t border-gray-200 sm:px-6">
   <div class="flex-1 flex justify-between sm:hidden">
 
     {#if page.previous}

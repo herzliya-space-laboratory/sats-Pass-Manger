@@ -13,6 +13,7 @@
                     authorization: "Bearer " +  session.token,
                 }
             }
+
         let users;
         if(session.token){
             try {
@@ -28,7 +29,7 @@
 		}
 		else
 		{
-			this.error(res.status, data.message);
+			this.error(res.status, pass.message);
 		}
 	}
 </script>
@@ -41,6 +42,9 @@
     const { session } = stores();
     import { createForm } from "svelte-forms-lib";
     import { onMount } from 'svelte';
+    import SystemItRelateTo from "../../components/passes/systemItRelateTo";
+
+    const stationsNames = ['HSL', 'TAU', 'SHAAR', 'yeruham'];
 
     export let pass;
     export let users;
@@ -74,7 +78,6 @@
         }
         
         axios.put(`http://localhost:4000/api/v1/pass/updateWhatWasExequte/${pass._id}`, values, config)
-            .then(res => console.log(res.data))
             .catch(e => setAlert(`faild to save pass:\n${e.response.data.error}`));
       }
     });
@@ -150,39 +153,82 @@
             </div>
 
         
-            {#if pass.goal}
-                <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-xl leading-5 font-medium text-white">
+                    goal
+                </dt>
+
+                <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
+                    {pass.goal || "no goal"}
+                </dd>
+            </div>
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-xl leading-5 font-medium text-white">
+                    pass planner
+                </dt>
+
+                <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
+                    {(pass.PassPlanner || {}).name || "wasn't planed"}
+                </dd>
+            </div>
+            
+            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-xl leading-5 font-medium text-white">
+                    pass Operator
+                </dt>
+
+                <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
+                    {(pass.PassOperator || {}).name || "no oprator"}
+                </dd>
+            </div>
+            
+            
+            {#each pass.stations as stationState, i}
+                <div class={"px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 " + (i % 2 == 1 ? "bg-black": "bg-gray-50")}>
                     <dt class="text-xl leading-5 font-medium text-white">
-                        goal
+                        state of {stationsNames[i]} station
                     </dt>
 
-                    <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
-                        {pass.goal}
+                    <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                        {stationState}
                     </dd>
                 </div>
+            {/each}
 
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-xl leading-5 font-medium text-white">
-                        pass planner
-                    </dt>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-xl leading-5 font-medium text-white">
+                    playlist
+                </dt>
 
-                    <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
-                        {pass.PassPlanner.name}
-                    </dd>
-                </div>
-                
-                <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-xl leading-5 font-medium text-white">
-                        pass executer
-                    </dt>
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {pass.commend || "no playlist"}
+                </dd>
+            </div>
 
-                    <dd class="mt-1 text-xl leading-5 text-white sm:mt-0 sm:col-span-2">
-                        {pass.PassOperator.name}
-                    </dd>
-                </div>
-                
-                
-            {/if}
+
+            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-xl leading-5 font-medium text-white">
+                    notes
+                </dt>
+
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {pass.description || "no description"}
+                </dd>
+            </div>
+
+
+
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 text-white">
+                <dt class="text-xl leading-5 font-medium">
+                    system it relate to
+                </dt>
+
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    <SystemItRelateTo class="w-3/4" bind:systemItRelateTo = {$form.systemsItRelateTo}/>
+                </dd>
+            </div>               
 
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">

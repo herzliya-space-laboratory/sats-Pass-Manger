@@ -64,8 +64,8 @@
                     <Title/>
                     <div class="h-3/4 overflow-y-auto">
                         <tbody class="bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
-                            {#each data as satellite}
-                                <Satellite {satellite} {deleteSat}/>
+                            {#each data as satellite, i}
+                                    <Satellite {satellite} {deleteSat}/>
                             {/each}
                         </tbody>
                     </div>

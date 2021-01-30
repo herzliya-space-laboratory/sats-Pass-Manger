@@ -21,7 +21,7 @@ describe('satellite validetor test, also the defualt validetor behover as the sa
             params: { id: new ObjectId}
         }
 
-        expect(req.params.id).toEqual(validator.validateGetById(req));
+        expect({ id: req.params.id, query: undefined }).toEqual(validator.validateGetById(req));
     })
 
     test("valid delete requst return id", () => {

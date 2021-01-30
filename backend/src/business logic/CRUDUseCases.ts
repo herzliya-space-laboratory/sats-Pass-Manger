@@ -1,7 +1,11 @@
 import ErrorResponse from "../utils/errorResponse";
 
 import IDBManger from "../IO_Mangers/DBManger/intrface/IDBManger";
-import { formatQueryForMoongose, formatPagination } from "../utils/queryFormater";
+import { 
+    formatQueryForMoongose, 
+    formatPagination, 
+    formatPaginationToPouplated 
+} from "../utils/queryFormater";
 
 import {
     returnSuccessRespondToTheClient,
@@ -28,13 +32,22 @@ export default class CRUDLogic extends BaseComponent
 
     getSingleById = async (req, res, next) => {
         try {
-            const id = this.Validetor.validateGetById(req);
-            const pass = await this.db.getSingleById(id);
 
-            if(!pass) throw new Error(`data with id: ${id} wasnt found`);
+            const { id, query} = this.Validetor.validateGetById(req);
+
+            const totalAmount = (await this.db.getSingleById(id));
+            let { params } = formatQueryForMoongose(query);
             
-            returnSuccessRespondToTheClient(res, 200, pass)            
-        } catch (error) {
+            const ResData = await this.db.getSingleById(id, {...params});
+            if(!ResData) 
+                throw new Error(`data with id: ${id} wasnt found`);
+
+            let pagination = formatPaginationToPouplated(params, totalAmount);
+            
+            returnSuccessRespondToTheClientWithPage(res, 200, ResData, pagination);         
+        } catch (error) {  
+                   console.log(error);
+                     
             next(new ErrorResponse(404,  error.message));
             
         }        
@@ -47,7 +60,9 @@ export default class CRUDLogic extends BaseComponent
             let {formatQuery, params} = formatQueryForMoongose(query);
 
             const data = await this.db.findOne(formatQuery, params);
-            if(!data) throw new Error(`data with ${JSON.stringify(formatQuery)} and ${JSON.stringify(params)} wasn't found`);
+
+            if(!data) 
+                throw new Error(`data with ${JSON.stringify(formatQuery)} and ${JSON.stringify(params)} wasn't found`);
 
             returnSuccessRespondToTheClient(res, 200, data);
         } catch (error) {
@@ -78,7 +93,6 @@ export default class CRUDLogic extends BaseComponent
 
             const updatedData = await this.db.update(id, dataToUpdate);
             if(!updatedData) throw new Error(`data with id: ${id} wasnt found`);
-            console.log(updatedData);
             
             returnSuccessRespondToTheClient(res, 200, updatedData);
         } catch (error) {

@@ -33,7 +33,6 @@ export async function get(req, res, next)
         res.end(JSON.stringify(user));
 
     } catch (error) {
-        console.log(error);
         res.end(JSON.stringify({error: error.response.data.error}));
         
     }

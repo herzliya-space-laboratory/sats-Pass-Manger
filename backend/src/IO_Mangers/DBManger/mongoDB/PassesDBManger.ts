@@ -6,7 +6,6 @@ export default class PassesDBManger extends mangoDBManger
 {
     async findOne(query: any, params?: any) {
         const pass = await Pass.findOne(query, {}, params);
-        // throw new Error(JSON.stringify({params, query, pass}))
         return pass;
     }
 
@@ -17,6 +16,7 @@ export default class PassesDBManger extends mangoDBManger
     async getAll(query: any = {}, params:any = {}) 
     {
         let dbRequst = Pass.find(query);
+        console.log(params);
         
         this.formatTheDBRequst(dbRequst, params, 'Satellite PassPlanner PassOperator manualErrors systemErrors');
 

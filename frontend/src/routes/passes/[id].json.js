@@ -2,7 +2,17 @@ export async function get(req, res, next) {
 	const { id } = req.params;
 	const axios = require('axios');
     
-	const response = await axios.get(`http://localhost:4000/api/v1/pass/${id}?sort=-startTime`);
+	const response = await axios.get(`http://localhost:4000/api/v1/pass/${id}?sort=-startTime`)
+								.catch(error => {
+									res.writeHead(error.response.status, {
+										'Content-Type': 'application/json'
+									});
+							
+									res.end(JSON.stringify({
+										message: error.response.data.error
+									}));
+								});
+	if(!response) return;
     const passes = response.data.data;
     const success = response.data.success;
 	const status = response.status;

@@ -4,7 +4,10 @@ const Error = new mongoose.Schema({
     whenTheErrorSpoted: Date,
     whatTheSimptoms: String,
     isTheSimptomRepeat: Boolean,
-    whoSpotedTheSymptom: String,
+    whoSpotedTheSymptom: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+    },
     hypothesis: String,
     solveProcess: [{
         type: mongoose.Schema.ObjectId,

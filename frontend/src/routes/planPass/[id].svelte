@@ -59,8 +59,6 @@
       },
       onSubmit: values => {
         alert(JSON.stringify(values));
-        console.log(values.systemsItRelateTo);
-        
         let config = {
             headers: {
                 authorization: "Bearer " +  $session.token,
@@ -233,54 +231,54 @@
                     </dd>
                 </div>
             {/if}
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-xl leading-5 font-medium text-white">
+                    playlist
+                </dt>
+
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+                        <input class="w-3/4 text-black" placeholder="pass playlist link" name = "playlist" bind:value={$form.playlist}/>
+                    {:else}
+                        {pass.commend || "no playlist"}
+                    {/if}
+                </dd>
+            </div>
+
+
+            <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <dt class="text-xl leading-5 font-medium text-white">
+                    notes
+                </dt>
+
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    {#if $session.token}
+                        <input class="w-3/4 text-black" placeholder="pass description and notes" name = "description" bind:value={$form.description}/>
+                    {:else}
+                        {pass.description || "no description"}
+                    {/if}
+                </dd>
+            </div>
+
+
+
+
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 text-white">
+                <dt class="text-xl leading-5 font-medium">
+                    system it relate to
+                </dt>
+
+                <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
+                    <SystemItRelateTo class="w-3/4" inputMode = {$session.token} bind:systemItRelateTo = {$form.systemsItRelateTo}/>
+                </dd>
+            </div>
+
+
+
         </dl>
     </div>
 		
-
-    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-xl leading-5 font-medium text-white">
-            playlist
-        </dt>
-
-        <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
-            {#if $session.token}
-                <input class="w-3/4 text-black" placeholder="pass playlist link" name = "playlist" bind:value={$form.playlist}/>
-            {:else}
-                {pass.commend || "no playlist"}
-            {/if}
-        </dd>
-    </div>
-
-
-    <div class="bg-black px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-xl leading-5 font-medium text-white">
-            notes
-        </dt>
-
-        <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
-            {#if $session.token}
-                <input class="w-3/4 text-black" placeholder="pass description and notes" name = "description" bind:value={$form.description}/>
-            {:else}
-                {pass.description || "no description"}
-            {/if}
-        </dd>
-    </div>
-
-
-
-
-    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 text-white">
-        <dt class="text-xl leading-5 font-medium">
-            system it relate to
-        </dt>
-
-        <dd class="mt-1 text-xl leading-5 sm:mt-0 sm:col-span-2">
-            <SystemItRelateTo class="w-3/4" inputMode = {$session.token} bind:systemItRelateTo = {$form.systemsItRelateTo}/>
-        </dd>
-    </div>
-
-
-
 
 
 <!----------------------------------------------submit------------------------------------------------------------------------------------>

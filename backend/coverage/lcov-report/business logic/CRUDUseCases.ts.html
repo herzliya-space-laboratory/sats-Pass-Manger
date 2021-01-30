@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.63% </span>
+                <span class="strong">91.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>58/64</span>
+                <span class='fraction'>63/69</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.49% </span>
+                <span class="strong">92.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>43/47</span>
+                <span class='fraction'>49/53</span>
             </div>
         
             
@@ -170,10 +170,29 @@
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,16 +218,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,7 +247,9 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -286,7 +316,11 @@
 <span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import ErrorResponse from "../utils/errorResponse";
 &nbsp;
 import IDBManger from "../IO_Mangers/DBManger/intrface/IDBManger";
-import { formatQueryForMoongose, formatPagination } from "../utils/queryFormater";
+import { 
+    formatQueryForMoongose, 
+    formatPagination, 
+    formatPaginationToPouplated 
+} from "../utils/queryFormater";
 &nbsp;
 import {
     returnSuccessRespondToTheClient,
@@ -313,13 +347,22 @@ export default class CRUDLogic extends BaseComponent
 &nbsp;
     getSingleById = async (req, res, next) =&gt; {
         try {
-            const id = this.Validetor.validateGetById(req);
-            const pass = await this.db.getSingleById(id);
 &nbsp;
-            if(!pass) throw new Error(`data with id: ${id} wasnt found`);
+            const { id, query} = this.Validetor.validateGetById(req);
+&nbsp;
+            const totalAmount = (await this.db.getSingleById(id));
+            let { params } = formatQueryForMoongose(query);
             
-            returnSuccessRespondToTheClient(res, 200, pass)            
-        } catch (error) {
+            const ResData = await this.db.getSingleById(id, {...params});
+            if(!ResData) 
+                throw new Error(`data with id: ${id} wasnt found`);
+&nbsp;
+            let pagination = formatPaginationToPouplated(params, totalAmount);
+            
+            returnSuccessRespondToTheClientWithPage(res, 200, ResData, pagination);         
+        } catch (error) {  
+                   console.log(error);
+                     
             next(new ErrorResponse(404,  error.message));
             
         }        
@@ -332,7 +375,9 @@ export default class CRUDLogic extends BaseComponent
             let {formatQuery, params} = formatQueryForMoongose(query);
 &nbsp;
             const data = await this.db.findOne(formatQuery, params);
-            if(!data) throw new Error(`data with ${JSON.stringify(formatQuery)} and ${JSON.stringify(params)} wasn't found`);
+&nbsp;
+            if(!data) 
+                throw new Error(`data with ${JSON.stringify(formatQuery)} and ${JSON.stringify(params)} wasn't found`);
 &nbsp;
             returnSuccessRespondToTheClient(res, 200, data);
         } catch (error) {
@@ -363,7 +408,7 @@ export default class CRUDLogic extends BaseComponent
 &nbsp;
             const updatedData = await this.db.update(id, dataToUpdate);
             <span class="missing-if-branch" title="if path not taken" >I</span>if(!updatedData) <span class="cstat-no" title="statement not covered" >throw new Error(`data with id: ${id} wasnt found`);</span>
-&nbsp;
+            
             returnSuccessRespondToTheClient(res, 200, updatedData);
         } catch (error) {
 <span class="cstat-no" title="statement not covered" >            next(error)</span>
@@ -403,7 +448,7 @@ export default class CRUDLogic extends BaseComponent
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jan 09 2021 22:00:06 GMT+0200 (Israel Standard Time)
+                at Sat Jan 30 2021 02:44:39 GMT+0200 (Israel Standard Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

@@ -71,18 +71,20 @@
 </svelte:head>
 
 
-<div class='container m-auto w-full max-w-full'>
+<div class='container m-auto w-full max-w-full m-0'>
 	<Filter bind:query = {query} {reloadPass}/>
-	<div class="flex flex-col">
-		<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+	<div class="flex flex-col mx-auto">
+		<div class="my-2 overflow-x-auto">
 			<div class="py-2 align-middle inline-block sm:px-6 lg:px-8">
 				<div class="shadow-white border-b border-gray-800 sm:rounded-lg">
 					<table class="overflow-x-auto divide-y divide-gray-200">
 						<PassListTitle {reloadPass} bind:sort = {sort}/>
 						<div class="h-3/4 overflow-auto">
 							<tbody class="w-full bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
-								{#each passes as pass}
-									<Pass pass={pass} />
+								{#each passes as pass, i}
+									<div class =  { "w-full " + (i % 2 == 0 ? 'bg-gray-800': 'bg-black')}>
+										<Pass pass={pass} />
+									</div>
 								{/each}
 							</tbody>
 						</div>

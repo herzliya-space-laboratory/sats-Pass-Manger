@@ -23,6 +23,22 @@
 <thead class="flex text-white w-full">
     <tr class="flex w-full mb-4">
 
+        <td class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
+            <div class="flex items-center">
+                <div class="justify-betwee ml-4">
+                    <div class="text-xl text-center leading-5 text-white-500">
+                        <button on:click = {() => {sort = sort == "PassPlanner.name" ? sort = "-PassPlanner.name": sort = "PassPlanner.name"}}>
+                            planner/
+                        </button>
+                    </div>
+                    <div class="text-xl text-center leading-5 text-white-500">
+                        <button on:click = {() => {sort = sort == "PassOperator.name" ? sort = "-PassOperator.name": sort = "PassOperator.name"}}>
+                            operator
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </td>
         
         <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
             <button on:click = {() => {sort = sort == "startTime" ? sort = "-startTime": sort = "startTime"}}>
@@ -57,23 +73,6 @@
                 </button>
             </th>
         {/each}
-
-        <td class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
-            <div class="flex items-center">
-                <div class="justify-betwee ml-4">
-                    <div class="text-xl text-center leading-5 text-white-500">
-                        <button on:click = {() => {sort = sort == "PassPlanner.name" ? sort = "-PassPlanner.name": sort = "PassPlanner.name"}}>
-                            planner
-                        </button>
-                    </div>
-                    <div class="text-xl text-center leading-5 text-white-500">
-                        <button on:click = {() => {sort = sort == "PassOperator.name" ? sort = "-PassOperator.name": sort = "PassOperator.name"}}>
-                            operator
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </td>
 
         <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
             <button on:click = {() => {sort = sort == "status" ? sort = "-status": sort = "status"}}>

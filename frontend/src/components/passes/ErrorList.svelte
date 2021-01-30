@@ -34,7 +34,7 @@
 
         <ErrorCard toggleModal = {toggleModal(`error-id-${componentId + '-' + i}`)} {reloadList} {removeFromList} modalIDToUse = {`error-id-${componentId + '-' + i}`} {error} {users} ErrorId={error._id}/> 
         <h3 class = "text-sm font-medium hover:text-gray-500 hover:bg-gray-200 m-2">
-            {formErrors[i].hypothesis}
+            {formErrors[i].whatTheSimptoms}
         </h3>
 
         <button 

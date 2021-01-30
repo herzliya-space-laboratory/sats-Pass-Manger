@@ -19,11 +19,11 @@ export default class SatellitesDBManger extends mangoDBManger
         return await dbRequst;
     }
 
-    async getSingleById(id){
+    async getSingleById(id, params:any = {}){
         const resSatellite = await Satellite.findById(id).populate(
             {
                 path: 'pass',
-                options: { sort: { 'startTime': -1 }}
+                options: { ...params.pass}
             });
         return resSatellite;
     }
