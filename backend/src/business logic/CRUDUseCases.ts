@@ -32,24 +32,21 @@ export default class CRUDLogic extends BaseComponent
 
     getSingleById = async (req, res, next) => {
         try {
-
             const { id, query} = this.Validetor.validateGetById(req);
 
-            const totalAmount = (await this.db.getSingleById(id));
+            const FullObjectToGetTotalAmountFrom = await this.db.getSingleById(id);
+            
             let { params } = formatQueryForMoongose(query);
             
             const ResData = await this.db.getSingleById(id, {...params});
             if(!ResData) 
                 throw new Error(`data with id: ${id} wasnt found`);
 
-            let pagination = formatPaginationToPouplated(params, totalAmount);
+            let pagination = formatPaginationToPouplated(params, FullObjectToGetTotalAmountFrom);
             
             returnSuccessRespondToTheClientWithPage(res, 200, ResData, pagination);         
         } catch (error) {  
-                   console.log(error);
-                     
-            next(new ErrorResponse(404,  error.message));
-            
+            next(new ErrorResponse(404,  error.message));            
         }        
     }
 

@@ -1,115 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1611967479590" clover="3.2.0">
-  <project timestamp="1611967479590" name="All files">
-    <metrics statements="221" coveredstatements="206" conditionals="73" coveredconditionals="66" methods="63" coveredmethods="55" elements="357" coveredelements="327" complexity="0" loc="221" ncloc="221" packages="5" files="9" classes="9"/>
-    <package name="IO_Mangers.DBManger.models">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="Error.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/models/Error.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="8" type="stmt"/>
-        <line num="3" count="8" type="stmt"/>
-        <line num="28" count="8" type="stmt"/>
-      </file>
-    </package>
-    <package name="IO_Mangers.DBManger.mongoDB">
-      <metrics statements="83" coveredstatements="72" conditionals="33" coveredconditionals="30" methods="28" coveredmethods="20"/>
-      <file name="ErrorsDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/mongoDB/ErrorsDBManger.ts">
-        <metrics statements="27" coveredstatements="22" conditionals="10" coveredconditionals="9" methods="9" coveredmethods="6"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="7" count="7" type="cond" truecount="4" falsecount="0"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="12" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="16" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="18" count="4" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="30" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="37" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="42" count="2" type="stmt"/>
-        <line num="43" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="49" count="2" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
-      </file>
-      <file name="PassesDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/mongoDB/PassesDBManger.ts">
-        <metrics statements="30" coveredstatements="25" conditionals="11" coveredconditionals="9" methods="10" coveredmethods="6"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="8" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="16" count="9" type="cond" truecount="4" falsecount="0"/>
-        <line num="18" count="5" type="stmt"/>
-        <line num="19" count="5" type="stmt"/>
-        <line num="21" count="5" type="stmt"/>
-        <line num="23" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="26" count="4" type="stmt"/>
-        <line num="27" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="31" count="4" type="stmt"/>
-        <line num="33" count="6" type="cond" truecount="1" falsecount="0"/>
-        <line num="34" count="6" type="stmt"/>
-        <line num="35" count="6" type="stmt"/>
-        <line num="38" count="4" type="stmt"/>
-        <line num="40" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="47" count="4" type="stmt"/>
-        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="52" count="4" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="60" count="4" type="stmt"/>
-      </file>
-      <file name="SatellitesDBManger.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/IO_Mangers/DBManger/mongoDB/SatellitesDBManger.ts">
-        <metrics statements="26" coveredstatements="25" conditionals="12" coveredconditionals="12" methods="9" coveredmethods="8"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="13" count="11" type="cond" truecount="4" falsecount="0"/>
-        <line num="15" count="8" type="stmt"/>
-        <line num="17" count="8" type="stmt"/>
-        <line num="19" count="8" type="cond" truecount="1" falsecount="0"/>
-        <line num="22" count="32" type="cond" truecount="2" falsecount="0"/>
-        <line num="23" count="19" type="cond" truecount="1" falsecount="0"/>
-        <line num="28" count="19" type="stmt"/>
-        <line num="32" count="4" type="stmt"/>
-        <line num="34" count="17" type="cond" truecount="1" falsecount="0"/>
-        <line num="35" count="17" type="stmt"/>
-        <line num="36" count="17" type="stmt"/>
-        <line num="39" count="4" type="stmt"/>
-        <line num="40" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="45" count="4" type="stmt"/>
-        <line num="46" count="2" type="stmt"/>
-        <line num="47" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="50" count="4" type="stmt"/>
-        <line num="52" count="3" type="stmt"/>
-        <line num="53" count="3" type="stmt"/>
-        <line num="56" count="3" type="stmt"/>
-        <line num="58" count="4" type="stmt"/>
-      </file>
-    </package>
+<coverage generated="1612022395492" clover="3.2.0">
+  <project timestamp="1612022395492" name="All files">
+    <metrics statements="108" coveredstatements="104" conditionals="32" coveredconditionals="30" methods="29" coveredmethods="29" elements="169" coveredelements="163" complexity="0" loc="108" ncloc="108" packages="2" files="2" classes="2"/>
     <package name="business logic">
-      <metrics statements="53" coveredstatements="49" conditionals="10" coveredconditionals="8" methods="14" coveredmethods="14"/>
+      <metrics statements="52" coveredstatements="48" conditionals="10" coveredconditionals="8" methods="14" coveredmethods="14"/>
       <file name="CRUDUseCases.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/business logic/CRUDUseCases.ts">
-        <metrics statements="53" coveredstatements="49" conditionals="10" coveredconditionals="8" methods="14" coveredmethods="14"/>
+        <metrics statements="52" coveredstatements="48" conditionals="10" coveredconditionals="8" methods="14" coveredmethods="14"/>
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
@@ -119,8 +15,8 @@
         <line num="29" count="62" type="stmt"/>
         <line num="30" count="62" type="stmt"/>
         <line num="33" count="62" type="stmt"/>
-        <line num="36" count="6" type="stmt"/>
-        <line num="38" count="6" type="stmt"/>
+        <line num="35" count="6" type="stmt"/>
+        <line num="37" count="6" type="stmt"/>
         <line num="39" count="6" type="stmt"/>
         <line num="41" count="6" type="stmt"/>
         <line num="42" count="6" type="cond" truecount="2" falsecount="0"/>
@@ -128,53 +24,46 @@
         <line num="45" count="4" type="stmt"/>
         <line num="47" count="4" type="stmt"/>
         <line num="49" count="2" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="56" count="62" type="stmt"/>
-        <line num="58" count="3" type="stmt"/>
-        <line num="60" count="3" type="stmt"/>
-        <line num="62" count="3" type="stmt"/>
-        <line num="64" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="65" count="2" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
-        <line num="69" count="2" type="stmt"/>
-        <line num="73" count="62" type="stmt"/>
+        <line num="53" count="62" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="57" count="3" type="stmt"/>
+        <line num="59" count="3" type="stmt"/>
+        <line num="61" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="66" count="2" type="stmt"/>
+        <line num="70" count="62" type="stmt"/>
+        <line num="72" count="3" type="stmt"/>
+        <line num="74" count="3" type="stmt"/>
         <line num="75" count="3" type="stmt"/>
         <line num="77" count="3" type="stmt"/>
-        <line num="78" count="3" type="stmt"/>
-        <line num="80" count="3" type="stmt"/>
-        <line num="82" count="3" type="stmt"/>
-        <line num="84" count="3" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="90" count="62" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
+        <line num="79" count="3" type="stmt"/>
+        <line num="81" count="3" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="87" count="62" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="92" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="94" count="1" type="stmt"/>
-        <line num="95" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="97" count="1" type="stmt"/>
-        <line num="99" count="0" type="stmt"/>
-        <line num="103" count="62" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="100" count="62" type="stmt"/>
+        <line num="102" count="13" type="stmt"/>
+        <line num="103" count="13" type="stmt"/>
         <line num="105" count="13" type="stmt"/>
-        <line num="106" count="13" type="stmt"/>
-        <line num="108" count="13" type="stmt"/>
-        <line num="110" count="0" type="stmt"/>
-        <line num="116" count="62" type="stmt"/>
-        <line num="119" count="1" type="stmt"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="113" count="62" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="118" count="1" type="stmt"/>
+        <line num="119" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="121" count="1" type="stmt"/>
-        <line num="122" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="124" count="1" type="stmt"/>
-        <line num="126" count="0" type="stmt"/>
-        <line num="129" count="2" type="stmt"/>
+        <line num="123" count="0" type="stmt"/>
+        <line num="126" count="2" type="stmt"/>
       </file>
     </package>
     <package name="utils">
-      <metrics statements="65" coveredstatements="65" conditionals="26" coveredconditionals="26" methods="13" coveredmethods="13"/>
-      <file name="dotenvInit.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/utils/dotenvInit.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="7" type="stmt"/>
-        <line num="2" count="7" type="stmt"/>
-        <line num="4" count="7" type="stmt"/>
-      </file>
+      <metrics statements="56" coveredstatements="56" conditionals="22" coveredconditionals="22" methods="15" coveredmethods="15"/>
       <file name="queryFormater.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/utils/queryFormater.ts">
-        <metrics statements="62" coveredstatements="62" conditionals="26" coveredconditionals="26" methods="13" coveredmethods="13"/>
+        <metrics statements="56" coveredstatements="56" conditionals="22" coveredconditionals="22" methods="15" coveredmethods="15"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="19" type="stmt"/>
         <line num="4" count="19" type="stmt"/>
@@ -183,86 +72,54 @@
         <line num="9" count="19" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="19" type="cond" truecount="4" falsecount="0"/>
         <line num="11" count="2" type="stmt"/>
-        <line num="12" count="19" type="stmt"/>
+        <line num="13" count="19" type="stmt"/>
         <line num="17" count="3" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
-        <line num="20" count="4" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
-        <line num="23" count="4" type="stmt"/>
-        <line num="24" count="4" type="stmt"/>
-        <line num="26" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="29" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="32" count="4" type="stmt"/>
-        <line num="33" count="4" type="stmt"/>
+        <line num="19" count="7" type="stmt"/>
+        <line num="20" count="7" type="stmt"/>
+        <line num="22" count="7" type="stmt"/>
+        <line num="23" count="7" type="stmt"/>
+        <line num="24" count="7" type="stmt"/>
+        <line num="26" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="29" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="32" count="7" type="stmt"/>
+        <line num="33" count="7" type="stmt"/>
         <line num="37" count="3" type="stmt"/>
         <line num="39" count="5" type="stmt"/>
         <line num="41" count="5" type="stmt"/>
-        <line num="43" count="23" type="cond" truecount="4" falsecount="0"/>
-        <line num="44" count="3" type="stmt"/>
-        <line num="45" count="23" type="stmt"/>
-        <line num="48" count="5" type="stmt"/>
-        <line num="50" count="3" type="stmt"/>
+        <line num="42" count="23" type="cond" truecount="4" falsecount="0"/>
+        <line num="43" count="3" type="stmt"/>
+        <line num="44" count="23" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
+        <line num="49" count="3" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
         <line num="52" count="3" type="stmt"/>
-        <line num="53" count="3" type="stmt"/>
-        <line num="55" count="3" type="stmt"/>
-        <line num="56" count="3" type="stmt"/>
-        <line num="57" count="3" type="stmt"/>
-        <line num="59" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="60" count="2" type="stmt"/>
-        <line num="62" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="63" count="2" type="stmt"/>
-        <line num="65" count="3" type="stmt"/>
-        <line num="66" count="3" type="stmt"/>
-        <line num="67" count="3" type="stmt"/>
+        <line num="57" count="19" type="stmt"/>
+        <line num="58" count="19" type="stmt"/>
+        <line num="60" count="19" type="stmt"/>
+        <line num="61" count="76" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="76" type="stmt"/>
+        <line num="65" count="19" type="cond" truecount="2" falsecount="0"/>
+        <line num="67" count="19" type="stmt"/>
+        <line num="71" count="19" type="stmt"/>
         <line num="72" count="19" type="stmt"/>
         <line num="73" count="19" type="stmt"/>
-        <line num="75" count="19" type="stmt"/>
-        <line num="76" count="76" type="cond" truecount="2" falsecount="0"/>
-        <line num="77" count="76" type="stmt"/>
-        <line num="80" count="19" type="cond" truecount="2" falsecount="0"/>
-        <line num="82" count="19" type="stmt"/>
-        <line num="86" count="19" type="stmt"/>
-        <line num="87" count="19" type="stmt"/>
-        <line num="88" count="20" type="stmt"/>
-        <line num="90" count="19" type="stmt"/>
-        <line num="91" count="10" type="cond" truecount="2" falsecount="0"/>
-        <line num="92" count="10" type="stmt"/>
-        <line num="93" count="10" type="stmt"/>
-        <line num="97" count="19" type="stmt"/>
-        <line num="98" count="81" type="cond" truecount="2" falsecount="0"/>
-        <line num="99" count="3" type="stmt"/>
-        <line num="104" count="19" type="stmt"/>
-        <line num="105" count="19" type="stmt"/>
-        <line num="106" count="19" type="stmt"/>
-        <line num="107" count="19" type="stmt"/>
-      </file>
-    </package>
-    <package name="validetors">
-      <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="8"/>
-      <file name="IValidetor.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/validetors/IValidetor.ts">
-        <metrics statements="14" coveredstatements="14" conditionals="4" coveredconditionals="2" methods="7" coveredmethods="7"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="8" count="14" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="7" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
-        <line num="20" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="22" count="4" type="stmt"/>
-      </file>
-      <file name="satelliteValidetor.ts" path="/home/itai/Documents/programing projects/web/sats-Pass-Manger/backend/src/validetors/satelliteValidetor.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="74" count="19" type="stmt"/>
+        <line num="79" count="19" type="stmt"/>
+        <line num="81" count="19" type="stmt"/>
+        <line num="84" count="19" type="stmt"/>
+        <line num="87" count="10" type="stmt"/>
+        <line num="88" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="89" count="10" type="stmt"/>
+        <line num="90" count="10" type="stmt"/>
+        <line num="95" count="19" type="stmt"/>
+        <line num="96" count="19" type="stmt"/>
+        <line num="97" count="20" type="stmt"/>
+        <line num="98" count="19" type="stmt"/>
+        <line num="102" count="19" type="stmt"/>
+        <line num="103" count="81" type="cond" truecount="2" falsecount="0"/>
+        <line num="104" count="3" type="stmt"/>
       </file>
     </package>
   </project>
