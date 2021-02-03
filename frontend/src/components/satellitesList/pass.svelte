@@ -13,10 +13,10 @@
     <td class={"px-6 pt-4 whitespace-no-wrap" + fieldWidthClass}>
         <div class="flex items-center">
             <div class="justify-betwee ml-4">
-                <div class="text-l text-center leading-5 text-white-500">
+                <div class="text-l text-center leading-5 text-white">
                     {pass.PassPlanner? pass.PassPlanner.name: "pass wasnt plan yet"}
                 </div>
-                <div class="text-l text-center leading-5 text-white-500">
+                <div class="text-l text-center leading-5 text-white">
                     {pass.PassOperator? pass.PassOperator.name: "not pass operator"}
                 </div>
             </div>
@@ -31,27 +31,27 @@
         {@html new Date(pass.endTime).toLocaleString('he-IL').replace(',', '<br>')}
     </td>
 
-    <td class={"px-6 text-center pt-6 text-xl whitespace-no-wrap leading-5 text-gray-500" + fieldWidthClass}>
+    <td class={"px-6 text-center pt-6 text-xl whitespace-no-wrap leading-5 text-white" + fieldWidthClass}>
         {pass.maxElevation.toFixed(2)}
     </td>
 
-    <td class={"px-6 text-center pt-6 text-xl whitespace-no-wrap leading-5 text-gray-500" + fieldWidthClass}>
+    <td class={"px-6 text-center pt-6 text-xl whitespace-no-wrap leading-5 text-white" + fieldWidthClass}>
         {pass.duration} 
     </td>
 
     {#each pass.stations as station}
         <td class={"px-6 pt-6 whitespace-no-wrap" + fieldWidthClass}>
-            <div class="text-xl text-center leading-5 text-white-900">{station} </div>
+            <div class="text-xl text-center leading-5 text-white">{station} </div>
         </td>
     {/each}
 
 
     <td class={"px-6 pt-6 whitespace-no-wrap" + fieldWidthClass}>
-        <div class="text-xl text-center leading-5 text-white-900">{pass.performance} </div>
+        <div class="text-xl text-center leading-5 text-white">{pass.performance} </div>
     </td>
 
     <td class={"px-6 pt-6 whitespace-no-wrap" + fieldWidthClass}>
-        <div class="text-xl text-center leading-5 text-white-900">{pass.status} </div>
+        <div class="text-xl text-center leading-5 text-white">{pass.status} </div>
     </td>
 
     <td class={"px-6 pt-6 whitespace-no-wrap text-xl text-center leading-5 font-medium" + fieldWidthClass}>

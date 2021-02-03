@@ -10,14 +10,12 @@ export default class PassesDBManger extends mangoDBManger
     }
 
     delete(id: any) {
-        throw new Error('Method not implemented.');
+        throw new Error('can\'t delete pass');
     }
     
     async getAll(query: any = {}, params:any = {}) 
-    {
+    {        
         let dbRequst = Pass.find(query);
-        console.log(params);
-        
         this.formatTheDBRequst(dbRequst, params, 'Satellite PassPlanner PassOperator manualErrors systemErrors');
 
         return await dbRequst;
@@ -42,11 +40,6 @@ export default class PassesDBManger extends mangoDBManger
         });
 
         return updated;
-    }
-
-    async getNewist(id)
-    {
-        return await Pass.findOne({'Satellite': id}, {}, { sort: { 'startTime' : -1 } });
     }
 
     getAmount() 

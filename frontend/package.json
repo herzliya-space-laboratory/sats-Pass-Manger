@@ -3,7 +3,7 @@
   "description": "this app mange the hoope/tavel/tau sats pass and the data collected on them over time",
   "version": "0.0.1",
   "scripts": {
-    "dev": "sapper dev",
+    "dev": "npm run watch:tailwind & sapper dev",
     "export": "sapper export",
     "start": "node __sapper__/build",
     "cy:run": "cypress run",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^3.0.0",
     "@tailwindcss/ui": "^0.6.2",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.1",
     "dotenv": "^8.2.0",

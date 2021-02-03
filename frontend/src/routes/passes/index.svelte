@@ -71,8 +71,7 @@
 </svelte:head>
 
 
-<div class='container m-auto w-full max-w-full m-0'>
-	<Filter bind:query = {query} {reloadPass}/>
+<div class='container m-auto w-full max-w-full'>
 	<div class="flex flex-col mx-auto">
 		<div class="my-2 overflow-x-auto">
 			<div class="py-2 align-middle inline-block sm:px-6 lg:px-8">
@@ -88,6 +87,7 @@
 								{/each}
 							</tbody>
 						</div>
+						<Filter bind:query = {query} {reloadPass}/>
 					</table>
 					<PageSelect bind:page = {pageData} {changePage}/>
 				</div>

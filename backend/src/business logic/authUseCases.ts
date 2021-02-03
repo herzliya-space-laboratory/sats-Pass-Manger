@@ -24,17 +24,17 @@ export default class authLogic
         const { email, password } = req.body;
         
         if(!email || !password)
-            return next(new ErrorResponse('please provide an email and a password', 400));
+            return next(new ErrorResponse(400, 'please provide an email and a password'));
 
         const user = await this.db.findOne({email}, {select: '+password'});
         
         if(!user)
-            return next(new ErrorResponse(`invalid credentials`, 401));
+            return next(new ErrorResponse(401, `invalid credentials`));
 
         const isMatch = await user.matchPassword(password);
 
         if(!isMatch)
-            return next(new ErrorResponse(`invalid credentials`, 401));
+            return next(new ErrorResponse(401, `invalid credentials`));
 
         
         const token = user.getSignedJwtToken();
@@ -49,7 +49,7 @@ export default class authLogic
             token = req.headers.authorization.split(' ')[1];
 
         if(!token)
-            return next(new ErrorResponse('not authorize to acccess this route', 401));
+            return next(new ErrorResponse(401, 'not authorize to acccess this route'));
     
         try {
             
@@ -58,14 +58,14 @@ export default class authLogic
     
             next();
         } catch (error) {
-            return next(new ErrorResponse('not authorize to acccess this route', 401));
+            return next(new ErrorResponse(401, 'not authorize to acccess this route'));
         }
     }
 
     authorize = (...roles):any => {
         return (req, res, next) => {
             if(!roles.includes(req.user.role))
-                return next(new ErrorResponse(`User role is not authorized to access this route `, 403));
+                return next(new ErrorResponse(403, `User role is not authorized to access this route `));
             next();
         }
     }

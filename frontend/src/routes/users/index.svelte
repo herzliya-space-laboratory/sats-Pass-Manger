@@ -69,11 +69,12 @@
         
            
     }
+
 </script> 
 
 
 
-<div class='container m-auto'>
+<div class='max-w-screen-xl m-auto'>
 	<div class="flex flex-col">
 		<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 			<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -82,13 +83,15 @@
                         <UsersListTitle/>
 						<div class="h-3/4 overflow-y-auto">
 							<tbody class="w-full bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
-								{#each users as user}
-									<User {user} {deleteUser}/>
+								{#each users as user, i}
+                                    <div class =  { "w-full " + (i % 2 == 0 ? 'bg-gray-800': 'bg-black')}>
+									    <User {user} {deleteUser}/>
+                                    </div>
 								{/each}
 							</tbody>
 						</div>
 					</table>
-                    {#if $session.token}
+                    {#if $session.decodedToken.role == "admin"}
                         <AddUser {createUser}/>
                     {/if}
 				</div>

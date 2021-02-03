@@ -5,7 +5,7 @@ export async function get(req, res, next) {
 	
 	const now = new Date();
 	const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-	const query = Object.keys(req.query).reduce((query, key) => `${query}&${key}=${req.query[key]}`, '');
+	const query = req.url.split('?')[1];
 	
 	axios
 		.get(`http://localhost:4000/api/v1/satellite/passes/${id}?endTime=${nextWeek}`)
@@ -38,7 +38,7 @@ export async function get(req, res, next) {
 		}
 	}
 	else{
-		res.writeHead(err.status, {
+		res.writeHead(error.status, {
 			'Content-Type': 'application/json'
 		});
 

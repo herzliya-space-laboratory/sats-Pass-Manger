@@ -2,16 +2,18 @@
 	let id;
 	let limit = 50;
 	let page = 1;
+	import axios from "axios";
 	export async function preload({ params, query }) {
 		id = params.id;
 
 		try {
-			const res = await this.fetch(`satellitesList/${id}.json?limit.pass=${limit}&page.pass=${page}&sort.pass=startTime`);
+			const res = await this.fetch(`users/${id}.json?limit.operatedPasses=${limit}&page.operatedPasses=${page}&sort.operatedPasses=startTime`);
 			const data = await res.json();
-
+			
 			if (res.status === 200) 
 			{
-				return { satellite: data.satellite,  pageData: data.page.pass };
+				console.log(data);
+				return { user: data.user,  pageData: data.page.operatedPasses };
 			}
 			else
 			{
@@ -27,17 +29,17 @@
 </script> 
 
 <script>
-	import Pass from '../../components/satellitesList/pass';
-	import PageSelect from '../../components/passes/pageSelect';
-	import Filter from '../../components/passes/filter';
-	import PassListTitle from '../../components/satellitesList/passListTitle';
-	import { setAlert } from '../../alert';
+	import Pass from '../../../components/satellitesList/pass';
+	import PageSelect from '../../../components/passes/pageSelect';
+	import Filter from '../../../components/passes/filter';
+	import PassListTitle from '../../../components/satellitesList/passListTitle';
+	import { setAlert } from '../../../alert';
 
 	export let pageData;
-	export let satellite;
+	export let user;
 	let query = "";
 	let sort;
-	
+	console.log(user, pageData);
 	let changePage = (p) => async () => {
 		page = p;
 		await reloadPass();
@@ -45,7 +47,7 @@
 
 	async function reloadPass() {
 		if (process.browser) 
-			fetch(`satellitesList/${satellite._id}.json?limit.pass=${limit}&page.pass=${page}&sort.pass=${sort}${query}`, {
+			fetch(`users/${user._id}.json?limit.operatedPasses=${limit}&page.operatedPasses=${page}&sort.operatedPasses=${sort}${query}`, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
@@ -54,8 +56,8 @@
 			})
 			.then(res => {
 				res.json().then(data => {
-					satellite = data.satellite;	
-					pageData = data.page.pass
+					// user = data.user;	
+					pageData = data.page.operatedPasses
 				})
 			}).catch(e => setAlert(e));
 	}
@@ -73,12 +75,12 @@
 
 
 <svelte:head>
-	<title> {satellite.name} </title>
+	<title> {user.name} </title>
 </svelte:head>
 
 <div class='m-auto'>
-	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> satellite name: {satellite.name} </h2>
-	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> noard id: {satellite.satId} </h2>
+	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> satellite name: {user.name} </h2>
+	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> noard id: {user.role} </h2>
 
 
 	<div class="flex flex-col">
@@ -89,14 +91,14 @@
 						<PassListTitle {reloadPass} bind:sort={sort}/>
 						<div class="h-3/4 overflow-y-auto">
 							<tbody class="bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
-                            	{#each satellite.pass as pass, i}
+                            	{#each user.operatedPasses as pass, i}
 									<div class =  { "w-full " + (i % 2 == 0 ? 'bg-gray-800': 'bg-black')}>
 										<Pass pass={pass} />
 									</div>
 								{/each}
 							</tbody>
 						</div>
-						<Filter bind:query = {query} {reloadPass} subTag='/pass'/>
+						<Filter bind:query = {query} {reloadPass} subTag='/operatedPasses'/>
 					</table>
 					<PageSelect bind:page = {pageData} {changePage}/>
 				</div>

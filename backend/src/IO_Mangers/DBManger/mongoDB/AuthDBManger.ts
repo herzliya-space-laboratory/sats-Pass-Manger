@@ -17,10 +17,23 @@ export default class AuthDBManger extends mangoDBManger
         return await dbRequst;
     }
     
-    async getSingleById(id: any) {
-        const resUser = await User.findById(id);
-        
+    async getSingleById(id: any, params:any = { options: {}, match: {}}) {
+        const resUser = await User.findById(id).populate([{
+                path: 'planedPasses',
+                match : { ...params.match.planedPasses},
+                options: { ...params.options.planedPasses}
+            },{
+                path: 'operatedPasses',
+                match : { ...params.match.operatedPasses},
+                options: { ...params.options.operatedPasses}
+            }]);
 
+        console.log({
+                path: 'planedPasses',
+                match : { ...params.match.planedPasses},
+                options: { ...params.options.planedPasses}
+            });
+            
         return resUser;
     }
 

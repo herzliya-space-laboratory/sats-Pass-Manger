@@ -3,7 +3,7 @@ export function formatQueryForMoongose(query)
     let formatQuery = {...query};
     let params = moveTheSearchParamsFromTheQueryToNewObject(formatQuery);
     formatQuery = addDollarSignAtTheBeginingOfAllTheQuryComparisonOperators(formatQuery);
-
+    
     populatedParams(formatQuery, params);
 
     params.limit = parseInt(params.limit, 10) || undefined;
@@ -46,8 +46,12 @@ export function formatPaginationToPouplated(query, notCutObject:object)
 
     return Object.keys(query).reduce( (AllPagination:any, key) =>
     {
+        if(!notCutObject[key]) 
+            return AllPagination;
+            
+        
         const total = notCutObject[key].length;
-
+        
         AllPagination[key] = formatPagination(query[key], total);
         return AllPagination;
     }, {});
@@ -69,26 +73,33 @@ function moveTheSearchParamsFromTheQueryToNewObject(query) {
 
 function addDollarSignAtTheBeginingOfAllTheQuryComparisonOperators(query: any) {
     let queryStr = JSON.stringify(query);
-    queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in|all)\b/g, match => `$${match}`);
     query = JSON.parse(queryStr);
     return query;
 }
 
 
 function populatedParams(query, params) {
-    const PopulatedParams = extractThePopulatedQueryParametersFromTheQuery(query); 
+    params.options = {};
+    params.match = {};
 
-    PopulatedParams.forEach(addPopulatedFieldAToThePopulatedObject);
+    const PopulatedParams = extractThePopulatedQueryParametersFromTheQuery(query); 
+    const PopulatedQuery =  extractThePopulatedQueryFromTheQuery(query);
+
+    PopulatedParams.forEach(addPopulatedFieldAToThePopulatedObject(params.options));
+    PopulatedQuery.forEach(addPopulatedFieldAToThePopulatedObject(params.match));
 
     
-    addSkipToThePopulatedParamsWereNedded(params);
+    addSkipToThePopulatedParamsWereNedded(params.options);
 
-    function addPopulatedFieldAToThePopulatedObject(field){
-        const [populatedFieldQueryParameter, populatedField] = field.split('.');
-        params[populatedField] = params[populatedField] || {};
-        params[populatedField][populatedFieldQueryParameter] = query[field];
-        delete query[field];
-    }   
+    function addPopulatedFieldAToThePopulatedObject(addTo) {
+        return (field) => {            
+            const [populatedFieldQueryParameter, populatedField] = field.split(/[\./]/);
+            addTo[populatedField] = addTo[populatedField] || {};
+            addTo[populatedField][populatedFieldQueryParameter] = query[field];
+            delete query[field];
+        };
+    }
 }
 
 function extractThePopulatedQueryParametersFromTheQuery(query: any) {
@@ -98,9 +109,16 @@ function extractThePopulatedQueryParametersFromTheQuery(query: any) {
     return PopulatedParams;
 }
 
+function extractThePopulatedQueryFromTheQuery(query: any) {
+    const fieldsToExclude = ["select", "sort", "limit", "page"];
+    const fileldsREGEX = /\//g;
+    const PopulatedQuery = Object.keys(query).filter(field => fileldsREGEX.test(field));
+    return PopulatedQuery;
+}
+
 function addSkipToThePopulatedParamsWereNedded(params: any) {
     Object.keys(params).forEach(field => {
         if (params[field].page)
-            params[field].skip = params[field].page * params[field].limit;
+            params[field].skip = (params[field].page - 1) * params[field].limit;
     });
 }

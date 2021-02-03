@@ -7,13 +7,13 @@
   <div class="flex-1 flex justify-between sm:hidden">
 
     {#if page.previous}
-        <button on:click={changePage(page.previous.page)} class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-black hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+        <button on:click={changePage(page.previous.page)} class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-black hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-white transition ease-in-out duration-150">
         Previous
         </button>
     {/if}
 
     {#if page.next}
-        <button on:click={changePage(page.next.page)} class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-black hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+        <button on:click={changePage(page.next.page)} class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-black hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-white transition ease-in-out duration-150">
         Next
         </button>
     {/if}
@@ -35,23 +35,23 @@
         <div class = 'max-w-full block h-10 overflow-x-auto border border-gray-300'>
             {#each new Array(page.last.page ) as p, i}
                 {#if i == page.page - 1 && i != 0}
-                  <button class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                  <button class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-white hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-white transition ease-in-out duration-150">
                   ...
                   </button>
                 {:else if i < 3}
-                  <button on:click={changePage(i + 1)} class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                  <button on:click={changePage(i + 1)} class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-white hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-white transition ease-in-out duration-150">
                     {i + 1}
                   </button>
                 {:else if ( page.page - 5 < i  && i< page.page + 6)}
-                  <button on:click={changePage(i + 1)} class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                  <button on:click={changePage(i + 1)} class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-white hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-white transition ease-in-out duration-150">
                     {i + 1}
                   </button>
                 {:else if  i > page.last.page - 5}
-                  <button on:click={changePage(i + 1)} class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                  <button on:click={changePage(i + 1)} class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-white hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-white transition ease-in-out duration-150">
                     {i + 1}
                   </button>
                 {:else if  i == page.page - 5 || i == page.page + 5 || i == page.last.page - 5}
-                  <button on:click={changePage(i + 1)} class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                  <button on:click={changePage(i + 1)} class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-black text-sm leading-5 font-medium text-white hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-white transition ease-in-out duration-150">
                   ...
                   </button>
                 {/if}

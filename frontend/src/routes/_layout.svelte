@@ -12,6 +12,11 @@
 	});
 </script>
 
+<svelte:head>
+	<link rel='stylesheet' href='index.css'>
+</svelte:head>
+
+
 <style>
 	main {
 		position: relative;

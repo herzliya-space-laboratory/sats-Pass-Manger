@@ -11,7 +11,7 @@ import ConcreteMediators from "./Mediator/ConcreteMediators";
 import IValidetor from "./validetors/IValidetor";
 import passLogic from "./business logic/passesUseCases";
 
-
+import nodeCleanup from "node-cleanup";
 
 const PORT: number = parseInt(process.env.PORT  || '4000');
 const APIManger: IAPIManagers = createAPIManger(PORT);
@@ -20,6 +20,7 @@ const {satDBManger, passDBManger, usersDBManger, testDBManger, errorsDBManger} =
 
 const { satelliteValidetor, passValidetor, userValidetor, testValidetor, errorValidetor} = createValidetors();
  
+
 
 
 satDBManger.connect(process.env.MONGO_URI);
@@ -44,8 +45,21 @@ process.on("unhandledRejection", (err: any, promise) => {
 })
 
 process.on('exit', () => {
+    console.log("exiting");
+    
     APIManger.close();
 })
+
+let stopping = false;
+nodeCleanup((exitCode, signal) => {
+  if (!stopping) {
+    stopping = true;
+    process.exit();
+  }
+  return false;
+});
+
+process.on("SIGUSR2", () => process.kill(process.pid, "SIGHUP"));
 
 function initIOInputRoutes()
 {

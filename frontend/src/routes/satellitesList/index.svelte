@@ -65,7 +65,9 @@
                     <div class="h-3/4 overflow-y-auto">
                         <tbody class="bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
                             {#each data as satellite, i}
+                                <div class =  { "w-full " + (i % 2 == 0 ? 'bg-gray-800': 'bg-black')}>
                                     <Satellite {satellite} {deleteSat}/>
+                                </div>
                             {/each}
                         </tbody>
                     </div>

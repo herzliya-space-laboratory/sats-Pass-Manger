@@ -40,13 +40,13 @@ export default class CRUDLogic extends BaseComponent
             
             const ResData = await this.db.getSingleById(id, {...params});
             if(!ResData) 
-                throw new Error(`data with id: ${id} wasnt found`);
+                throw new ErrorResponse(404, `data with id: ${id} wasnt found`);
 
-            let pagination = formatPaginationToPouplated(params, FullObjectToGetTotalAmountFrom);
+            let pagination = formatPaginationToPouplated(params.options, FullObjectToGetTotalAmountFrom);
             
             returnSuccessRespondToTheClientWithPage(res, 200, ResData, pagination);         
         } catch (error) {  
-            next(new ErrorResponse(404,  error.message));            
+            next(new ErrorResponse(error.status || 500,  error.message));            
         }        
     }
 

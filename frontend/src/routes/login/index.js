@@ -14,7 +14,7 @@ export async  function post(req, res) {
         .then((result) => { 
             req.session.token = result.data.data;
             req.session.decodedToken = jwt.verify(req.session.token , process.env.JWT_SECRET);
-            res.end(JSON.stringify({ token: result.data.data }));
+            res.end(JSON.stringify({ token: result.data.data, decodedToken: req.session.decodedToken }));
         })
         .catch(e =>  res.end(JSON.stringify({ error: e.response.data.error })));
 }

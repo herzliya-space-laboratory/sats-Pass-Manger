@@ -1,120 +1,217 @@
 <script>
+    import SystemItRelateTo from "./systemItRelateTo";
+
     import { onMount, afterUpdate } from 'svelte';
+    import { createForm } from "svelte-forms-lib";
 
     export let query = "";
     export let reloadPass;
-    let form = {
+    export let subTag = '';
+    const titleWidthClass = ' w-1/6';
+
+
+	const {
+      form,
+      errors,
+      state,
+      handleChange,
+      handleSubmit,
+      handleReset
+    } = createForm({
+      initialValues: {
         startTime: {lte: "", gte: ""},
-        endTime: {lte: "", gte: ""},
         maxElevation: {lte: "", gte: ""},
         duration: {lte: "", gte: ""},
-        Satellitename: '',
+        stations: ['', '', '', ''],
+        systemsItRelateTo: [],
         status: '',
         goal: '',
-        PassPlanner: '',
-        PassOperator: '',
-        whatWasExecute: '',
-        manualErrors: '',
-        systemErrors: '',
-    }
+        whatWasExecute: ''
+      },
+      onSubmit: values => {
+            query = Object.keys(values).reduce((qur, key, i) => {
+                if(values[key].lte)
+                {
+                    qur += `&${key+subTag}[lte]=${values[key].lte}`
+                }
+                if(values[key].gte){
+                    qur += `&${key+subTag}[gte]=${values[key].gte}`;
+                }
+                else if(values[key] && typeof values[key] != 'object' && !Array.isArray(values[key])){
+                    qur += `&${key+subTag}=${values[key]}`;
+                }
+                else if(key == 'stations')
+                {
+                    qur += values[key].reduce((qur, value, i) => {
+                        if(value != '')
+                            return qur + `&${key+subTag}.${i}=${value}`;
+                        return qur;
+                    }, '');
+                }
+                else if(Array.isArray(values[key]))
+                {
+                    if(values[key].length == 1)
+                        qur += `&${key+subTag}=${values[key]}`
+                    else
+                        qur += values[key].reduce((qur, value) => qur += `&${key+subTag}[all]=${value}`, '');
 
-    $:{
-        query = Object.keys(form).reduce((qur, key, i) => {
-            if(key == 'startTime')
-            {
-                qur = '';
-                if(form['startTime'].lte)
-                    qur += `&startTime[lte]=${form['startTime'].lte}`
-                if(form['startTime'].gte)
-                    qur += `&startTime[gte]=${form['startTime'].gte}`;
-            }
-            if(form[key].lte != undefined)
-            {
-                if(form[key].lte)
-                    qur += `&${key}[lte]=${form[key].lte}`
-                if(form[key].gte)
-                    qur += `&${key}[gte]=${form[key].gte}`;
+                }
                 return qur;
-            }
-            else if(form[key]){
-                return `${qur} &${key}=${form[key]}`;
-            }
-            return qur;
+                
+            }, '');
             
-        })
-    }
+            console.log( query);
 
-    const toggleModal = (modalID) => () => {
-        document.getElementById(modalID).classList.toggle("hidden");
-        document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
-        document.getElementById(modalID).classList.toggle("flex");
-        document.getElementById(modalID + "-backdrop").classList.toggle("flex");
-    }
+            reloadPass();
+        }
+    });
 
-    function onSubmit(e) {
-        e.preventDefault();
-        toggleModal(`modal-id`);
-        reloadPass();
-    }
 </script>
 
-<button 
-    class="bg-black inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
-    on:click={toggleModal(`modal-id`)}>
-     filter 
-</button>
-
-<div class=" hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center" id={`modal-id`}>
-    <div class="bg-black relative w-1/2 my-6 mx-auto">
-    
-        <div class="border-0 rounded-lg shadow-white relative flex flex-col w-full bg-gray-700 outline-none focus:outline-none">
-        <!--header-->
-            <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                <h3 class="text-3xl font-semibold">
-                    filter
-                </h3>
-
-                <button class="p-1 ml-auto border-0 text-white opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" on:click={toggleModal(`modal-id`)}>
-                    <span class="opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                        ×
-                    </span>
-                </button>
-            </div>
-
-        <!--body-->
-            <div class="relative p-6 flex-auto h-1/2 overflow-y-auto">
-                <div class="form-group">
-                    <form on:submit={onSubmit}>
-                        startTime <input placeholder="from" bind:value={form.startTime.gte} type = 'datetime-local'/>
-                        <input placeholder="to" bind:value={form.startTime.lte} type = 'datetime-local'/> <br> 
-                        endTime <input type="datetime-local" placeholder="from" bind:value={form.endTime.gte}/>
-                        <input type="datetime-local" placeholder="to" bind:value={form.endTime.lte}/>  <br>
-                        maxElevation <input placeholder="from" bind:value={form.maxElevation.gte}/>  
-                        <input placeholder="to" bind:value={form.maxElevation.lte}/>  <br>
-                        duration <input placeholder="from" bind:value={form.duration.gte}/> 
-                        <input placeholder="to" bind:value={form.duration.lte}/>  <br>
-                        <input placeholder="Satellitename" bind:value={form.Satellitename}/> <br>
-                        <input placeholder="status" bind:value={form.status}/> <br>
-                        <input placeholder="goal" bind:value={form.goal}/> <br>
-                        <input placeholder="PassPlanner" bind:value={form.PassPlanner}/> <br>
-                        <input placeholder="PassOperator" bind:value={form.PassOperator}/> <br>
-                        <input placeholder="whatWasExecute" bind:value={form.whatWasExecute}/> <br>
-                        <input placeholder="manualErrors" bind:value={form.manualErrors}/> <br>
-                        <input placeholder="systemErrors" bind:value={form.systemErrors}/> <br>                   
-                        <input class = "text-black" type = "submit" value="filter"/>
-                    </form>
+<tfoot class="bg-black  text-white w-full flex flex-col justify-between">
+    <tr class="flex w-full">
+        
+        <td class={"mr-10 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
+            <div class="flex items-center">
+                <div class="justify-between m-auto">
+                    <div class="text-xl text-center leading-5 text-white-500">
+                            Start time [local]
+                    </div>
+                    <div class="text-xl text-center leading-5 text-white-500 w-3/4 m-auto">
+                        <input placeholder="from" bind:value={$form.startTime.gte} type = 'datetime-local'/>
+                        <input placeholder="to" bind:value={$form.startTime.lte} type = 'datetime-local'/>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
+        </td>
 
+
+        <td class={"px-6 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
+            <div class="flex items-center">
+                <div class="justify-between m-auto">
+                    <div class="text-xl text-center leading-5 text-white-500">
+                            Duration [min]
+                    </div>
+                    <div class="text-xl text-center leading-5 text-white-500">
+                        <input placeholder="from" bind:value={$form.duration.gte} type = 'number'/>
+                        <input placeholder="to" bind:value={$form.duration.lte} type = 'number'/>
+                    </div>
+                </div>
+            </div>
+        </td>
+        
+        <td class={"px-6 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
+            <div class="flex items-center">
+                <div class="justify-between m-auto">
+                    <div class="text-xl text-center leading-5 text-white-500">
+                            System it relate to
+                    </div>
+
+                    <div class="text-xl text-center leading-5 text-white-500">
+                        <SystemItRelateTo class="m-6" inputMode = {true} bind:systemItRelateTo = {$form.systemsItRelateTo}/>
+                    </div>
+                </div>
+            </div>
+        </td>
+        
+        <td class={"px-6 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
+            <div class="flex items-center">
+                <div class="justify-between m-auto">
+                    <div class="text-xl text-center leading-5 text-white-500">
+                            Status
+                    </div>
+
+                    <div class="text-xl text-center leading-5 text-white-500">
+                        <input placeholder="from" bind:value={$form.status} type = 'text'/>
+                    </div>
+                </div>
+            </div>
+        </td>
+        
+
+        <td class={"px-6 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
+            <div class="flex items-center">
+                <div class="justify-between  m-auto">
+                    <div class="text-xl text-center leading-5 text-white-500">
+                            Max elevation
+                    </div>
+                    <div class="text-xl text-center leading-5 text-white-500">
+                        <input placeholder="from" bind:value={$form.maxElevation.gte} type = 'number'/>
+                        <input placeholder="to" bind:value={$form.maxElevation.lte} type = 'number'/>
+                    </div>
+                </div>
+            </div>
+        </td>
+        
+        <td class={"px-6 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
+            <button 
+                class="bg-black inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
+                on:click={handleSubmit}
+                >
+                Filter 
+            </button>
+        </td>
+    </tr>
+
+    <tr class="flex w-full">
+
+        <td class={"px-6 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
+            <div class="flex items-center">
+                <div class="justify-between m-auto">
+                    <div class="text-xl text-center leading-5 text-white-500">
+                            Goal
+                    </div>
+
+                    <div class="text-xl text-center leading-5 text-white-500">
+                        <input placeholder="from" bind:value={$form.goal} type = 'text'/>
+                    </div>
+                </div>
+            </div>
+        </td>
+        
+
+        {#each ['HSL', 'TAU', 'SHAAR', 'yeruham'] as station, i}
+            <td class={"px-6 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
+                <div class="flex items-center m-auto">
+                    <div class="justify-between m-auto">
+                        <div class="text-xl text-center leading-5 text-white-500">
+                            {station}
+                        </div>
+                        <div class="text-xl text-center leading-5 text-white-500">
+                            <select class="w-full text-black" name = "stations" bind:value={$form.stations[i]}>
+                                <option selected={$form.stations[i] == ''} value=''> All </option>
+                                <option selected={$form.stations[i] == 'RX only'} value='RX only'> RX only </option>
+                                <option selected={$form.stations[i] == 'TX Only'} value='TX Only'> TX Only </option>
+                                <option selected={$form.stations[i] == 'RX & TX'} value='RX & TX'> RX & TX </option>
+                                <option selected={$form.stations[i] == 'Off line'} value='Off line'> Off line </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        {/each}
+
+        <td class={"mr-10 px-6 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
+            <div class="flex items-center">
+                <div class="justify-between m-auto">
+                    <div class="text-xl text-center leading-5 text-white-500">
+                            What was Execute
+                    </div>
+
+                    <div class="text-xl text-center leading-5 text-white-500">
+                        <input placeholder="from" bind:value={$form.whatWasExecute} type = 'text'/>
+                    </div>
+                </div>
+            </div>
+        </td>
+
+    </tr>
+</tfoot>
 
 <style>
 	input {
-		padding: 6px 10px;
-		margin: 8px 0;
+        margin-top: 3px;
+        width: 90%;
 		box-sizing: border-box;
 		border: 2px solid black;
 		border-radius: 4px;

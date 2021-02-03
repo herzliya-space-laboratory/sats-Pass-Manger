@@ -21,6 +21,9 @@ export async function del(req, res, next)
 
 export async function get(req, res, next) 
 {
+	const { id } = req.params;
+	const query = req.url.split('?')[1];
+
     let config = {
         headers: {
             authorization: "Bearer " +  req.session.token,
@@ -28,12 +31,14 @@ export async function get(req, res, next)
     }
 
     try {
-        const response = await axios.get(`${process.env.API_URI}/api/v1/user/${req.params.id}`, config);
+        const response = await axios.get(`${process.env.API_URI}/api/v1/user/${id}?${query}`, config);
         const user = response.data.data;
-        res.end(JSON.stringify(user));
+		const page =  response.data.pagination;
+
+        res.end(JSON.stringify({user, page}));
 
     } catch (error) {
-        res.end(JSON.stringify({error: error.response.data.error}));
+        res.end(JSON.stringify({error: error.response.data.error, status: error.response.status}));
         
     }
 }        

@@ -91,7 +91,7 @@
 
     <div>
         <dl>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
                     satellite name
                 </dt>
@@ -111,7 +111,7 @@
                 </dd>
             </div>
 
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
                     end time[local]
                 </dt>
@@ -131,7 +131,7 @@
                 </dd>
             </div>
 
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
                     duration[min]
                 </dt>
@@ -155,7 +155,7 @@
                 </dd>
             </div>
 
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
                     pass goal
                 </dt>
@@ -201,7 +201,7 @@
             </div>
 
             {#each $form.stations as stationState, i}
-                <div class={"px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 " + (i % 2 == 1 ? "bg-black": "bg-gray-50")}>
+                <div class={"px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 " + (i % 2 == 1 ? "bg-black": "bg-gray-900")}>
                     <dt class="text-xl leading-5 font-medium text-white">
                         state of {stationsNames[i]} station
                     </dt>
@@ -221,7 +221,7 @@
                 </div>
             {/each}
             {#if pass.PassPlanner}
-                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                <div class="bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-xl leading-5 font-medium text-white">
                     pass planner
                     </dt>
@@ -232,7 +232,7 @@
                 </div>
             {/if}
 
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <div class="bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">
                     playlist
                 </dt>
@@ -264,7 +264,7 @@
 
 
 
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 text-white">
+            <div class="bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 text-white">
                 <dt class="text-xl leading-5 font-medium">
                     system it relate to
                 </dt>

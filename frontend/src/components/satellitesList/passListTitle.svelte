@@ -23,7 +23,7 @@
 <thead class="flex text-white w-full">
     <tr class="flex w-full mb-4">
 
-        <td class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
+        <td class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-white uppercase tracking-wider" + titleWidthClass}>
             <div class="flex items-center">
                 <div class="justify-betwee ml-4">
                     <div class="text-xl text-center leading-5 text-white-500">
@@ -40,25 +40,25 @@
             </div>
         </td>
         
-        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
+        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-white uppercase tracking-wider" + titleWidthClass}>
             <button on:click = {() => {sort = sort == "startTime" ? sort = "-startTime": sort = "startTime"}}>
                 start time[local]
             </button>
         </th>
 
-        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
+        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-white uppercase tracking-wider" + titleWidthClass}>
             <button on:click = {() => {sort = sort == "endTime" ? sort = "-endTime": sort = "endTime"}}>
                 end time[local]
             </button>
         </th>
 
-        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
+        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-white uppercase tracking-wider" + titleWidthClass}>
            <button on:click = {() => {sort = sort == "maxElevation" ? sort = "-maxElevation": sort = "maxElevation"}}>
             max elevation
             </button>
         </th>
 
-        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
+        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-white uppercase tracking-wider" + titleWidthClass}>
             <button on:click = {() => {sort = sort == "duration" ? sort = "-duration": sort = "duration"}}>
             duration [min]
             </button>
@@ -67,21 +67,21 @@
 
 
         {#each ['herzlia', 'tau', 'shaar', 'Yee'] as station}
-            <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
+            <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-white uppercase tracking-wider" + titleWidthClass}>
                 <button on:click = {() => {sort = sort == "status" ? sort = "-status": sort = "status"}}>
                     {station}
                 </button>
             </th>
         {/each}
 
-        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
+        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-white uppercase tracking-wider" + titleWidthClass}>
             <button on:click = {() => {sort = sort == "status" ? sort = "-status": sort = "status"}}>
                 performance
             </button>
         </th>
 
 
-        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-gray-500 uppercase tracking-wider" + titleWidthClass}>
+        <th class={"px-6 pt-4 bg-gray-50 text-center text-xl leading-4 font-medium text-white uppercase tracking-wider" + titleWidthClass}>
             <button on:click = {() => {sort = sort == "status" ? sort = "-status": sort = "status"}}>
                 state
             </button>
