@@ -5,7 +5,7 @@ export async function get(req, res, next) {
     
     try 
     {
-        const response = await axios.get("${process.env.API_URI}/api/v1/satellite/");
+        const response = await axios.get(`${process.env.API_URI}/api/v1/satellite/`);
         
         const satellites = response.data.data;
         const status = response.status;
@@ -43,7 +43,7 @@ export async function post(req, res, next) {
 
     try {
 	    const response = await axios.post(
-            "${process.env.API_URI}/api/v1/satellite/",
+            `${process.env.API_URI}/api/v1/satellite/`,
             { name, satId }, config);
         const satellite = response.data.data;
         const status = response.status;
