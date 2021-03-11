@@ -12,6 +12,8 @@
 
             const users = await res.json();
 
+            if (res.status != 200)
+                setAlert(parsed.message, true);
             return {users: users};
         } catch (error) {
             setAlert(error);
@@ -41,8 +43,10 @@
             });
 
         const data = await res.json();
-        if(data.error)
-            setAlert(data.error);
+
+        console.log(data);
+        if (res.status != 200)
+            setAlert(data.message, true);
         else
             users = [ data, ...users];
     }
@@ -60,14 +64,13 @@
             });
             
             const data = await res.text();
-            if(data.error) setAlert(data.error);
-            
-            else users = users.filter(user => user._id != data);
+            if (res.status != 200)
+                setAlert(data.message, true);
+            else
+                users = users.filter(user => user._id != data);
         } catch (error) {
             setAlert(error);   
         }
-        
-           
     }
 
 </script> 
@@ -97,7 +100,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
-	
+	</div>	
 </div>

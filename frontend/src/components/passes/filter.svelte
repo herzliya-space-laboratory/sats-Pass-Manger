@@ -59,8 +59,6 @@
                 return qur;
                 
             }, '');
-            
-            console.log( query);
 
             reloadPass();
         }
@@ -145,8 +143,8 @@
         
         <td class={"px-6 pt-4  text-center text-xl leading-4 font-medium text-white  tracking-wider" + titleWidthClass}>
             <button 
-                class="bg-black inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
-                on:click={handleSubmit}
+                class = "inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-white bg-gray-700 hover:text-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:text-gray-800 active:bg-gray-50 transition duration-150 ease-in-out"
+                on:click = {handleSubmit}
                 >
                 Filter 
             </button>

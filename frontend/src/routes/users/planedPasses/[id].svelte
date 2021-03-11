@@ -2,17 +2,16 @@
 	let id;
 	let limit = 50;
 	let page = 1;
-	import axios from "axios";
+	
 	export async function preload({ params, query }) {
 		id = params.id;
 
 		try {
 			const res = await this.fetch(`users/${id}.json?limit.planedPasses=${limit}&page.planedPasses=${page}&sort.planedPasses=startTime`);
 			const data = await res.json();
-			
+
 			if (res.status === 200) 
 			{
-				console.log(data);
 				return { user: data.user,  pageData: data.page.planedPasses };
 			}
 			else
@@ -29,17 +28,17 @@
 </script> 
 
 <script>
-	import Pass from '../../../components/satellitesList/pass';
+	import Pass from '../../../components/users/pass';
 	import PageSelect from '../../../components/passes/pageSelect';
 	import Filter from '../../../components/passes/filter';
-	import PassListTitle from '../../../components/satellitesList/passListTitle';
+	import PassListTitle from '../../../components/users/passListTitle';
 	import { setAlert } from '../../../alert';
 
 	export let pageData;
 	export let user;
 	let query = "";
 	let sort;
-	console.log(user, pageData);
+	
 	let changePage = (p) => async () => {
 		page = p;
 		await reloadPass();
@@ -56,8 +55,12 @@
 			})
 			.then(res => {
 				res.json().then(data => {
-					// user = data.user;	
-					pageData = data.page.planedPasses
+					if(res.status == 200){
+						user = data.user;	
+						pageData = data.page.planedPasses
+					}
+					else
+						setAlert(data.message, true);
 				})
 			}).catch(e => setAlert(e));
 	}
@@ -79,9 +82,8 @@
 </svelte:head>
 
 <div class='m-auto'>
-	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> satellite name: {user.name} </h2>
-	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> noard id: {user.role} </h2>
-
+	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> user name: {user.name} </h2>
+	<h2 class="inline-block text-3xl mx-12 p-0 mt-6"> user role: {user.role} </h2>
 
 	<div class="flex flex-col">
 		<div class="-my-2 overflow-x-auto">

@@ -4,27 +4,25 @@ const axios = require('axios');
 export async function get(req, res, next) {
 	const { id } = req.params;
     
-	const response = await axios.get(`${process.env.API_URI}/api/v1/error/${id}`);
-    const error = response.data.data;
-    const success = response.data.success;
-	const status = response.status;
-	
+    try 
+    {
+		const response = await axios.get(`${process.env.API_URI}/api/v1/error/${id}`);
+		const error = response.data.data;
+		const status = response.status;
 
-	if (success) {
 		res.writeHead(status, {
 			'Content-Type': 'application/json'
 		});
-  
+
 		res.end(JSON.stringify(error));
-	} else {
-		res.writeHead(status, {
-			'Content-Type': 'application/json'
-		});
-
-		res.end(JSON.stringify({
-			message: response.data.msg
-		}));
-	}
+	} 
+    catch (error) 
+    {
+        res.writeHead(error.response.status, {
+            'Content-Type': 'application/json'
+        });
+        res.end(JSON.stringify({message: error.response.data.error, status: error.response.status}));
+    }
 }
 
 export async function del(req, res, next) {
@@ -36,26 +34,26 @@ export async function del(req, res, next) {
         }
 	}
 	
-	const response = await axios.delete(`${process.env.API_URI}/api/v1/error/${id}`, config);
-    const success = response.data.success;
-	const status = response.status;
-	
+    try 
+    {
+		const response = await axios.delete(`${process.env.API_URI}/api/v1/error/${id}`, config);
+		
+		const status = response.status;
+		
 
-	if (success) {
-		res.writeHead(status, {
-			'Content-Type': 'application/json'
-		});
-  
-		res.end("");
-	} else {
 		res.writeHead(status, {
 			'Content-Type': 'application/json'
 		});
 
-		res.end(JSON.stringify({
-			message: response.data.msg
-		}));
+		res.end("");} 
+	catch (error) 
+	{
+		res.writeHead(error.response.status, {
+			'Content-Type': 'application/json'
+		});
+		res.end(JSON.stringify({message: error.response.data.error, status: error.response.status}));
 	}
+		
 }
 
 export async function put(req, res, next) {
@@ -71,18 +69,23 @@ export async function put(req, res, next) {
 		const response = await axios.put(`${process.env.API_URI}/api/v1/error/${id}`, errorToCreate,config);
 		const error = response.data.data;
 		const status = response.status;
+
         res.writeHead(status, {
 			'Content-Type': 'application/json'
 		});
   
 		res.end(JSON.stringify(error));
-    } catch (error) {
-        res.writeHead(status, {
+    } 
+	catch (error) 
+	{
+        res.writeHead(error.response.status, {
 			'Content-Type': 'application/json'
 		});
 
-		res.end(JSON.stringify({
-			message: response.data.msg
+		res.end(
+			JSON.stringify({
+				message: error.response.data.error,
+				status: error.response.status
 		}));
 	}
 }

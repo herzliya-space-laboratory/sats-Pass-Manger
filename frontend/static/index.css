@@ -10469,6 +10469,10 @@ video {
   height: 75vh !important;
 }
 
+.h-5\/4 {
+  height: 83.333333vh !important;
+}
+
 .h-lg {
   height: 24px !important;
 }
@@ -28675,6 +28679,10 @@ video {
     height: 75vh !important;
   }
 
+  .sm\:h-5\/4 {
+    height: 83.333333vh !important;
+  }
+
   .sm\:h-lg {
     height: 24px !important;
   }
@@ -46849,6 +46857,10 @@ video {
 
   .md\:h-3\/4 {
     height: 75vh !important;
+  }
+
+  .md\:h-5\/4 {
+    height: 83.333333vh !important;
   }
 
   .md\:h-lg {
@@ -65027,6 +65039,10 @@ video {
     height: 75vh !important;
   }
 
+  .lg\:h-5\/4 {
+    height: 83.333333vh !important;
+  }
+
   .lg\:h-lg {
     height: 24px !important;
   }
@@ -83201,6 +83217,10 @@ video {
 
   .xl\:h-3\/4 {
     height: 75vh !important;
+  }
+
+  .xl\:h-5\/4 {
+    height: 83.333333vh !important;
   }
 
   .xl\:h-lg {

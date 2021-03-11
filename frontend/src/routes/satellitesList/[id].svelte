@@ -54,8 +54,12 @@
 			})
 			.then(res => {
 				res.json().then(data => {
-					satellite = data.satellite;	
-					pageData = data.page.pass
+					if(res.status == 200){
+						satellite = data.satellite;	
+						pageData = data.page.pass
+					}
+					else
+						setAlert(data.message);
 				})
 			}).catch(e => setAlert(e));
 	}

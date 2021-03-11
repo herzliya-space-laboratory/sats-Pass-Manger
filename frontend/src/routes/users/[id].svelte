@@ -1,13 +1,13 @@
 <script context="module">
     let id;
 
-	export async function preload({ params, query }, session) {
-		id = params.id;
-
+	export async function preload(page, session) {
+		id = page.params.id;
+        
 		const res = await this.fetch(`users/${id}.json`);
 		const data = await res.json();
 
-		if (!res.error) 
+		if (res.status == 200) 
 		{
 			return { user: data,};
 		}
@@ -22,10 +22,10 @@
     import { goto, stores } from "@sapper/app";
     const { session } = stores();
     import { createForm } from "svelte-forms-lib";
-	import axios from 'axios'
 	import { setAlert } from '../../alert';
 
     export let user;
+    console.log(user);
 
 
 	const {
@@ -50,8 +50,20 @@
             }
         }
         
-        axios.put(`http://localhost:4000/api/v1/user/${user._id}`, values, config)
-            .catch(e => setAlert( e.response.data.error));
+        fetch(`user/${pass._id}.json`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify(values)
+        })
+        .then(res => {
+            if(res.status != 200)
+                res.json().then( e => setAlert(`faild to save user:\n${e.message}`))
+        })
+        .catch(e => setAlert(`faild to save user:\n${e}`));
+
       }
     });
 
@@ -85,7 +97,7 @@
                     {#if $session.token}
                         <input class="w-3/4 text-black" placeholder="user name" name = "name" bind:value={$form.name}/>
 					{:else}
-						{user.name}
+						{$form.name}
 					{/if}
                 </dd>
             </div>
@@ -99,7 +111,7 @@
                     {#if $session.token}
                         <input class="w-3/4 text-black" placeholder="email" name = "email" bind:value={$form.email}/>
 					{:else}
-						{user.email}
+						{$form.email}
 					{/if}
                 </dd>
             </div>
@@ -123,7 +135,7 @@
 							<option value='admin'> admin </option>
 						</select>
 					{:else}
-						{user.role}
+						{$form.role}
 					{/if}
                 </dd>
             </div>

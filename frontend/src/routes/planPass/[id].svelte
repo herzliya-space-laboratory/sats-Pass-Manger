@@ -1,20 +1,30 @@
 <script context="module">
     let id;
+    import { setAlert } from '../../alert'
+
 	export async function preload({ params, query }, session) {
+        let config = {
+            headers: {
+                authorization: "Bearer " +  session.token,
+            }
+        };
+
 		id = params.id;
 
 		const res = await this.fetch(`passes/${id}.json`);
 		const data = await res.json();
 
-        let config = {
-                headers: {
-                    authorization: "Bearer " +  session.token,
-                }
-            }
+        if(res.status != 200)
+            setAlert(data.message);
+
         let users;
         if(session.token){
             try {
-                users = (await axios.get(`http://localhost:4000/api/v1/user/`, config)).data.data;
+                const res =  await this.fetch('/users/users')
+                users = await res.json();
+
+                if(res.status)
+                    setAlert(users.message);
             } catch (error) {
                 this.error(JSON.stringify(error));
             }
@@ -34,9 +44,9 @@
 <script>
     import SystemItRelateTo from "../../components/passes/systemItRelateTo";
     import { goto, stores } from "@sapper/app";
+
     const { session } = stores();
     import { createForm } from "svelte-forms-lib";
-	import axios from 'axios'
     export let pass;
     export let users;
     const stationsNames = ['HSL', 'TAU', 'SHAAR', 'yeruham'];
@@ -58,7 +68,7 @@
         systemsItRelateTo: pass.systemsItRelateTo || []
       },
       onSubmit: values => {
-        alert(JSON.stringify(values));
+        setAlert(JSON.stringify(values, null, '\t'));
         let config = {
             headers: {
                 authorization: "Bearer " +  $session.token,
@@ -66,8 +76,22 @@
         }
         values.PassPlanner = $session.decodedToken.id;
         
-        axios.put(`http://localhost:4000/api/v1/pass/updatePlan/${pass._id}`, values, config)
-            .catch(e => alert( e.response.data.error));
+        fetch(`passes/${pass._id}.json?before=true`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify(values)
+            
+        })
+        .then( res => {
+            if(res.status !== 200)
+                res.json().then(res => {
+                    setAlert(res.message);
+                });
+        })
+        .catch(e => setAlert(`faild to save pass:\n${e}`));
       }
     });
 </script>
@@ -89,7 +113,7 @@
         </p>
     </div>
 
-    <div>
+    <div class = "h-3/4 overflow-y-auto">
         <dl>
             <div class="bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">

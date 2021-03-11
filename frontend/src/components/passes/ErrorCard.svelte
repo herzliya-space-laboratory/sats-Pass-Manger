@@ -9,7 +9,7 @@
     export let error = {};
     export let removeFromList;
     
-
+    import { setAlert } from '../../alert'
     import SystemItRelateTo from './systemItRelateTo'
     import { goto, stores } from "@sapper/app";
     const { session } = stores();
@@ -50,8 +50,12 @@
         });
 
         const data = await response.json();
-
-        if(!ErrorId){
+        
+        if(response.status > 200 && response.status >= 300)
+        {
+            setAlert(data.message);
+        }
+        else if(!ErrorId){
             reloadList({ ...data, ...values }, true);
             handleReset();
         }
@@ -74,6 +78,11 @@
                 Accept: "application/json",
             }
         });
+        
+        if(response.status != 200)
+        {
+            setAlert(data.message);
+        }
 
         removeFromList(ErrorId);
     }

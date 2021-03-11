@@ -1,16 +1,16 @@
 <script context="module">
 	let id;
-	let limit = 50;
-	let page = 1;
 	export async function preload({ params, query }) {
 		id = params.id;
 
-		const res = await this.fetch(`passes.json?limit=${limit}&page=${page}`);
+		const res = await this.fetch(`passes.json?limit=${50}&page=${1}`);
 		const data = await res.json();
+
 
 		if (res.status === 200) 
 		{
-			return { passes: data.passes, pageData: data.page };
+			const { passes, pageData } = data;
+			return { passes, pageData };
 		}
 		else
 		{
@@ -20,8 +20,6 @@
 </script> 
 
 <script>
-	import axios from 'axios';
-	
 	import Pass from '../../components/passes/pass';
 	import PassListTitle from '../../components/passes/passListTitle';
 	import PageSelect from '../../components/passes/pageSelect';
@@ -30,6 +28,11 @@
 	
 	export let passes;
 	export let pageData;
+
+
+	let limit = 50;
+	let page = 1;
+
 	let query = "";
 	let sort = "startTime";
 	let changePage = (p) => async () => {
@@ -42,15 +45,15 @@
 
 	async function reloadPass() {
 		try{
-			axios.get(`http://localhost:4000/api/v1/satellites/passes?endTime=${nextWeek}`);
-			let res = await axios.get(`http://localhost:4000/api/v1/pass?sort=${sort}&limit=${limit}&page=${page}${query}`);
-			const data = res.data.data;
-			passes = data;
-			pageData = res.data.pagination;
+			const res = await fetch(`passes.json?sort=${sort}&limit=${limit}&page=${page}${query}`);
+			let message;
+			({passes, pageData, message} = await res.json());
+			
+			if(res.status != 200)
+				setAlert(message);
 		}
 		catch(e)
 		{
-			console.log(e);
 			setAlert(e);
 		}
 	}

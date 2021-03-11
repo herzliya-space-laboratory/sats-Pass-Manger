@@ -1,53 +1,75 @@
 
 <script context="module">
-    import axios from "axios";
-    
+	import { setAlert } from '../../alert';
+
     export async function preload(page, session) {
-        let res = await axios.get("http://localhost:4000/api/v1/satellite/");
-        const data = res.data.data;
-        return { data };
+        let res = await this.fetch("satellitesList.json");
+
+        
+        const { satellites, message } =  await res.json();
+        
+        if(res.status != 200)
+            setAlert(message);
+
+        return { satellites };
 	}
 </script>
 
 <script>
     import { goto, stores } from "@sapper/app";
     const { session } = stores();
+
     import Satellite from '../../components/satellitesList/Satellite.svelte';
     import AddSatellite from '../../components/satellitesList/addSatellite.svelte';
     import Title from '../../components/satellitesList/title.svelte';
-	import { setAlert } from '../../alert';
     
-    export let data;
+    export let satellites;
     
     let name = '';
     let satId = '';
     
     async function createSat(){
-        let config = {
+        const res =  await fetch(`satellitesList.json`, {
+            method: "POST",
+            body: JSON.stringify( {name, satId}),
             headers: {
-                authorization: "Bearer " +  $session.token,
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
             }
-        }
+            })
+            .catch(e => setAlert(e));
         
-        await axios.post("http://localhost:4000/api/v1/satellite/", {name, satId}, config)
-            .then(res => data = [ res.data.data, ...data])
-            .catch(e => setAlert( e.response.data.error));
+        const data = await res.json();
+
+        if (res.status != 200)
+            setAlert(data.message);
             
-        
+        satellites = [ data, ...satellites];        
     }
 
     const deleteSat = (id) => async () => {
-        let config = {
+        fetch(`/satellitesList/${id}.json`, {
+            method: "DELETE",
+            body: JSON.stringify( {name, satId}),
             headers: {
-                authorization: "Bearer " +  $session.token,
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
             }
-        }
-        
-        await axios.delete(`http://localhost:4000/api/v1/satellite/${id}`, config)
-            .then((res) => data = data.filter(sat => sat._id != id))
-            .catch(e => setAlert( e.response.data.error));
-            
-        
+            })
+            .then( res => {
+                if(res.status == 200)
+                    satellites = satellites.filter(sat => sat._id != id);
+                else
+                    res.json().then(({ message }) => {
+                        setAlert(JSON.stringify(message));
+                    });
+            })
+            .catch( e => setAlert(e, true));
+
+       
+                   
     }
 </script>
 
@@ -64,7 +86,7 @@
                     <Title/>
                     <div class="h-3/4 overflow-y-auto">
                         <tbody class="bg-black-100 divide-y divide-gray-200 flex flex-col items-center justify-between">
-                            {#each data as satellite, i}
+                            {#each satellites as satellite, i}
                                 <div class =  { "w-full " + (i % 2 == 0 ? 'bg-gray-800': 'bg-black')}>
                                     <Satellite {satellite} {deleteSat}/>
                                 </div>

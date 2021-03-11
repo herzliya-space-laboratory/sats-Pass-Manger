@@ -1,11 +1,14 @@
 <script context="module">
-    import axios from "axios";
+
     let id;
     export async function preload({ params, query }, session) {
         id = params.id;
 
 		const res = await this.fetch(`passes/${id}.json`);
 		const pass = await res.json();
+
+         if(res.status != 200)
+            this.error(res.status, pass.message);
 
 
         let config = {
@@ -17,7 +20,11 @@
         let users;
         if(session.token){
             try {
-                users = (await axios.get(`http://localhost:4000/api/v1/user/`, config)).data.data;
+                const res =  await this.fetch('/users/users')
+                users = await res.json();
+                if(res.status != 200)
+                    this.error(res.status, data.message);
+
             } catch (error) {
                 this.error(JSON.stringify(error));
             }
@@ -70,15 +77,20 @@
         values.manualErrors = values.manualErrors.map(({_id}) => _id || '');
         values.systemErrors = values.systemErrors.map(({_id}) => _id || '');
 
-
-        let config = {
+        fetch(`passes/${pass._id}.json?before=false`, {
+            method: "PUT",
             headers: {
-                authorization: "Bearer " +  $session.token,
-            }
-        }
-        
-        axios.put(`http://localhost:4000/api/v1/pass/updateWhatWasExequte/${pass._id}`, values, config)
-            .catch(e => setAlert(`faild to save pass:\n${e.response.data.error}`));
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(values)
+        })
+        .then(res => {
+            if(res.status != 200)
+                res.json().then(data => 
+                    setAlert(data.message, true));
+        })
+        .catch(e => setAlert(`faild to save pass:\n${e}`));
       }
     });
 
@@ -89,7 +101,7 @@
 	<title> {pass.Satellite.name} </title>
 </svelte:head>
 
-<div class="shadow-white overflow-hidden sm:rounded-lg">
+<div class="shadow-white overflow-hidden sm:rounded-lg w-3/4 m-auto">
     <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-white">
             post pass
@@ -100,7 +112,7 @@
         </p>
     </div>
 
-    <div>
+    <div class = "h-3/4 overflow-y-auto">
         <dl>
             <div class="bg-gray-900 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-xl leading-5 font-medium text-white">

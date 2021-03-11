@@ -12,7 +12,7 @@ export default class AuthDBManger extends mangoDBManger
     async getAll(query:any = {}, params:any = {}) {
         let dbRequst = User.find(query);
         
-        this.formatTheDBRequst(dbRequst, params, 'solveProcess');
+        this.formatTheDBRequst(dbRequst, params, '');
 
         return await dbRequst;
     }
@@ -21,18 +21,14 @@ export default class AuthDBManger extends mangoDBManger
         const resUser = await User.findById(id).populate([{
                 path: 'planedPasses',
                 match : { ...params.match.planedPasses},
-                options: { ...params.options.planedPasses}
+                options: { ...params.options.planedPasses},
+                populate: "Satellite"
             },{
                 path: 'operatedPasses',
                 match : { ...params.match.operatedPasses},
-                options: { ...params.options.operatedPasses}
+                options: { ...params.options.operatedPasses},
+                populate: "Satellite"
             }]);
-
-        console.log({
-                path: 'planedPasses',
-                match : { ...params.match.planedPasses},
-                options: { ...params.options.planedPasses}
-            });
             
         return resUser;
     }

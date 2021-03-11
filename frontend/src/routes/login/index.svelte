@@ -1,7 +1,7 @@
 <script>
     import { goto, stores } from "@sapper/app";
     const { session } = stores();
-    import axios from "axios";
+    
     import { setAlert } from '../../alert'
     import { createForm } from "svelte-forms-lib";
     
@@ -30,8 +30,8 @@
 
         const parsed = await response.json();
         
-        if (parsed.error)
-            setAlert(JSON.stringify( parsed.error));
+        if (response.status != 200)
+            setAlert(parsed.message);
         else
         {
             $session.token = parsed.token;

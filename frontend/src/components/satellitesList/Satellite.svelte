@@ -26,7 +26,7 @@
             
             passes
         </a>
-        {#if $session.decodedToken.role == "admin"}
+        {#if $session.decodedToken && $session.decodedToken.role == "admin"}
             <button class = "DeleteBtn" on:click={deleteSat(satellite._id)}>X</button>
         {/if}
     </td>

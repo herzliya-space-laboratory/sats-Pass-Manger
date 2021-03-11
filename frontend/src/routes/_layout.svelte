@@ -21,6 +21,8 @@
 	main {
 		position: relative;
 		max-width: 100%;
+		height: 93vh;
+		overflow: auto;
 		padding: 10px;
 		margin: 0 auto;
 		box-sizing: border-box;
@@ -48,10 +50,12 @@
 	<div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-6 w-6"></div>
 {/if}
 
-<Nav {segment}/>
+<div class = "overflow-y-hidden">
+	<Nav {segment}/>
 
-<Alert />
+	<Alert />
 
-<main>
-	<slot></slot>
-</main>
+	<main>
+		<slot></slot>
+	</main>
+</div>
