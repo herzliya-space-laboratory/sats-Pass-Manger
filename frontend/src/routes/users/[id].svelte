@@ -25,7 +25,6 @@
 	import { setAlert } from '../../alert';
 
     export let user;
-    console.log(user);
 
 
 	const {

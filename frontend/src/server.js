@@ -1,3 +1,11 @@
+
+const dotenv = require("dotenv");
+dotenv.config({path: './config/config.env'});
+const { PORT_TO_USE, NODE_ENV } = process.env;
+process.env.PORT = PORT_TO_USE;
+const dev = NODE_ENV === 'development';
+
+
 import sirv from 'sirv';
 import express from 'express';
 import compression from 'compression';
@@ -6,12 +14,7 @@ import { json } from 'body-parser';
 import session from 'express-session';
 import sessionFileStore from 'session-file-store';
 
-const dotenv = require("dotenv");
-dotenv.config({path: './config/config.env'});
 
-
-const { PORT, NODE_ENV } = process.env;
-const dev = NODE_ENV === 'development';
 
 const app = express(); 
 
@@ -42,7 +45,7 @@ app.use(
 			})
 	);
 	
-app.listen(PORT, err => {
+app.listen(PORT_TO_USE, err => {
 		if (err) console.log('error', err);
 	});
  
